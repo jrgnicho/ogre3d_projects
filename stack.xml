@@ -1,0 +1,9 @@
+<stack>
+  <description brief="Ogre3DStack">Ogre3DStack</description>
+  <author>Maintained by Jnicho</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/Ogre3DStack</url>
+  <depend stack="ros" />
+
+</stack>
