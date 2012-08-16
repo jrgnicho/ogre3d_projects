@@ -13,28 +13,30 @@
 
 #include <OGRE/Ogre.h>
 #include <OIS/OIS.h>
+#include <input_handling/InputEventHandler.h>
 
-class InputManager: public OIS::KeyListener, public OIS::MouseListener
+class InputManager
 {
 public:
 	InputManager(std::string windowHandle = std::string());
 	virtual ~InputManager();
 
-	// keyboard methods
-	virtual bool keyPressed(const OIS::KeyEvent &evnt){return true;}
-	virtual bool keyReleased(const OIS::KeyEvent &evnt){return true;}
-	virtual bool processUnbufferedKeyInput(const Ogre::FrameEvent &evnt) = 0;
-
-	// mouse methods
-	virtual bool mousePressed(const OIS::MouseEvent &evnt,OIS::MouseButtonID id){return true;}
-	virtual bool mouseReleased(const OIS::MouseEvent &evnt,OIS::MouseButtonID id){return true;}
-	virtual bool mouseMoved(const OIS::MouseEvent &evnt){return true;}
-	virtual bool processUnbufferedMouseInput(const Ogre::FrameEvent &evnt) = 0;
+//	// keyboard methods
+//	virtual bool keyPressed(const OIS::KeyEvent &evnt){return true;}
+//	virtual bool keyReleased(const OIS::KeyEvent &evnt){return true;}
+//	virtual bool processUnbufferedKeyInput(const Ogre::FrameEvent &evnt) = 0;
+//
+//	// mouse methods
+//	virtual bool mousePressed(const OIS::MouseEvent &evnt,OIS::MouseButtonID id){return true;}
+//	virtual bool mouseReleased(const OIS::MouseEvent &evnt,OIS::MouseButtonID id){return true;}
+//	virtual bool mouseMoved(const OIS::MouseEvent &evnt){return true;}
+//	virtual bool processUnbufferedMouseInput(const Ogre::FrameEvent &evnt) = 0;
 
 protected:
 	// initialization
-	virtual void setupIO();
-	virtual void cleanupIO();
+	void setup();
+	void cleanup();
+	void setEventHandlers(InputEventHandler *handler);
 
 	// members
 	std::string _windowHandle;

@@ -20,7 +20,7 @@ InputManager::~InputManager() {
 	// TODO Auto-generated destructor stub
 }
 
-void InputManager::setupIO()
+void InputManager::setup()
 {
 	OIS::ParamList paramList;
 	paramList.insert(std::make_pair("WINDOW",_windowHandle));
@@ -52,11 +52,17 @@ void InputManager::setupIO()
 
 	_Keyboard = static_cast<OIS::Keyboard *>(_InputManager->createInputObject(OIS::OISKeyboard,_UseBufferedInput));
 	_Mouse = static_cast<OIS::Mouse *>(_InputManager->createInputObject(OIS::OISMouse,_UseBufferedInput));
-	_Keyboard->setEventCallback(this);
-	_Mouse->setEventCallback(this);
+//	_Keyboard->setEventCallback(this);
+//	_Mouse->setEventCallback(this);
 }
 
-void InputManager::cleanupIO()
+void InputManager::setEventHandlers(InputEventHandler *handler)
+{
+	_Keyboard->setEventCallback(handler);
+	_Mouse->setEventCallback(handler);
+}
+
+void InputManager::cleanup()
 {
 	if(_InputManager)
 	{
