@@ -1,13 +1,13 @@
 /*
- * IOManager.cpp
+ * InputManager.cpp
  *
  *  Created on: Aug 14, 2012
  *      Author: coky
  */
 
-#include <io_handling/IOManager.h>
+#include <input_handling/InputManager.h>
 
-IOManager::IOManager(std::string windowHandle):
+InputManager::InputManager(std::string windowHandle):
 _windowHandle(windowHandle),
 _InputManager(0),
 _Keyboard(0),
@@ -16,11 +16,11 @@ _Mouse(0)
 	// TODO Auto-generated constructor stub
 }
 
-IOManager::~IOManager() {
+InputManager::~InputManager() {
 	// TODO Auto-generated destructor stub
 }
 
-void IOManager::setupIO()
+void InputManager::setupIO()
 {
 	OIS::ParamList paramList;
 	paramList.insert(std::make_pair("WINDOW",_windowHandle));
@@ -56,7 +56,7 @@ void IOManager::setupIO()
 	_Mouse->setEventCallback(this);
 }
 
-void IOManager::cleanupIO()
+void InputManager::cleanupIO()
 {
 	if(_InputManager)
 	{

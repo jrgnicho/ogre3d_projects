@@ -1,5 +1,5 @@
 /*
- * IOManager.h
+ * InputManager.h
  *
  *  Created on: Aug 14, 2012
  *      Author: coky
@@ -14,11 +14,11 @@
 #include <OGRE/Ogre.h>
 #include <OIS/OIS.h>
 
-class IOManager: public OIS::KeyListener, public OIS::MouseListener
+class InputManager: public OIS::KeyListener, public OIS::MouseListener
 {
 public:
-	IOManager(std::string windowHandle = std::string());
-	virtual ~IOManager();
+	InputManager(std::string windowHandle = std::string());
+	virtual ~InputManager();
 
 	// keyboard methods
 	virtual bool keyPressed(const OIS::KeyEvent &evnt){return true;}

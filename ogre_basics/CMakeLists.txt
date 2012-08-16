@@ -35,8 +35,8 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
-rosbuild_add_library(IOManager src/IOManager.cpp)
-target_link_libraries(IOManager ${OIS_LIBRARY})
+rosbuild_add_library(InputManager src/InputManager.cpp)
+target_link_libraries(InputManager ${OIS_LIBRARY})
 
 rosbuild_add_executable(test_class src/test_class.cpp)
 target_link_libraries(test_class ${OGRE_LIBRARY})
