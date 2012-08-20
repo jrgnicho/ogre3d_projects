@@ -20,6 +20,16 @@ InputManager::~InputManager() {
 	// TODO Auto-generated destructor stub
 }
 
+OIS::Keyboard* InputManager::getKeyboard()
+{
+	return _Keyboard;
+}
+
+OIS::Mouse* InputManager::getMouse()
+{
+	return _Mouse;
+}
+
 void InputManager::setup()
 {
 	OIS::ParamList paramList;
@@ -56,7 +66,7 @@ void InputManager::setup()
 //	_Mouse->setEventCallback(this);
 }
 
-void InputManager::setEventHandlers(InputEventHandler *handler)
+void InputManager::setEventHandler(InputEventHandler *handler)
 {
 	_Keyboard->setEventCallback(handler);
 	_Mouse->setEventCallback(handler);

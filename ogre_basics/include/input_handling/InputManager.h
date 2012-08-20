@@ -21,6 +21,16 @@ public:
 	InputManager(std::string windowHandle = std::string());
 	virtual ~InputManager();
 
+	// initialization
+	void setup();
+	void cleanup();
+
+	// device access methods
+	OIS::Keyboard* getKeyboard();
+	OIS::Mouse* getMouse();
+
+	void setEventHandler(InputEventHandler *handler);
+
 //	// keyboard methods
 //	virtual bool keyPressed(const OIS::KeyEvent &evnt){return true;}
 //	virtual bool keyReleased(const OIS::KeyEvent &evnt){return true;}
@@ -33,10 +43,6 @@ public:
 //	virtual bool processUnbufferedMouseInput(const Ogre::FrameEvent &evnt) = 0;
 
 protected:
-	// initialization
-	void setup();
-	void cleanup();
-	void setEventHandlers(InputEventHandler *handler);
 
 	// members
 	std::string _windowHandle;

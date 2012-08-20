@@ -9,11 +9,11 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
 #set(ROS_BUILD_TYPE RelWithDebInfo)
 
-include_directories( ${OGRE_INCLUDE_DIRS} )
-link_directories( ${OGRE_LIBRARY_DIRS} )
+#include_directories( ${OGRE_INCLUDE_DIRS} )
+#link_directories( ${OGRE_LIBRARY_DIRS} )
 
-include_directories( ${OIS_INCLUDE_DIRS} )
-link_directories( ${OIS_LIBRARY_DIRS} )
+#include_directories( ${OIS_INCLUDE_DIRS} )
+#link_directories( ${OIS_LIBRARY_DIRS} )
 
 rosbuild_init()
 
@@ -35,8 +35,27 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
-rosbuild_add_library(InputManager src/InputManager.cpp)
-target_link_libraries(InputManager ${OIS_LIBRARY})
+get_filename_component(OGRE_ROOT_DIR "${OGRE_SOURCE_DIR}/../.." ABSOLUTE)
+set(OGRE_TEMPLATES_DIR "${OGRE_ROOT_DIR}/lib/OGRE/cmake")
+set(OGRE_WORK_DIR "${OGRE_ROOT_DIR}")
+set(CMAKE_MODULE_PATH "${OGRE_ROOT_DIR}/lib/OGRE/cmake")
 
-rosbuild_add_executable(test_class src/test_class.cpp)
-target_link_libraries(test_class ${OGRE_LIBRARY})
+project(OGRE_BASIC)
+find_package(OGRE REQUIRED COMPONENTS)
+find_package(OIS REQUIRED COMPONENTS)
+include_directories(
+  ${OGRE_INCLUDE_DIRS}
+  ${OGRE_Plugin_PCZSceneManager_INCLUDE_DIRS}
+  ${OGRE_Plugin_OctreeZone_INCLUDE_DIRS}
+  ${OIS_INCLUDE_DIRS}
+)
+link_directories(${OGRE_LIBRARY_DIRS})
+add_definitions(${OGRE_DEFINITIONS})
+link_directories(${OIS_LIBRARY_DIRS})
+add_definitions(${OIS_DEFINITIONS})
+
+add_library(StateManager src/StateManager.cpp src/TestState src/InputManager.cpp)
+target_link_libraries(StateManager ${OIS_LIBRARY} ${OGRE_LIBRARY})
+
+add_executable(test_class src/test_class.cpp)
+target_link_libraries(test_class ${OGRE_LIBRARY} ${OIS_LIBRARY}  StateManager)

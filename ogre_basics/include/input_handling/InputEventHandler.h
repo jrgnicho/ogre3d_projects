@@ -9,6 +9,7 @@
 #define INPUTEVENTHANDLER_H_
 #include <OIS/OISKeyboard.h>
 #include <OIS/OISMouse.h>
+#include <OGRE/OgreFrameListener.h>
 class InputEventHandler: public OIS::KeyListener, public OIS::MouseListener
 {
 public:
