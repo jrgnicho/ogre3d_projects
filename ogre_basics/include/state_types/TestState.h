@@ -20,6 +20,8 @@ class TestState : public StateInterface
 {
 public:
 
+	virtual ~TestState();
+
 	// state control methods
 	virtual void enter();
 	virtual void exit();
@@ -41,7 +43,6 @@ public:
 
 protected:
 	TestState();
-	virtual ~TestState();
 
 	void setupSceneComponents();
 	void cleanupSceneComponents();

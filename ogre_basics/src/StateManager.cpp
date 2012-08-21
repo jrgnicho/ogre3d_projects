@@ -5,7 +5,7 @@
  *      Author: coky
  */
 
-#include "state_management/StateManager.h"
+#include <state_management/StateManager.h>
 #include <state_types/StateInterface.h>
 #include <boost/foreach.hpp>
 #include <map>

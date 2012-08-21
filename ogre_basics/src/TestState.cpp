@@ -7,17 +7,19 @@
 
 #include <state_types/TestState.h>
 
-//StateInterface* TestState::_Instance = NULL;
+StateInterface* StateInterface::_Instance = NULL;
 
 TestState::TestState()
-:_ParentSceneNode(0)
+:StateInterface(),
+_ParentSceneNode(0)
 {
 	// TODO Auto-generated constructor stub
 	_StateName = STATE_TYPE_NAME;
 
 }
 
-TestState::~TestState() {
+TestState::~TestState()
+{
 	// TODO Auto-generated destructor stub
 	std::cout<<getStateName()<<": Destructor called";
 }

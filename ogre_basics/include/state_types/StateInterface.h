@@ -16,7 +16,7 @@ class StateInterface: public InputEventHandler, public Ogre::FrameListener
 {
 public:
 
-	virtual ~StateInterface();
+	virtual ~StateInterface(){}
 
 	// state control methods
 	virtual std::string getStateName(){return _StateName;}
@@ -29,7 +29,7 @@ public:
 	virtual void setup() = 0;
 	virtual void cleanup()
 	{
-		delete _Instance; // this might produced a segmentation fault
+		delete this; // this might produced a segmentation fault
 	}
 
 	// frame callbacks
@@ -53,7 +53,7 @@ public:
 
 
 protected:
-	StateInterface();
+	StateInterface(){}
 
 	// removes current state and places it with the requested one instead
 	void changeState(StateInterface *state)
