@@ -110,7 +110,7 @@ target_link_libraries(test_class ${OIS_LIBRARIES} ${OGRE_LIBRARIES}  StateManage
 #file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
 #file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/media)
 #file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/dist/bin)
-file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/media)
+file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/media)
  
 # post-build copy for win32
 if(WIN32 AND NOT MINGW)
@@ -135,7 +135,7 @@ if(UNIX)
 	configure_file(${OGRE_MEDIA_PATH}/resources.cfg ${EXECUTABLE_OUTPUT_PATH}/resources.cfg COPYONLY)
 	configure_file(${OGRE_MEDIA_PATH}/samples.cfg ${EXECUTABLE_OUTPUT_PATH}/samples.cfg COPYONLY)
 	configure_file(${OGRE_MEDIA_PATH}/quakemap.cfg ${EXECUTABLE_OUTPUT_PATH}/quakemap.cfg COPYONLY)
-	execute_process(COMMAND cp -R ${OGRE_MEDIA_PATH}/media/ ${EXECUTABLE_OUTPUT_PATH})
+	execute_process(COMMAND cp -R ${OGRE_MEDIA_PATH}/media/ ${PROJECT_SOURCE_DIR})
  	
 #	install(DIRECTORY ${OGRE_MEDIA_PATH}/media
 #		DESTINATION ./

@@ -66,7 +66,7 @@ void TestState::setupSceneComponents()
 	Ogre::SceneManager *sceneManager = StateManager::getSingleton()->getSceneManager();
 	Ogre::Plane plane = Ogre::Plane(0.0f,0.0f,1.0f,0.0f);
 	Ogre::MeshManager::getSingleton().createPlane(planeMeshName,Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			plane,1000,1000,20,20,true,1,5,5,Ogre::Vector3::UNIT_Z);
+			plane,1000,1000,20,20,true,1,5,5,Ogre::Vector3::UNIT_Y);
 	Ogre::Entity *planeEntity = sceneManager->createEntity(planeEntityName,planeMeshName);
 	planeEntity->setMaterialName(planeMaterialName);
 	planeEntity->setCastShadows(false);

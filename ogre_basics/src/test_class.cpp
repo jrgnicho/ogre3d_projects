@@ -9,10 +9,11 @@
 #include <OGRE/Ogre.h>
 int main(int argc,char** argv)
 {
+	std::cout<<"Working directory: "<<argv[0]<<"\n";
 	StateManager *stateManager = StateManager::getSingleton();
-	stateManager->setup();
+	stateManager->setup();// change access to setup and cleanup functions
 	TestState *testState = (TestState*)TestState::getSingleton();
-	testState->setup();
+	//testState->setup();
 
 	stateManager->start(testState);
 

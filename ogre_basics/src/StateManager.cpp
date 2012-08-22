@@ -41,14 +41,13 @@ void StateManager::setup()
 	{
 		// initializing root
 		std::cout<<"Creating Ogre Root Instance"<<"\n";
-		std::string dir = _ParentDirectory + "/";
+		std::string dir = _ParentDirectory;
 		_OgreRoot = new Ogre::Root(dir + _Parameters.PluginsFile,
 				dir + _Parameters.ConfigFile,dir + _Parameters.LogFile);
 
 		logStream<<"\n ---------------------------------------------------------------------";
 		logStream<<"\n ------------------ Created Ogre Root Instance  ----------------------";
 		Ogre::LogManager::getSingleton().logMessage(Ogre::String(logStream.str()));logStream.str("");
-
 		// calling setup methods
 		try
 		{
@@ -86,7 +85,7 @@ void StateManager::setupRenderSystem() throw (StateManager::InitializationExcept
 	{
 		throw InitializationException("Render System was not selected");
 	}
-
+	root->initialise(false);
 	_RenderWindow = root->createRenderWindow(_Parameters.WindowName,
 			_Parameters.WindowWidth,_Parameters.WindowHeight,false);
 }
@@ -95,7 +94,7 @@ void StateManager::setupResources() throw (StateManager::InitializationException
 {
 	typedef std::string Str;
 	Str sectionName, typeName, archiveName;
-	Str dir = _ParentDirectory + "/";
+	Str dir = _ParentDirectory + "";
 	Ogre::ConfigFile configFile;
 	configFile.load(dir + _Parameters.ResourcesFile);
 	Ogre::ConfigFile::SectionIterator iter = configFile.getSectionIterator();
@@ -156,7 +155,12 @@ void StateManager::cleanup()
 
 	// removing listeners
 	_OgreRoot->removeFrameListener(this);
-	Ogre::WindowEventUtilities::removeWindowEventListener(_RenderWindow,this);
+	if(_RenderWindow)
+	{
+		Ogre::WindowEventUtilities::removeWindowEventListener(_RenderWindow,this);
+		_RenderWindow->destroy();
+		_RenderWindow = NULL;
+	}
 
 	// cleaning up ogre components
 	_OgreRoot->destroySceneManager(_SceneManager);
@@ -182,7 +186,7 @@ void StateManager::start(StateInterface *state)
 void StateManager::changeState(StateInterface *state)
 {
 	// remove and exit current state
-	if(_StateStack.empty())
+	if(!_StateStack.empty())
 	{
 		removeEventHandler(_StateStack.back());
 		_StateStack.back()->exit();
@@ -300,6 +304,9 @@ void StateManager::windowClosed(Ogre::RenderWindow *window)
 	if(_RenderWindow == window)
 	{
 		shutdown();
+		Ogre::WindowEventUtilities::removeWindowEventListener(_RenderWindow,this);
+		window->destroy();
+		_RenderWindow = NULL;
 	}
 }
 
