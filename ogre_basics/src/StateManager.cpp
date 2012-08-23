@@ -123,8 +123,10 @@ void StateManager::setupScene() throw (StateManager::InitializationException)
 	_SceneManager = _OgreRoot->createSceneManager(Ogre::ST_GENERIC,_Parameters.SceneManagerName);
 	_SceneManager->setAmbientLight(_Parameters.SceneAmbientLightColor);
 	_SceneManager->createLight()->setPosition(_Parameters.SceneAmbientLightPosition);
+//	_SceneManager->setSkyBox(true,_Parameters.SceneSkyBoxMaterialName,_Parameters.SceneSkyBoxDistance,
+//			true,_Parameters.ParentNodeTransform.extractQuaternion());
 	_SceneManager->setSkyBox(true,_Parameters.SceneSkyBoxMaterialName,_Parameters.SceneSkyBoxDistance,
-			true,_Parameters.ParentNodeTransform.extractQuaternion());
+			true,Ogre::Quaternion::IDENTITY);
 
 
 	// creating nodes
@@ -144,6 +146,10 @@ void StateManager::setupScene() throw (StateManager::InitializationException)
 
 }
 
+/*
+ * the cleanup method must dispose of objects and resources in a very specific sequence.  Otherwise a
+ * segmentation fault or similar errors will be produced during the cleanup. Always use the sequence shown below.
+ */
 void StateManager::cleanup()
 {
 	// destroying all states
@@ -159,6 +165,9 @@ void StateManager::cleanup()
 	// cleaning up ogre components
 	std::cout<<"State Manager:\t-destroying the ogre scene manager"<<"\n";
 	_OgreRoot->destroySceneManager(_SceneManager);
+
+	std::cout<<"State Manager:\t-removing and destroying input devices"<<"\n";
+	_InputManager.cleanup();
 
 	// removing listeners
 	_OgreRoot->removeFrameListener(this);
@@ -177,7 +186,6 @@ void StateManager::cleanup()
 	_RenderWindow = 0;
 	_OgreRoot = 0;
 
-	_InputManager.cleanup();
 	std::cout<<"State Manager: cleanup finished"<<"\n";
 }
 
@@ -380,7 +388,7 @@ StateManager* StateManager::getSingleton()
 
 void StateManager::destroySingleton()
 {
-	std::cout<<"State Manager:\t-destroying singleton"<<"\n";
+	std::cout<<"State Manager: destroying singleton"<<"\n";
 	delete _Instance;
 	_Instance = 0;
 }
