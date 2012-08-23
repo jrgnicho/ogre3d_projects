@@ -29,16 +29,18 @@ namespace OgreDefaults
 	const std::string SCENE_SKY_BOX_MATERIAL_NAME = "Examples/MorningSkyBox";
 	const float SCENE_SKY_BOX_DISTANCE = 2000.0f;
 	const std::string PARENT_NODE_NAME = "WorldNode";
-	const Ogre::Matrix4 PARENT_NODE_TRANFORM = Ogre::Matrix4(1,0,0,0,
-			0,1,0,0.0f,
+	const Ogre::Matrix4 PARENT_NODE_TRANFORM = Ogre::Matrix4(
+			1,0,0,0.0f,
 			0,0,1,0.0f,
+			0,-1,0,0.0f,
 			0,0,0,1);
 
 	const std::string CAMERA_NODE_NAME = "CameraNode";
 	const std::string CAMERA_NAME = "WorldCamera";
-	const Ogre::Matrix4 CAMERA_NODE_TRANSFORM = Ogre::Matrix4(1,0,0,0,
-			0,1,0,50.0f,
-			0,0,1,500.0f,
+	const Ogre::Matrix4 CAMERA_NODE_TRANSFORM = Ogre::Matrix4(
+			1,0,0,0,
+			0,1,0,500.0f,
+			0,0,1,50.0f,
 			0,0,0,1);
 	const Ogre::Vector3 CAMERA_LOOK_AT_POINT = Ogre::Vector3(0.0f,0.0f,0.0f);
 	const float CAMERA_NEAR_CLIP_DISTANCE = 5.0f;
@@ -147,6 +149,7 @@ public:
 	void manageState(StateInterface* state);
 
 	static StateManager* getSingleton();
+	static void destroySingleton();
 
 	// device access
 	const InputManager& getInputManager();

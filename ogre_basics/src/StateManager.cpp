@@ -147,24 +147,30 @@ void StateManager::setupScene() throw (StateManager::InitializationException)
 void StateManager::cleanup()
 {
 	// destroying all states
+	std::cout<<"State Manager: cleanup started"<<"\n";
 	while(!_ManagedStates.empty())
 	{
-		_ManagedStates.end()->second->cleanup();
-		_ManagedStates.erase(_ManagedStates.end());
+		StateInterface *state = _ManagedStates.begin()->second;
+		state->cleanup();
+		delete state;
+		_ManagedStates.erase(_ManagedStates.begin());
 	}
+
+	// cleaning up ogre components
+	std::cout<<"State Manager:\t-destroying the ogre scene manager"<<"\n";
+	_OgreRoot->destroySceneManager(_SceneManager);
 
 	// removing listeners
 	_OgreRoot->removeFrameListener(this);
-	if(_RenderWindow)
+	if(_RenderWindow != NULL)
 	{
+		std::cout<<"State Manager:\t-removing window listener and destroying window"<<"\n";
 		Ogre::WindowEventUtilities::removeWindowEventListener(_RenderWindow,this);
 		_RenderWindow->destroy();
 		_RenderWindow = NULL;
 	}
 
-	// cleaning up ogre components
-	_OgreRoot->destroySceneManager(_SceneManager);
-	_RenderWindow->destroy();
+	std::cout<<"State Manager:\t-destroying ogre root instance"<<"\n";
 	delete _OgreRoot;
 
 	_SceneManager = 0;
@@ -172,14 +178,29 @@ void StateManager::cleanup()
 	_OgreRoot = 0;
 
 	_InputManager.cleanup();
-
-	delete _Instance;
-	_Instance = 0; // this might cause a segmentation fault;
+	std::cout<<"State Manager: cleanup finished"<<"\n";
 }
 
 void StateManager::start(StateInterface *state)
 {
 	changeState(state);
+
+	if(_RenderWindow != NULL)
+	{
+		if(_RenderWindow->isClosed())
+		{
+			_RenderWindow->destroy();
+			_RenderWindow = _OgreRoot->createRenderWindow(_Parameters.WindowName,
+					_Parameters.WindowWidth,_Parameters.WindowHeight,false);
+			Ogre::WindowEventUtilities::addWindowEventListener(_RenderWindow,this);
+		}
+	}
+	else
+	{
+		_RenderWindow = _OgreRoot->createRenderWindow(_Parameters.WindowName,
+					_Parameters.WindowWidth,_Parameters.WindowHeight,false);
+		Ogre::WindowEventUtilities::addWindowEventListener(_RenderWindow,this);
+	}
 	_OgreRoot->startRendering();
 }
 
@@ -244,6 +265,7 @@ void StateManager::shutdown()
 
 void StateManager::manageState(StateInterface *state)
 {
+	std::cout<<"State Manager: Registered " + state->getStateName() + "state as a managed state"<<"\n";
 	_ManagedStates.insert(std::make_pair(state->getStateName(),state));
 }
 
@@ -256,9 +278,9 @@ bool StateManager::frameStarted(const Ogre::FrameEvent &evnt)
 {
 	if(_ShutdownIssued)
 	{
+		removeEventHandler(_StateStack.back());
 		while(!_StateStack.empty())
 		{
-			removeEventHandler(_StateStack.back());
 			_StateStack.back()->exit();
 			_StateStack.pop_back();
 		}
@@ -303,10 +325,8 @@ void StateManager::windowClosed(Ogre::RenderWindow *window)
 {
 	if(_RenderWindow == window)
 	{
+		//Ogre::WindowEventUtilities::removeWindowEventListener(_RenderWindow,this);
 		shutdown();
-		Ogre::WindowEventUtilities::removeWindowEventListener(_RenderWindow,this);
-		window->destroy();
-		_RenderWindow = NULL;
 	}
 }
 
@@ -356,4 +376,11 @@ StateManager* StateManager::getSingleton()
 	}
 
 	return _Instance;
+}
+
+void StateManager::destroySingleton()
+{
+	std::cout<<"State Manager:\t-destroying singleton"<<"\n";
+	delete _Instance;
+	_Instance = 0;
 }

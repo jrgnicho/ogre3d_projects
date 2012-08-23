@@ -21,7 +21,7 @@ _ParentSceneNode(0)
 TestState::~TestState()
 {
 	// TODO Auto-generated destructor stub
-	std::cout<<getStateName()<<": Destructor called";
+	std::cout<<getStateName()<<": Destructor called"<<"\n";
 }
 
 StateInterface* TestState::getSingleton()
@@ -44,9 +44,9 @@ void TestState::setup()
 
 void TestState::cleanup()
 {
+	std::cout<<getStateName() + ": cleanup started"<<"\n";
 	cleanupSceneComponents();
-	delete _Instance;
-	//StateInterface::cleanup();
+	std::cout<<getStateName() + ": cleanup ended"<<"\n";
 }
 
 void TestState::setupSceneComponents()
@@ -76,9 +76,11 @@ void TestState::setupSceneComponents()
 
 void TestState::cleanupSceneComponents()
 {
+	std::cout<<getStateName() + ": Destroying scene components"<<"\n";
+	_ParentSceneNode->detachAllObjects();
 	Ogre::SceneManager *sceneManager = StateManager::getSingleton()->getSceneManager();
-	sceneManager->destroySceneNode(_ParentSceneNode);
 	sceneManager->destroyEntity("PlaneEntity");
+	sceneManager->destroySceneNode(_ParentSceneNode);
 
 }
 

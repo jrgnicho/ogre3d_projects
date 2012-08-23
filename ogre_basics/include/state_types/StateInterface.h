@@ -11,12 +11,16 @@
 #include <input_handling/InputEventHandler.h>
 #include <state_management/StateManager.h>
 #include <OGRE/OgreFrameListener.h>
+#include <iostream>
 
 class StateInterface: public InputEventHandler, public Ogre::FrameListener
 {
 public:
 
-	virtual ~StateInterface(){}
+	virtual ~StateInterface()
+	{
+		_Instance = NULL;
+	}
 
 	// state control methods
 	virtual std::string getStateName(){return _StateName;}
@@ -25,12 +29,8 @@ public:
 	virtual bool pause(){return false;}
 	virtual void resume(){}
 
-
 	virtual void setup() = 0;
-	virtual void cleanup()
-	{
-		delete this; // this might produced a segmentation fault
-	}
+	virtual void cleanup() = 0;
 
 	// frame callbacks
 	virtual bool frameStarted(const Ogre::FrameEvent &evnt) = 0;
