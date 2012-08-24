@@ -100,7 +100,7 @@ include_directories(${OIS_INCLUDE_DIRS})
 link_directories( ${OIS_LIBRARIES} )
 add_definitions(${OGRE_DEFINITIONS})
 
-add_library(StateManager src/StateManager.cpp src/TestState.cpp src/InputManager.cpp)
+add_library(StateManager src/StateManager.cpp src/TestState.cpp src/InputManager.cpp src/CameraController.cpp)
 target_link_libraries(StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES})
 
 add_executable(test_class src/test_class.cpp)

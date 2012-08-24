@@ -128,7 +128,6 @@ void StateManager::setupScene() throw (StateManager::InitializationException)
 	_SceneManager->setSkyBox(true,_Parameters.SceneSkyBoxMaterialName,_Parameters.SceneSkyBoxDistance,
 			true,Ogre::Quaternion::IDENTITY);
 
-
 	// creating nodes
 	_ParentSceneNode = _SceneManager->getRootSceneNode()->createChildSceneNode(_Parameters.ParentNodeName,
 			_Parameters.ParentNodeTransform.getTrans(),_Parameters.ParentNodeTransform.extractQuaternion());
@@ -277,7 +276,7 @@ void StateManager::manageState(StateInterface *state)
 	_ManagedStates.insert(std::make_pair(state->getStateName(),state));
 }
 
-const InputManager& StateManager::getInputManager()
+InputManager& StateManager::getInputManager()
 {
 	return _InputManager;
 }
@@ -388,7 +387,10 @@ StateManager* StateManager::getSingleton()
 
 void StateManager::destroySingleton()
 {
-	std::cout<<"State Manager: destroying singleton"<<"\n";
-	delete _Instance;
-	_Instance = 0;
+	if(_Instance != 0)
+	{
+		std::cout<<"State Manager: destroying singleton"<<"\n";
+		delete _Instance;
+		_Instance = 0;
+	}
 }

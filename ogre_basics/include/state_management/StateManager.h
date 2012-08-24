@@ -152,7 +152,7 @@ public:
 	static void destroySingleton();
 
 	// device access
-	const InputManager& getInputManager();
+	InputManager& getInputManager();
 
 	// ogre methods
 	bool frameStarted(const Ogre::FrameEvent &evnt);

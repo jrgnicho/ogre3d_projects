@@ -123,6 +123,11 @@ bool TestState::frameEnded(const Ogre::FrameEvent &evnt)
 
 bool TestState::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 {
+	OIS::Keyboard *keyboard = (StateManager::getSingleton()->getInputManager()).getKeyboard();
+	if(keyboard->isKeyDown(OIS::KC_ESCAPE))
+	{
+		StateManager::getSingleton()->shutdown();
+	}
 	return true;
 }
 
