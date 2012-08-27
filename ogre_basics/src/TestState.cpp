@@ -40,8 +40,8 @@ StateInterface* TestState::getSingleton()
 void TestState::setup()
 {
 	StateManager::getSingleton()->manageState(this);
-	setupCameraControllers();
 	setupSceneComponents();
+	setupCameraControllers();
 }
 
 void TestState::cleanup()
@@ -61,7 +61,7 @@ void TestState::setupSceneComponents()
 	std::string boxNodeName = "BoxNode";
 
 	// creating instances of scene nodes
-	_ParentSceneNode = StateManager::getSingleton()->getParentSceneNode()->createChildSceneNode(getStateName() + "Node");
+	_ParentSceneNode = StateManager::getSingleton()->getSceneManager()->createSceneNode(getStateName() + "Node");
 	Ogre::SceneNode *planeNode = _ParentSceneNode->createChildSceneNode(planeNodeName);
 	//Ogre::SceneNode *boxNode = _ParentSceneNode->createChildSceneNode(boxNodeName);
 
@@ -69,7 +69,7 @@ void TestState::setupSceneComponents()
 	Ogre::SceneManager *sceneManager = StateManager::getSingleton()->getSceneManager();
 	Ogre::Plane plane = Ogre::Plane(0.0f,0.0f,1.0f,0.0f);
 	Ogre::MeshManager::getSingleton().createPlane(planeMeshName,Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			plane,1000,1000,20,20,true,1,5,5,Ogre::Vector3::UNIT_Y);
+			plane,1000,1000,20,20,true,1,100,100,Ogre::Vector3::UNIT_Y);
 	Ogre::Entity *planeEntity = sceneManager->createEntity(planeEntityName,planeMeshName);
 	planeEntity->setMaterialName(planeMaterialName);
 	planeEntity->setCastShadows(false);

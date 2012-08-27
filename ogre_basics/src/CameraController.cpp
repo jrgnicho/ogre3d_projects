@@ -48,7 +48,7 @@ CameraController::CameraController()
  _RollNode(0),
  _YawNode(0),
  _Camera(0),
- _Pos(0.0f,0.0f,10.0f),
+ _Pos(0.0f,0.0f,0.0f),
  _Yaw(Ogre::Real(0.0f)),
  _Roll(Ogre::Real(0.0f)),
  _CumulativeRoll(Ogre::Real(0.0f)),
@@ -57,10 +57,10 @@ CameraController::CameraController()
  _MinYaw(MIN_YAW),
  _MaxRoll(MAX_ROLL),
  _MinRoll(MIN_ROLL),
- _SpeedIncrement(SPEED_INCREMENT),
  _MaxSpeed(MAX_SPEED),
  _MinSpeed(MIN_SPEED),
- _Speed(Ogre::Vector3(4*_SpeedIncrement)),
+ _SpeedIncrement(SPEED_INCREMENT),
+ _Speed(INITIAL_SPEED),
  _WindowAdjmFactor(WINDOW_ADJUSTMENT_FACTOR),
  _ScrollWheelAdjmFactor(SCROLL_WHEEL_ADJUSTMENT_FACTOR),
  _CamControllerNames(generateAutomaticName())
@@ -73,7 +73,7 @@ CameraController::CameraController(std::string controllerName)
  _RollNode(0),
  _YawNode(0),
  _Camera(0),
- _Pos(0.0f,0.0f,10.0f),
+ _Pos(0.0f,0.0f,0.0f),
  _Yaw(Ogre::Real(0.0f)),
  _Roll(Ogre::Real(0.0f)),
  _CumulativeRoll(Ogre::Real(0.0f)),
@@ -82,10 +82,10 @@ CameraController::CameraController(std::string controllerName)
  _MinYaw(MIN_YAW),
  _MaxRoll(MAX_ROLL),
  _MinRoll(MIN_ROLL),
- _SpeedIncrement(SPEED_INCREMENT),
  _MaxSpeed(MAX_SPEED),
  _MinSpeed(MIN_SPEED),
- _Speed(Ogre::Vector3(4*_SpeedIncrement)),
+ _SpeedIncrement(SPEED_INCREMENT),
+ _Speed(INITIAL_SPEED),
  _WindowAdjmFactor(WINDOW_ADJUSTMENT_FACTOR),
  _ScrollWheelAdjmFactor(SCROLL_WHEEL_ADJUSTMENT_FACTOR),
 _CamControllerNames(controllerName)
@@ -158,16 +158,26 @@ CameraController::~CameraController() {
 	cleanup();
 }
 
-void CameraController::applyKeyboardState(const OIS::Keyboard *keyboard,unsigned int timeElapsedInMili)
-{
-
-}
-
-void CameraController::applyMouseState(const OIS::MouseState &ms,unsigned int timeElapsedInMili)
+void CameraController::applyKeyboardState(const OIS::Keyboard *keyboard,Ogre::Real timeElapsedInSecs)
 {
 	using namespace Ogre;
 
-	Real timeElapsed = ((Real)timeElapsedInMili)/(Real(1000.f));
+	if(keyboard->isKeyDown(OIS::KC_UP))
+	{
+		_Pos.z = _Speed.z*timeElapsedInSecs;
+		_CumulativePosition += _Pos;
+	}
+
+	if(keyboard->isKeyDown(OIS::KC_DOWN))
+	{
+		_Pos.z = -_Speed.z*timeElapsedInSecs;
+		_CumulativePosition += _Pos;
+	}
+}
+
+void CameraController::applyMouseState(const OIS::MouseState &ms,Ogre::Real timeElapsedInSecs)
+{
+	using namespace Ogre;
 
 	// pitch and roll rotations
 	if(ms.buttonDown(OIS::MB_Right))
@@ -181,14 +191,25 @@ void CameraController::applyMouseState(const OIS::MouseState &ms,unsigned int ti
 	// scroll wheel z translation
 	if(ms.Z.rel != 0)
 	{
-		_Pos.z = _Speed.z*timeElapsed*(Real(ms.Z.rel)/_ScrollWheelAdjmFactor);
+		_Pos.z = _Speed.z*timeElapsedInSecs*(Real(ms.Z.rel)/_ScrollWheelAdjmFactor);
 		_CumulativePosition += _Pos;
+
+		std::cout<<CAMERA_CTRL_CLASS_NAME<<
+				":\tupdated camera angle , yaw: "<<
+				_Yaw.valueDegrees()<<", roll: "<<
+				_Roll.valueDegrees()<<"\n"<<
+				"\t\tcamera pos, x: "<<_Pos.x<<
+				", y: "<<_Pos.y<<", z: "<<_Pos.z<<"\n"<<
+				"\t\tmouse rel z val : "<<ms.Z.rel<<"\n";
 	}
 
 //	std::cout<<CAMERA_CTRL_CLASS_NAME<<
-//			":\tupdated camera angle values, yaw: "<<
+//			":\tupdated camera angle , yaw: "<<
 //			_Yaw.valueDegrees()<<", roll: "<<
-//			_Roll.valueDegrees()<<"\n";
+//			_Roll.valueDegrees()<<"\n"<<
+//			"\t\tcamera pos, x: "<<_Pos.x<<
+//			", y: "<<_Pos.y<<", z: "<<_Pos.z<<"\n"<<
+//			"\t\tmouse rel z val : "<<ms.Z.rel<<"\n";
 }
 
 void CameraController::moveCamera()
@@ -197,7 +218,11 @@ void CameraController::moveCamera()
 	{
 		_YawNode->yaw(_Yaw);
 		_RollNode->roll(_Roll);
-		_PosNode->translate(_Pos);
+		_PosNode->translate(_Pos,Ogre::SceneNode::TS_LOCAL);
+
+		// resetting variables
+		_Pos = Ogre::Vector3::ZERO;
+		 _Roll = _Yaw =Ogre::Radian(0.0f);
 	}
 }
 
