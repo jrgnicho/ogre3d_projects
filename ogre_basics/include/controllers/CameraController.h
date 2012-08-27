@@ -17,53 +17,95 @@
 
 const Ogre::Real WINDOW_ADJUSTMENT_FACTOR = Ogre::Real(0.13f);
 const Ogre::Real SCROLL_WHEEL_ADJUSTMENT_FACTOR = Ogre::Real(120.0f);
-const Ogre::Real SPEED_INCREMENT = Ogre::Real(1.0f);
+const Ogre::Real SPEED_INCREMENT = Ogre::Real(10.0f);
 const Ogre::Real MAX_SPEED = 10*SPEED_INCREMENT;
-const Ogre::Real MIN_SPEED = 0.0f;
+const Ogre::Real MIN_SPEED = 1.0*SPEED_INCREMENT;
 const Ogre::Radian MAX_YAW = Ogre::Radian(Ogre::Real(0.0f));
 const Ogre::Radian MIN_YAW = Ogre::Radian(2*M_PI);
 const Ogre::Radian MAX_ROLL = Ogre::Radian(M_PI_2);
 const Ogre::Radian MIN_ROLL = Ogre::Radian(-M_PI_2);
-
+const Ogre::Matrix4 CAMERA_RELATIVE_TRANSFORM = Ogre::Matrix4(Ogre::Quaternion(Ogre::Radian(-M_PI_2),Ogre::Vector3::UNIT_Z)*
+		Ogre::Quaternion(Ogre::Radian(M_PI_2),Ogre::Vector3::UNIT_X));
+const Ogre::Matrix4 CAMERA_NODE_INITIAL_TRANSFORM = Ogre::Matrix4(
+		1, 0, 0, 10,
+		0, 1, 0, 0,
+		0, 0, 1, 100,
+		0, 0, 0, 1);
+const std::string CAMERA_NAME = "Camera";
+const float CAMERA_NEAR_CLIP_DISTANCE = 5.0f;
+const float CAMERA_FAR_CLIP_DISTANCE = 5000.0f;
 
 class CameraController {
+	struct CameraComponentIds
+	{
+		CameraComponentIds();
+		CameraComponentIds(std::string cameraName);
+
+		std::string CameraName;
+		std::string ControllerName;
+		std::string PositionNodeName;
+		std::string RollNodeName;
+		std::string YawNodeName;
+		std::string ControllerNodeName;
+	};
+
 public:
 	CameraController();
+	CameraController(std::string cameraName);
 	virtual ~CameraController();
+
+	// setup and cleanup
+	void setup();
+	void cleanup();
+	void connectToScene();
+	void disconnectFromScene();
+
+	/* spatial configuration parameters.  These values are relative to their own local space defined by the corresponding
+	 * parent scene node.
+	*/
+	Ogre::Radian getRoll();
+	Ogre::Radian getYaw();
+	Ogre::Vector3 getPosition();
 
 	void applyMouseState(const OIS::MouseState &ms,unsigned int timeElapsedInMili);
 	void applyKeyboardState(const OIS::Keyboard *keyboard,unsigned int timeElapsedInMili);
 	void moveCamera();
-	void setCameraSceneNode(Ogre::SceneNode *cameraNode);
-	void setCamera(Ogre::Camera *camera);
-	Ogre::SceneNode* getCameraSceneNode();
 	Ogre::Camera* getCamera();
 	Ogre::Matrix4 getCameraTransform();
 
 protected:
 
-	Ogre::SceneNode *_SceneNode;
+	// ids
+	CameraComponentIds _CamControllerNames;
+
+	static std::string generateAutomaticName();
+	static bool checkIfNameAvailable(std::string);
+	static std::vector<std::string> _AssignedNames;
+
+	// the roll node is set as the parent of the yaw node
+	Ogre::SceneNode *_PosNode;
+	Ogre::SceneNode *_RollNode;
+	Ogre::SceneNode *_YawNode;
 	Ogre::Camera *_Camera;
 
 	// motion variables:  All these variables are applied relative to the last movement
 	Ogre::Vector3 _Pos; //
-	Ogre::Radian _Yaw; // rotation about world +z, this transform will be applied before the yaw transform
-	Ogre::Radian _Roll; // rotation about local +x,
+	Ogre::Radian _Yaw; // rotation about world +y,
+	Ogre::Radian _Roll; // rotation about local +z,
 	Ogre::Real _WindowAdjmFactor; // Adjustment factor applied to x,y locations of the mouse in the display window;
 	Ogre::Real _ScrollWheelAdjmFactor;
 
 	// motion thresholds:  Should prevent from running into awkward poses on the camera
+	Ogre::Vector3 _CumulativePosition;
+	Ogre::Radian _CumulativeRoll;
+	Ogre::Radian _CumulativeYaw;
 	Ogre::Radian _MaxYaw, _MinYaw;
 	Ogre::Radian _MaxRoll, _MinRoll;
 
 	// translation rates
 	Ogre::Vector3 _Speed;
-	Ogre::Real _MaxSpeed, MinSpeed;
+	Ogre::Real _MaxSpeed, _MinSpeed;
 	Ogre::Real _SpeedIncrement;
-
-	// timer: Useful for providing time values to compute translations
-	//Ogre::Timer _Timer;
-
 };
 
 #endif /* CAMERACONTROLLER_H_ */

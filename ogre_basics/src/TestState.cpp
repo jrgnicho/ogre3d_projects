@@ -11,7 +11,8 @@ StateInterface* StateInterface::_Instance = NULL;
 
 TestState::TestState()
 :StateInterface(),
-_ParentSceneNode(0)
+_ParentSceneNode(0),
+_CameraController()
 {
 	// TODO Auto-generated constructor stub
 	_StateName = STATE_TYPE_NAME;
@@ -39,6 +40,7 @@ StateInterface* TestState::getSingleton()
 void TestState::setup()
 {
 	StateManager::getSingleton()->manageState(this);
+	setupCameraControllers();
 	setupSceneComponents();
 }
 
@@ -46,6 +48,7 @@ void TestState::cleanup()
 {
 	std::cout<<getStateName() + ": cleanup started"<<"\n";
 	cleanupSceneComponents();
+	cleanupCameraControllers();
 	std::cout<<getStateName() + ": cleanup ended"<<"\n";
 }
 
@@ -58,7 +61,7 @@ void TestState::setupSceneComponents()
 	std::string boxNodeName = "BoxNode";
 
 	// creating instances of scene nodes
-	_ParentSceneNode = StateManager::getSingleton()->getSceneManager()->createSceneNode(getStateName() + "Node");
+	_ParentSceneNode = StateManager::getSingleton()->getParentSceneNode()->createChildSceneNode(getStateName() + "Node");
 	Ogre::SceneNode *planeNode = _ParentSceneNode->createChildSceneNode(planeNodeName);
 	//Ogre::SceneNode *boxNode = _ParentSceneNode->createChildSceneNode(boxNodeName);
 
@@ -74,6 +77,16 @@ void TestState::setupSceneComponents()
 
 }
 
+void TestState::setupCameraControllers()
+{
+	_CameraController.setup();
+}
+
+void TestState::cleanupCameraControllers()
+{
+	_CameraController.cleanup();
+}
+
 void TestState::cleanupSceneComponents()
 {
 	std::cout<<getStateName() + ": Destroying scene components"<<"\n";
@@ -86,17 +99,25 @@ void TestState::cleanupSceneComponents()
 
 void TestState::moveCamera()
 {
-
+	_CameraController.moveCamera();
 }
 
 void TestState::enter()
 {
-	StateManager::getSingleton()->addChildSceneNode(_ParentSceneNode);
+	if(_ParentSceneNode != NULL && !_ParentSceneNode->isInSceneGraph())
+	{
+		StateManager::getSingleton()->addChildSceneNode(_ParentSceneNode);
+		_CameraController.connectToScene();
+	}
 }
 
 void TestState::exit()
 {
-	StateManager::getSingleton()->removeChildSceneNode(_ParentSceneNode);
+	if(_ParentSceneNode != NULL && _ParentSceneNode->isInSceneGraph())
+	{
+		StateManager::getSingleton()->removeChildSceneNode(_ParentSceneNode);
+		_CameraController.disconnectFromScene();
+	}
 }
 
 bool TestState::frameStarted(const Ogre::FrameEvent &evnt)
@@ -128,10 +149,17 @@ bool TestState::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 	{
 		StateManager::getSingleton()->shutdown();
 	}
+	else
+	{
+		_CameraController.applyKeyboardState(keyboard,evnt.timeSinceLastFrame);
+	}
 	return true;
 }
 
 bool TestState::processUnbufferedMouseInput(const Ogre::FrameEvent &evnt)
 {
+	const OIS::MouseState &ms = StateManager::getSingleton()->getInputManager().getMouse()->getMouseState();
+	_CameraController.applyMouseState(ms,evnt.timeSinceLastFrame);
+
 	return true;
 }

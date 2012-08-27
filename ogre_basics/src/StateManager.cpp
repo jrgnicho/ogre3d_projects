@@ -17,9 +17,7 @@ StateManager::StateManager()
 :_OgreRoot(0),
  _SceneManager(0),
  _RenderWindow(0),
- _Camera(0),
  _ParentSceneNode(0),
- _CameraSceneNode(0),
  _ShutdownIssued(false),
  _Parameters()
 {
@@ -131,17 +129,6 @@ void StateManager::setupScene() throw (StateManager::InitializationException)
 	// creating nodes
 	_ParentSceneNode = _SceneManager->getRootSceneNode()->createChildSceneNode(_Parameters.ParentNodeName,
 			_Parameters.ParentNodeTransform.getTrans(),_Parameters.ParentNodeTransform.extractQuaternion());
-	_CameraSceneNode= _ParentSceneNode->createChildSceneNode(_Parameters.CameraNodeName,
-			_Parameters.CameraNodeTransform.getTrans(),_Parameters.CameraNodeTransform.extractQuaternion());
-
-	// camera and viewport setup
-	_Camera = _SceneManager->createCamera(_Parameters.CameraName);
-	_Viewport = _RenderWindow->addViewport(_Camera);
-	_CameraSceneNode->attachObject(_Camera);
-	_Camera->setNearClipDistance(_Parameters.CameraNearClipDistance);
-	_Camera->setFarClipDistance(_Parameters.CameraFarClipDistance);
-	_Camera->lookAt(_Parameters.CameraLookAtPoint);
-	_Camera->setAspectRatio(((float)_Viewport->getActualWidth())/((float)_Viewport->getActualHeight()));
 
 }
 
@@ -372,6 +359,11 @@ Ogre::SceneNode* StateManager::getParentSceneNode()
 Ogre::Matrix4 StateManager::getParentTransform()
 {
 	return _Parameters.ParentNodeTransform;
+}
+
+Ogre::RenderWindow* StateManager::getRenderWindow()
+{
+	return _RenderWindow;
 }
 
 StateManager* StateManager::getSingleton()

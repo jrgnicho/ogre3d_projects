@@ -13,6 +13,7 @@
 #define TESTSTATE_H_
 
 #include <state_types/StateInterface.h>
+#include <controllers/CameraController.h>
 
 static const std::string STATE_TYPE_NAME = "TestState";
 
@@ -45,11 +46,16 @@ protected:
 	TestState();
 
 	void setupSceneComponents();
+	void setupCameraControllers();
 	void cleanupSceneComponents();
+	void cleanupCameraControllers();
 	void moveCamera();
 
 	// ogre stuff
 	Ogre::SceneNode *_ParentSceneNode;
+
+	// controllers
+	CameraController _CameraController;
 };
 
 #endif /* TESTSTATE_H_ */
