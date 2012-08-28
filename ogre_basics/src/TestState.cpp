@@ -69,7 +69,7 @@ void TestState::setupSceneComponents()
 	Ogre::SceneManager *sceneManager = StateManager::getSingleton()->getSceneManager();
 	Ogre::Plane plane = Ogre::Plane(0.0f,0.0f,1.0f,0.0f);
 	Ogre::MeshManager::getSingleton().createPlane(planeMeshName,Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			plane,1000,1000,20,20,true,1,100,100,Ogre::Vector3::UNIT_Y);
+			plane,1000,1000,20,20,true,1,20,20,Ogre::Vector3::UNIT_Y);
 	Ogre::Entity *planeEntity = sceneManager->createEntity(planeEntityName,planeMeshName);
 	planeEntity->setMaterialName(planeMaterialName);
 	planeEntity->setCastShadows(false);
@@ -151,15 +151,20 @@ bool TestState::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 	}
 	else
 	{
-		_CameraController.applyKeyboardState(keyboard,evnt.timeSinceLastFrame);
+		if(!_CameraController.processUnbufferedKeyInput(evnt))
+		{
+			return false;
+		}
 	}
 	return true;
 }
 
 bool TestState::processUnbufferedMouseInput(const Ogre::FrameEvent &evnt)
 {
-	const OIS::MouseState &ms = StateManager::getSingleton()->getInputManager().getMouse()->getMouseState();
-	_CameraController.applyMouseState(ms,evnt.timeSinceLastFrame);
+	if(!_CameraController.processUnbufferedMouseInput(evnt))
+	{
+		return false;
+	}
 
 	return true;
 }

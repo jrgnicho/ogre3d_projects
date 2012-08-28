@@ -14,17 +14,18 @@
 #include <OGRE/OgreSceneNode.h>
 #include <OGRE/OgreMath.h>
 #include <cmath>
+#include <input_handling/InputEventHandler.h>
 
 const Ogre::Real WINDOW_ADJUSTMENT_FACTOR = Ogre::Real(0.13f);
-const Ogre::Real SCROLL_WHEEL_ADJUSTMENT_FACTOR = Ogre::Real(120.0f);
-const Ogre::Real SPEED_INCREMENT = Ogre::Real(20.0f);
-const Ogre::Real MAX_SPEED = 10*SPEED_INCREMENT;
-const Ogre::Real MIN_SPEED = 1.0*SPEED_INCREMENT;
-const Ogre::Real INITIAL_SPEED = 5*SPEED_INCREMENT;
-const Ogre::Radian MAX_YAW = Ogre::Radian(Ogre::Real(0.0f));
-const Ogre::Radian MIN_YAW = Ogre::Radian(2*M_PI);
-const Ogre::Radian MAX_ROLL = Ogre::Radian(M_PI_2);
-const Ogre::Radian MIN_ROLL = Ogre::Radian(-M_PI_2);
+const Ogre::Real SCROLL_WHEEL_ADJUSTMENT_FACTOR = Ogre::Real(60.0f);
+const Ogre::Real SPEED_INCREMENT = Ogre::Real(10.0f);
+const Ogre::Real MAX_SPEED = 20*SPEED_INCREMENT;
+const Ogre::Real MIN_SPEED = 1.0f*SPEED_INCREMENT;
+const Ogre::Real INITIAL_SPEED = 10*SPEED_INCREMENT;
+const Ogre::Radian MAX_YAW = Ogre::Radian(M_PI_2);
+const Ogre::Radian MIN_YAW = Ogre::Radian(-M_PI_2);
+const Ogre::Radian MAX_ROLL = Ogre::Radian(2*M_PI_2);
+const Ogre::Radian MIN_ROLL = Ogre::Radian(0);
 const Ogre::Matrix4 CAMERA_RELATIVE_TRANSFORM = Ogre::Matrix4(Ogre::Quaternion(Ogre::Radian(-M_PI_2),Ogre::Vector3::UNIT_Z)*
 		Ogre::Quaternion(Ogre::Radian(M_PI_2),Ogre::Vector3::UNIT_X));
 const Ogre::Matrix4 CAMERA_NODE_INITIAL_TRANSFORM = Ogre::Matrix4(
@@ -36,7 +37,8 @@ const std::string CAMERA_NAME = "Camera";
 const float CAMERA_NEAR_CLIP_DISTANCE = 5.0f;
 const float CAMERA_FAR_CLIP_DISTANCE = 5000.0f;
 
-class CameraController {
+class CameraController: public InputEventHandler
+{
 	struct CameraComponentIds
 	{
 		CameraComponentIds();
@@ -68,13 +70,21 @@ public:
 	Ogre::Radian getYaw();
 	Ogre::Vector3 getPosition();
 
-	void applyMouseState(const OIS::MouseState &ms,Ogre::Real timeElapsedInSecs);
-	void applyKeyboardState(const OIS::Keyboard *keyboard,Ogre::Real timeElapsedInSecs);
+	//void applyMouseState(const OIS::MouseState &ms,Ogre::Real timeElapsedInSecs);
+	//void applyKeyboardState(const OIS::Keyboard *keyboard,Ogre::Real timeElapsedInSecs);
 	void moveCamera();
 	Ogre::Camera* getCamera();
 	Ogre::Matrix4 getCameraTransform();
 
+	// overloaded input handling methods
+	virtual bool processUnbufferedKeyInput(const Ogre::FrameEvent &evnt);
+	virtual bool processUnbufferedMouseInput(const Ogre::FrameEvent &evnt);
+
 protected:
+
+	// movement bound checking methods
+	void checkNextMovementBounds();
+	void checkNextSpeedBounds();
 
 	// ids
 	CameraComponentIds _CamControllerNames;

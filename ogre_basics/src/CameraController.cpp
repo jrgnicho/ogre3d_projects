@@ -158,71 +158,152 @@ CameraController::~CameraController() {
 	cleanup();
 }
 
-void CameraController::applyKeyboardState(const OIS::Keyboard *keyboard,Ogre::Real timeElapsedInSecs)
+bool CameraController::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 {
 	using namespace Ogre;
+	OIS::Keyboard *keyboard = StateManager::getSingleton()->getInputManager().getKeyboard();
+	Ogre::Real timeElapsedInSecs = evnt.timeSinceLastEvent;
+
+	if(keyboard->isKeyDown(OIS::KC_LSHIFT) || keyboard->isKeyDown(OIS::KC_RSHIFT))
+	{
+		if(keyboard->isKeyDown(OIS::KC_UP))
+		{
+			_Pos.z = _Speed.z*timeElapsedInSecs;
+		}
+
+		if(keyboard->isKeyDown(OIS::KC_DOWN))
+		{
+			_Pos.z = -_Speed.z*timeElapsedInSecs;
+		}
+	}
+
+	if(keyboard->isKeyDown(OIS::KC_ADD))
+	{
+		_Speed += _SpeedIncrement;
+	}
+
+	if(keyboard->isKeyDown(OIS::KC_SUBTRACT))
+	{
+		_Speed -= _SpeedIncrement;
+	}
+
+	checkNextSpeedBounds();
+
+	if(keyboard->isKeyDown(OIS::KC_RIGHT))
+	{
+		_Pos.y = -_Speed.y*timeElapsedInSecs;
+	}
+
+	if(keyboard->isKeyDown(OIS::KC_LEFT))
+	{
+		_Pos.y = _Speed.y*timeElapsedInSecs;
+	}
 
 	if(keyboard->isKeyDown(OIS::KC_UP))
 	{
-		_Pos.z = _Speed.z*timeElapsedInSecs;
-		_CumulativePosition += _Pos;
+		_Pos.x = _Speed.x*timeElapsedInSecs;
 	}
 
 	if(keyboard->isKeyDown(OIS::KC_DOWN))
 	{
-		_Pos.z = -_Speed.z*timeElapsedInSecs;
-		_CumulativePosition += _Pos;
+		_Pos.x = -_Speed.x*timeElapsedInSecs;
 	}
+
+	return true;
 }
 
-void CameraController::applyMouseState(const OIS::MouseState &ms,Ogre::Real timeElapsedInSecs)
+bool CameraController::processUnbufferedMouseInput(const Ogre::FrameEvent &evnt)
 {
 	using namespace Ogre;
+
+	const OIS::MouseState &ms = StateManager::getSingleton()->getInputManager().getMouse()->getMouseState();
+	Ogre::Real timeElapsedInSecs = evnt.timeSinceLastEvent;
 
 	// pitch and roll rotations
 	if(ms.buttonDown(OIS::MB_Right))
 	{
-		_Roll = Radian(Degree(ms.X.rel*_WindowAdjmFactor));
+		_Roll = Radian(Degree(-ms.X.rel*_WindowAdjmFactor));
 		_Yaw = Radian(Degree(ms.Y.rel*_WindowAdjmFactor));
-		_CumulativeRoll += _Roll;
-		_CumulativeYaw += _Yaw;
 	}
 
 	// scroll wheel z translation
 	if(ms.Z.rel != 0)
 	{
 		_Pos.z = _Speed.z*timeElapsedInSecs*(Real(ms.Z.rel)/_ScrollWheelAdjmFactor);
-		_CumulativePosition += _Pos;
 
-		std::cout<<CAMERA_CTRL_CLASS_NAME<<
-				":\tupdated camera angle , yaw: "<<
-				_Yaw.valueDegrees()<<", roll: "<<
-				_Roll.valueDegrees()<<"\n"<<
-				"\t\tcamera pos, x: "<<_Pos.x<<
-				", y: "<<_Pos.y<<", z: "<<_Pos.z<<"\n"<<
-				"\t\tmouse rel z val : "<<ms.Z.rel<<"\n";
+//		std::cout<<CAMERA_CTRL_CLASS_NAME<<
+//				":\tupdated camera angle , yaw: "<<
+//				_Yaw.valueDegrees()<<", roll: "<<
+//				_Roll.valueDegrees()<<"\n"<<
+//				"\t\tcamera pos, x: "<<_Pos.x<<
+//				", y: "<<_Pos.y<<", z: "<<_Pos.z<<"\n"<<
+//				"\t\tmouse rel z val : "<<ms.Z.rel<<"\n";
+
 	}
 
-//	std::cout<<CAMERA_CTRL_CLASS_NAME<<
-//			":\tupdated camera angle , yaw: "<<
-//			_Yaw.valueDegrees()<<", roll: "<<
-//			_Roll.valueDegrees()<<"\n"<<
-//			"\t\tcamera pos, x: "<<_Pos.x<<
-//			", y: "<<_Pos.y<<", z: "<<_Pos.z<<"\n"<<
-//			"\t\tmouse rel z val : "<<ms.Z.rel<<"\n";
+	return true;
 }
 
 void CameraController::moveCamera()
 {
 	if(_PosNode != NULL)
 	{
+		// checking bounds
+		checkNextMovementBounds();
+
+		// performing all relative rotations
 		_YawNode->yaw(_Yaw);
 		_RollNode->roll(_Roll);
+
+		// computing actual translation vector
+		_Pos = (_RollNode->getOrientation()*_YawNode->getOrientation())*_Pos;
 		_PosNode->translate(_Pos,Ogre::SceneNode::TS_LOCAL);
+
+		// computing cumulative orientation and translation values
+		_CumulativePosition += _Pos;
+		_CumulativeRoll += _Roll;
+		_CumulativeYaw += _Yaw;
 
 		// resetting variables
 		_Pos = Ogre::Vector3::ZERO;
 		 _Roll = _Yaw =Ogre::Radian(0.0f);
+	}
+}
+
+void CameraController::checkNextMovementBounds()
+{
+	if(_CumulativeRoll + _Roll > _MaxRoll )
+	{
+		_CumulativeRoll -= _MaxRoll;// equivalent to revolving 2*PI radians since _MaxRoll equals that value
+	}
+
+	if(_CumulativeRoll + _Roll < _MinRoll )
+	{
+		_CumulativeRoll += _MaxRoll;
+	}
+
+	// yaw part needs to be completed
+	if(_Yaw > _MaxYaw)
+	{
+		_Yaw = _MaxYaw;
+	}
+
+	if(_Yaw < _MinYaw)
+	{
+		_Yaw = _MinYaw;
+	}
+}
+
+void CameraController::checkNextSpeedBounds()
+{
+	if(_Speed > _MaxSpeed*Ogre::Vector3::UNIT_SCALE)
+	{
+		_Speed = _MaxSpeed;
+	}
+
+	if(_Speed < _MinSpeed*Ogre::Vector3::UNIT_SCALE)
+	{
+		_Speed = _MinSpeed;
 	}
 }
 
@@ -246,17 +327,11 @@ void CameraController::disconnectFromScene()
 Ogre::Matrix4 CameraController::getCameraTransform()
 {
 	using namespace Ogre;
-	Matrix4 posMat, rollMat, yawMat, totalMat = Matrix4::IDENTITY;
+	Matrix4 camTransform = Matrix4::IDENTITY;
+	camTransform.makeTransform(_CumulativePosition,Ogre::Vector3::UNIT_SCALE,
+			_RollNode->getOrientation()*_YawNode->getOrientation());
 
-	// computing world position transform
-	posMat.setTrans(_Pos);
-
-	rollMat.makeTransform(Vector3::ZERO,Vector3::UNIT_SCALE,Quaternion(_Yaw,Vector3::UNIT_Z));
-	yawMat.makeTransform(Vector3::ZERO,Vector3::UNIT_SCALE,Quaternion(_Roll,Vector3::UNIT_X));
-
-	totalMat = posMat * rollMat * yawMat;
-
-	return totalMat;
+	return camTransform;
 }
 
 Ogre::Radian CameraController::getRoll()
