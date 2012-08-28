@@ -164,19 +164,6 @@ bool CameraController::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 	OIS::Keyboard *keyboard = StateManager::getSingleton()->getInputManager().getKeyboard();
 	Ogre::Real timeElapsedInSecs = evnt.timeSinceLastEvent;
 
-	if(keyboard->isKeyDown(OIS::KC_LSHIFT) || keyboard->isKeyDown(OIS::KC_RSHIFT))
-	{
-		if(keyboard->isKeyDown(OIS::KC_UP))
-		{
-			_Pos.z = _Speed.z*timeElapsedInSecs;
-		}
-
-		if(keyboard->isKeyDown(OIS::KC_DOWN))
-		{
-			_Pos.z = -_Speed.z*timeElapsedInSecs;
-		}
-	}
-
 	if(keyboard->isKeyDown(OIS::KC_ADD))
 	{
 		_Speed += _SpeedIncrement;
@@ -189,6 +176,31 @@ bool CameraController::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 
 	checkNextSpeedBounds();
 
+	if(keyboard->isKeyDown(OIS::KC_LSHIFT) || keyboard->isKeyDown(OIS::KC_RSHIFT))
+	{
+		if(keyboard->isKeyDown(OIS::KC_UP))
+		{
+			_Pos.z = _Speed.z*timeElapsedInSecs;
+		}
+
+		if(keyboard->isKeyDown(OIS::KC_DOWN))
+		{
+			_Pos.z = -_Speed.z*timeElapsedInSecs;
+		}
+	}
+	else
+	{
+		if(keyboard->isKeyDown(OIS::KC_UP))
+		{
+			_Pos.x = _Speed.x*timeElapsedInSecs;
+		}
+
+		if(keyboard->isKeyDown(OIS::KC_DOWN))
+		{
+			_Pos.x = -_Speed.x*timeElapsedInSecs;
+		}
+	}
+
 	if(keyboard->isKeyDown(OIS::KC_RIGHT))
 	{
 		_Pos.y = -_Speed.y*timeElapsedInSecs;
@@ -197,16 +209,6 @@ bool CameraController::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 	if(keyboard->isKeyDown(OIS::KC_LEFT))
 	{
 		_Pos.y = _Speed.y*timeElapsedInSecs;
-	}
-
-	if(keyboard->isKeyDown(OIS::KC_UP))
-	{
-		_Pos.x = _Speed.x*timeElapsedInSecs;
-	}
-
-	if(keyboard->isKeyDown(OIS::KC_DOWN))
-	{
-		_Pos.x = -_Speed.x*timeElapsedInSecs;
 	}
 
 	return true;
@@ -256,7 +258,9 @@ void CameraController::moveCamera()
 		_RollNode->roll(_Roll);
 
 		// computing actual translation vector
-		_Pos = (_RollNode->getOrientation()*_YawNode->getOrientation())*_Pos;
+		_Pos = (_Pos.z*Ogre::Vector3::UNIT_Z) + (_RollNode->getOrientation()*_YawNode->getOrientation())
+				*(_Pos*(Ogre::Vector3::UNIT_X + Ogre::Vector3::UNIT_Y));
+
 		_PosNode->translate(_Pos,Ogre::SceneNode::TS_LOCAL);
 
 		// computing cumulative orientation and translation values
