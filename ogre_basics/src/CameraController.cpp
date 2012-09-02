@@ -48,6 +48,7 @@ CameraController::CameraController()
  _RollNode(0),
  _YawNode(0),
  _Camera(0),
+ _Viewport(0),
  _Pos(0.0f,0.0f,0.0f),
  _Yaw(Ogre::Real(0.0f)),
  _Roll(Ogre::Real(0.0f)),
@@ -101,7 +102,7 @@ void CameraController::setup()
 		Ogre::SceneManager *sceneManager = StateManager::getSingleton()->getSceneManager();
 		Ogre::RenderWindow *renderWindow = StateManager::getSingleton()->getRenderWindow();
 		Ogre::SceneNode *worldSceneNode = StateManager::getSingleton()->getParentSceneNode();
-		Ogre::Viewport *viewport = NULL;
+		//Ogre::Viewport *viewport = NULL;
 
 		// creating roll and yaw nodes
 		Ogre::Matrix4 initialTransform = CAMERA_NODE_INITIAL_TRANSFORM;
@@ -112,10 +113,10 @@ void CameraController::setup()
 
 		// setting up camera
 		_Camera = sceneManager->createCamera(_CamControllerNames.CameraName);
-		viewport = renderWindow->addViewport(_Camera);
+		//viewport = renderWindow->addViewport(_Camera);
 		_Camera->setNearClipDistance(CAMERA_NEAR_CLIP_DISTANCE);
 		_Camera->setFarClipDistance(CAMERA_FAR_CLIP_DISTANCE);
-		_Camera->setAspectRatio(((float)viewport->getActualWidth())/((float)viewport->getActualHeight()));
+		//_Camera->setAspectRatio(((float)viewport->getActualWidth())/((float)viewport->getActualHeight()));
 		Ogre::Matrix4 camTransform = CAMERA_RELATIVE_TRANSFORM;
 		_Camera->rotate(camTransform.extractQuaternion()); // rotation relative to parent node
 		_Camera->move(camTransform.getTrans());
@@ -138,7 +139,7 @@ void CameraController::cleanup()
 		worldSceneNode->removeChild(_PosNode);
 		_YawNode->detachObject(_Camera);
 
-		renderWindow->removeViewport(_Camera->getViewport()->getZOrder());
+//		renderWindow->removeViewport(_Camera->getViewport()->getZOrder());
 		sceneManager->destroyCamera(_Camera);
 		sceneManager->destroySceneNode(_YawNode); // this might throw a segmentation fault
 		sceneManager->destroySceneNode(_RollNode);
@@ -313,6 +314,13 @@ void CameraController::checkNextSpeedBounds()
 
 void CameraController::connectToScene()
 {
+	if(_Viewport == NULL)
+	{
+		Ogre::RenderTarget *renderWindow = StateManager::getSingleton()->getRenderWindow();
+		_Viewport = renderWindow->addViewport(_Camera);
+		_Camera->setAspectRatio(((float)_Viewport->getActualWidth())/((float)_Viewport->getActualHeight()));
+	}
+
 	if(_PosNode != NULL && !_PosNode->isInSceneGraph())
 	{
 		Ogre::SceneNode *worldNode = StateManager::getSingleton()->getParentSceneNode();
@@ -322,6 +330,14 @@ void CameraController::connectToScene()
 
 void CameraController::disconnectFromScene()
 {
+	// removing viewport
+	if(_Viewport != NULL)
+	{
+		Ogre::RenderWindow *renderWindow = StateManager::getSingleton()->getRenderWindow();
+		renderWindow->removeViewport(_Viewport->getZOrder());
+		_Viewport = NULL;
+	}
+
 	if(_PosNode != NULL && _PosNode->isInSceneGraph())
 	{
 		_PosNode->getParentSceneNode()->removeChild(_PosNode);

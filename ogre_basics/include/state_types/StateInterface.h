@@ -19,7 +19,8 @@ public:
 
 	virtual ~StateInterface()
 	{
-		_Instance = NULL;
+		_NextState = NULL;
+		_ChangeState = NULL;
 	}
 
 	// state control methods
@@ -35,6 +36,16 @@ public:
 	// frame callbacks
 	virtual bool frameStarted(const Ogre::FrameEvent &evnt) = 0;
 	virtual bool frameEnded(const Ogre::FrameEvent &evnt) = 0;
+
+	void setNextState(StateInterface* state)
+	{
+		_NextState = state;
+	}
+
+	void setChangeState(StateInterface *changeState)
+	{
+		_ChangeState = changeState;
+	}
 
 	static StateInterface* getSingleton()
 	{
@@ -53,7 +64,10 @@ public:
 
 
 protected:
-	StateInterface(){}
+	StateInterface()
+	:_NextState(0),
+	 _ChangeState(0)
+	{}
 
 	// removes current state and places it with the requested one instead
 	void changeState(StateInterface *state)
@@ -61,10 +75,28 @@ protected:
 		StateManager::getSingleton()->changeState(state);
 	}
 
+	void changeState()
+	{
+		if(_ChangeState != NULL)
+		{
+			StateManager::getSingleton()->changeState(_ChangeState);
+		}
+	}
+
 	// pauses the current state and pushes the requested one on top of the stack
 	bool pushState(StateInterface *state)
 	{
 		return StateManager::getSingleton()->pushState(state);
+	}
+
+	bool pushState()
+	{
+		if(_NextState != NULL)
+		{
+			return StateManager::getSingleton()->pushState(_NextState);
+		}
+
+		return false;
 	}
 
 	// pops the current state from the stack, yielding control to the next state
@@ -78,7 +110,9 @@ protected:
 		StateManager::getSingleton()->shutdown();
 	}
 
-	static StateInterface *_Instance;
+	//static StateInterface *_Instance;
+	StateInterface *_NextState; // next state to push into the stack
+	StateInterface *_ChangeState; // state to change with;
 	std::string _StateName;
 
 };

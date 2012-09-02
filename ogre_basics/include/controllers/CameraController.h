@@ -98,6 +98,7 @@ protected:
 	Ogre::SceneNode *_RollNode;
 	Ogre::SceneNode *_YawNode;
 	Ogre::Camera *_Camera;
+	Ogre::Viewport *_Viewport;
 
 	// motion variables:  All these variables are applied relative to the last movement
 	Ogre::Vector3 _Pos; //

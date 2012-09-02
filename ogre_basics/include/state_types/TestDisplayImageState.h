@@ -1,26 +1,23 @@
 /*
- * TestState.h
+ * TestDisplayImageState.h
  *
- *  Created on: Aug 19, 2012
+ *  Created on: Sep 1, 2012
  *      Author: coky
- *
- *  Description:
- *  	This state implementation creates a box and a plane in the scene.  It's purpose is to show the building
- *  	blocks of a state object and test the state manager.
  */
 
-#ifndef TESTSTATE_H_
-#define TESTSTATE_H_
+#ifndef TESTDISPLAYIMAGESTATE_H_
+#define TESTDISPLAYIMAGESTATE_H_
 
 #include <state_types/StateInterface.h>
-#include <controllers/CameraController.h>
+#include <OGRE/OgreMaterial.h>
 
+const std::string TEXTURE_NAME = "DiplayImage_1024x768.jpg";
 
-class TestState : public StateInterface
+class TestDisplayImageState : public StateInterface
 {
 public:
 
-	virtual ~TestState();
+	virtual ~TestDisplayImageState();
 
 	// state control methods
 	virtual void enter();
@@ -45,22 +42,24 @@ public:
 	static const std::string STATE_TYPE_NAME;
 
 protected:
-	TestState();
 
-	void setupSceneComponents();
-	void setupCameraControllers();
-	void cleanupSceneComponents();
-	void cleanupCameraControllers();
-	void moveCamera();
+	// constructor
+	TestDisplayImageState();
 
-	// ogre stuff
-	Ogre::SceneNode *_ParentSceneNode;
+	// ogre members
+	Ogre::SceneNode *_SceneNode;
+	Ogre::Material *_BackgroundMaterial;
+	Ogre::Rectangle2D *_DrawingRectangle;
+	Ogre::Camera *_DisplayCamera;
 
-	// controllers
-	CameraController _CameraController;
+	// string names
+	std::string _ImageName;
+	std::string _MaterialName;
+	std::string _NodeName;
+	std::string _CameraName;
 
 	// singleton instance
 	static StateInterface *_Instance;
 };
 
-#endif /* TESTSTATE_H_ */
+#endif /* TESTDISPLAYIMAGESTATE_H_ */

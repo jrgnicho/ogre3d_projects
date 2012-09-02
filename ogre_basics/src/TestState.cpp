@@ -7,7 +7,8 @@
 
 #include <state_types/TestState.h>
 
-StateInterface* StateInterface::_Instance = NULL;
+const std::string TestState::STATE_TYPE_NAME = "TestState";
+StateInterface* TestState::_Instance = NULL;
 
 TestState::TestState()
 :StateInterface(),
@@ -102,6 +103,17 @@ void TestState::moveCamera()
 	_CameraController.moveCamera();
 }
 
+bool TestState::pause()
+{
+	exit();
+	return true;
+}
+
+void TestState::resume()
+{
+	enter();
+}
+
 void TestState::enter()
 {
 	if(_ParentSceneNode != NULL && !_ParentSceneNode->isInSceneGraph())
@@ -142,19 +154,34 @@ bool TestState::frameEnded(const Ogre::FrameEvent &evnt)
 	return true;
 }
 
+bool TestState::keyPressed(const OIS::KeyEvent &evnt)
+{
+	if(evnt.key == OIS::KC_ESCAPE)
+	{
+		popState();
+		return true;
+	}
+
+	if(evnt.key == OIS::KC_N)
+	{
+		changeState();
+		return true;
+	}
+
+	if(evnt.key == OIS::KC_P)
+	{
+		pushState();
+		return true;
+	}
+}
+
 bool TestState::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 {
 	OIS::Keyboard *keyboard = (StateManager::getSingleton()->getInputManager()).getKeyboard();
-	if(keyboard->isKeyDown(OIS::KC_ESCAPE))
+
+	if(!_CameraController.processUnbufferedKeyInput(evnt))
 	{
-		StateManager::getSingleton()->shutdown();
-	}
-	else
-	{
-		if(!_CameraController.processUnbufferedKeyInput(evnt))
-		{
-			return false;
-		}
+		return false;
 	}
 	return true;
 }

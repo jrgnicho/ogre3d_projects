@@ -21,7 +21,7 @@ namespace OgreDefaults
 	const std::string PLUGINS_FILE = "plugins.cfg";
 	const std::string CONFIGURATION_FILE = "ogre.cfg";
 	const std::string LOG_FILE = "Ogre.log";
-	const std::string RESOURCES_FILE = "resources.cfg";
+	const std::string RESOURCES_FILE = "resources_local.cfg";
 	const std::string WINDOW_NAME = "Ogre Window";
 	const std::string SCENE_MANAGER_NAME = "WorldScene";
 	const Ogre::ColourValue SCENE_AMBIENT_LIGHT_COLOR = Ogre::ColourValue(1.0f,1.0f,1.0f);

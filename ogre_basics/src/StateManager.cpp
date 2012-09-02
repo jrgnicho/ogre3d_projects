@@ -200,6 +200,8 @@ void StateManager::start(StateInterface *state)
 
 void StateManager::changeState(StateInterface *state)
 {
+	std::cout<<"State Manager: Changing to state "<<state->getStateName()<<"\n";
+
 	// remove and exit current state
 	if(!_StateStack.empty())
 	{
@@ -212,6 +214,8 @@ void StateManager::changeState(StateInterface *state)
 	_StateStack.push_back(state);
 	addEventHandler(state);
 	_StateStack.back()->enter();
+
+	std::cout<<"State Manager: Done changing state instance"<<"\n";
 }
 
 bool StateManager::pushState(StateInterface *state)

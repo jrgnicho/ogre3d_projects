@@ -8,8 +8,8 @@
 #ifndef IOMANAGER_H_
 #define IOMANAGER_H_
 
-#define USING_UNBUFFERRED
-//#define USING_BUFFERRED
+//#define USING_UNBUFFERRED
+#define USING_BUFFERRED
 
 #include <OGRE/Ogre.h>
 #include <OIS/OIS.h>
