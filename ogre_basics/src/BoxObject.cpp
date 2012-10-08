@@ -1,0 +1,47 @@
+/*
+ * BoxObject.cpp
+ *
+ *  Created on: Oct 7, 2012
+ *      Author: coky
+ */
+
+#include <game_objects/BoxObject.h>
+#include <OgreSceneManager.h>
+#include <state_management/StateManager.h>
+#include <BulletCollision/CollisionShapes/btBoxShape.h>
+
+BoxObject::BoxObject(btVector3 sides,GameObject::DynamicType type,btScalar mass)
+:GameObject(type,mass),
+_BoxSides(sides),
+_CollisionShape(BOX_SHAPE_PROXYTYPE)
+{
+	// TODO Auto-generated constructor stub
+
+}
+
+BoxObject::~BoxObject() {
+	// TODO Auto-generated destructor stub
+}
+
+void BoxObject::initialise()
+{
+	// visual components
+	{
+		_SceneNode = StateManager::getSingleton()->getSceneManager()->createSceneNode(_Name);
+		// add entity object that contains box mesh, later on
+	}
+
+	// dynamic components
+	{
+		_CollisionShape = new btBoxShape(_BoxSides);
+		if(this->_CollisionType == GameObject::DYNAMIC)// compute inertia
+		{
+			_CollisionShape->calculateLocalInertia(_Mass,_Inertia);
+		}
+
+		// initialize the following
+		// motion state
+		// rigid body
+	}
+
+}

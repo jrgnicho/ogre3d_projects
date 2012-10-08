@@ -11,6 +11,7 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
 rosbuild_init()
 
+# start of ogre setup
 project(OGRE_BASIC)
 
 if(UNIX)
@@ -30,6 +31,17 @@ if(UNIX)
 	else ()
 	  message(SEND_ERROR "Failed to find module path.")
 	endif(EXISTS "/usr/local/lib/OGRE")
+
+
+	############ adding bullet physics paths ############
+	if(EXISTS "/usr/local/include/bullet")
+	  set(BULLET_PHYSICS_INCLUDE_DIRS "/usr/local/include/bullet")
+	  set(BULLET_PHYSICS_LIBRARIES "/usr/local/lib/")
+	else()
+	  message(SEND_ERROR "Failed to find bullet path")
+	endif(EXISTS "/usr/local/include/bullet")
+	############ end of bullet physics paths ############
+
 endif(UNIX)
 
 #if (CMAKE_BUILD_TYPE STREQUAL "")
@@ -69,6 +81,25 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
 	set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 
+###################### start of bullet setup ###################### 
+
+#include_directories(
+#${BULLET_PHYSICS_SOURCE_DIR}/Extras  
+#${BULLET_PHYSICS_SOURCE_DIR}/Extras/GIMPACTUtils  
+#${BULLET_PHYSICS_SOURCE_DIR}/Extras/HACD
+#${BULLET_PHYSICS_SOURCE_DIR}/Extras/ConvexDecomposition  
+#${BULLET_PHYSICS_SOURCE_DIR}/Extras/LibXML 
+#${BULLET_PHYSICS_SOURCE_DIR}/Extras/LibXML/include 
+#${BULLET_PHYSICS_SOURCE_DIR}/src 
+#${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL 
+#${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletFileLoader
+#${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletWorldImporter
+#${VECTOR_MATH_INCLUDE})
+
+#link_directories(${BULLET_PHYSICS_LIBRARIES})
+#add_definitions(${BULLET_PHYSICS_DEFINITIONS})
+######################  end of bullet setup ###################### 
+
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
@@ -92,6 +123,9 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 find_package(OGRE REQUIRED)
 find_package(OIS REQUIRED)
 
+include_directories(${BULLET_PHYSICS_INCLUDE_DIRS})
+link_directories(${BULLET_PHYSICS_LIBRARIES})
+
 include_directories(${OGRE_INCLUDE_DIRS})
 link_directories(${OGRE_LIBRARIES})
 add_definitions(${OGRE_DEFINITIONS})
@@ -101,10 +135,10 @@ link_directories( ${OIS_LIBRARIES} )
 add_definitions(${OGRE_DEFINITIONS})
 
 add_library(StateManager src/StateManager.cpp src/TestState.cpp src/TestDisplayImageState.cpp src/InputManager.cpp src/CameraController.cpp)
-target_link_libraries(StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES})
+target_link_libraries(StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
 add_executable(test_class src/test_class.cpp)
-target_link_libraries(test_class ${OIS_LIBRARIES} ${OGRE_LIBRARIES}  StateManager)
+target_link_libraries(test_class ${OIS_LIBRARIES} ${OGRE_LIBRARIES}  ${BULLET_PHYSICS_LIBRARIES} StateManager)
 
 #post build
 #file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
