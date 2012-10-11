@@ -10,10 +10,9 @@
 #include <state_management/StateManager.h>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 
-BoxObject::BoxObject(btVector3 sides,GameObject::DynamicType type,btScalar mass,btTransform t)
-:GameObject(type,mass,t,name),
-_BoxSides(sides),
-_CollisionShape(BOX_SHAPE_PROXYTYPE)
+BoxObject::BoxObject(btVector3 sides,GameObject::DynamicType type,btScalar mass,btTransform t,std::string name)
+:GameObject(BOX_SHAPE_PROXYTYPE,type,mass,t,name),
+_BoxSides(sides)
 {
 	// TODO Auto-generated constructor stub
 
@@ -34,7 +33,7 @@ void BoxObject::initialise()
 	// dynamic components
 	{
 		_CollisionShape = new btBoxShape(_BoxSides);
-		if(this->_CollisionType == GameObject::DYNAMIC)// compute inertia
+		if(this->_DynamicType == GameObject::DYNAMIC)// compute inertia
 		{
 			_CollisionShape->calculateLocalInertia(_Mass,_Inertia);
 		}

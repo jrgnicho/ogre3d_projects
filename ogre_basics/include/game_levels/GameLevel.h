@@ -22,12 +22,11 @@
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <BulletDynamics/ConstraintSolver/btConstraintSolver.h>
 
-int GameLevel::_InstanceCount = 0;
 class GameLevel: public GameObject
 {
 public:
 	GameLevel(btTransform t = btTransform(),std::string name = "")
-	:GameObject(GameObject::STATIC,0.0f,name.empty() ? getName() : name)
+	:GameObject(BroadphaseNativeTypes::STATIC_PLANE_PROXYTYPE,GameObject::STATIC,0.0f,name.empty() ? getName() : name)
 	{
 		// TODO Auto-generated constructor stub
 		_InstanceCount++;
@@ -76,5 +75,7 @@ private:
 
 	static int _InstanceCount;
 };
+
+int GameLevel::_InstanceCount = 0;
 
 #endif /* GAMELEVEL_H_ */

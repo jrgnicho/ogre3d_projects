@@ -18,7 +18,6 @@
 /*
  * Game Object Superclass interface
  */
-int GameObject::_ObjectCount = 0;
 
 class GameMotionState: public btMotionState
 {
@@ -31,7 +30,7 @@ public:
 
 	}
 
-	~GameMotionState()
+	virtual ~GameMotionState()
 	{
 
 	}
@@ -43,14 +42,14 @@ public:
 			return;
 		}
 
-		btQuaternion &q = worldTransform.getRotation();
-		btVector3 &p = worldTransform.getOrigin();
+		btQuaternion q = worldTransform.getRotation();
+		const btVector3 &p = worldTransform.getOrigin();
 
 		_SceneNode->setPosition(p.x(),p.y(),p.z());
 		_SceneNode->setOrientation(q.w(),q.x(),q.y(),q.z());
 	}
 
-	virtual void getWorldTransform(btTransform &transform)
+	virtual void getWorldTransform(btTransform &transform) const
 	{
 		if(_SceneNode == NULL)
 		{
@@ -61,7 +60,7 @@ public:
 		Ogre::Vector3 p = _SceneNode->getPosition();
 		Ogre::Quaternion q = _SceneNode->getOrientation();
 
-		transform.setOrigin(p.x,p.y,p.z);
+		transform.setOrigin(btVector3(p.x,p.y,p.z));
 		transform.setRotation(btQuaternion(q.x,q.y,q.z,q.w));
 	}
 
@@ -89,9 +88,13 @@ public:
 
 public:
 
-	GameObject(DynamicType type = NONE,btScalar mass = 0.0f,btTransform transform = btTransform(),std::string name = "")
+	GameObject(BroadphaseNativeTypes collisionType = INVALID_SHAPE_PROXYTYPE,
+			DynamicType type = NONE,
+			btScalar mass = 0.0f,
+			btTransform transform = btTransform(),
+			std::string name = "")
 	:_DynamicType(type),
-	 _CollisionType(INVALID_SHAPE_PROXYTYPE),
+	 _CollisionType(collisionType),
 	 _CollisionShape(NULL),
 	 _MotionState(NULL),
 	 _RigidBody(NULL),
@@ -190,11 +193,11 @@ protected:
 	btTransform _Transform;
 
 	// visual components
-	Ogre::SceneNode *_SceneNode
+	Ogre::SceneNode *_SceneNode;
 
 	// dynamic components
 	GameObject::DynamicType _DynamicType;
-	BroadphaseNativeTypes _CollisionType
+	BroadphaseNativeTypes _CollisionType;
 
 	btRigidBody* _RigidBody;
 	btCollisionShape* _CollisionShape;
@@ -207,5 +210,7 @@ protected:
 private:
 	static int _ObjectCount;
 };
+
+int GameObject::_ObjectCount = 0;
 
 #endif /* GAMEOBJECT_H_ */
