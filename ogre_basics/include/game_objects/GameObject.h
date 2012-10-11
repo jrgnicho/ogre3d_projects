@@ -43,11 +43,26 @@ public:
 			return;
 		}
 
-		btQuaternion q = worldTransform.getRotation();
-		btVector3 p = worldTransform.getOrigin();
+		btQuaternion &q = worldTransform.getRotation();
+		btVector3 &p = worldTransform.getOrigin();
 
 		_SceneNode->setPosition(p.x(),p.y(),p.z());
 		_SceneNode->setOrientation(q.w(),q.x(),q.y(),q.z());
+	}
+
+	virtual void getWorldTransform(btTransform &transform)
+	{
+		if(_SceneNode == NULL)
+		{
+			transform = _StartTransform;
+			return;
+		}
+
+		Ogre::Vector3 p = _SceneNode->getPosition();
+		Ogre::Quaternion q = _SceneNode->getOrientation();
+
+		transform.setOrigin(p.x,p.y,p.z);
+		transform.setRotation(btQuaternion(q.x,q.y,q.z,q.w));
 	}
 
 	void setSceneNode(Ogre::SceneNode *sceneNode)
@@ -74,17 +89,18 @@ public:
 
 public:
 
-	GameObject(DynamicType type = NONE,btScalar mass = 0.0f)
+	GameObject(DynamicType type = NONE,btScalar mass = 0.0f,btTransform transform = btTransform(),std::string name = "")
 	:_DynamicType(type),
 	 _CollisionType(INVALID_SHAPE_PROXYTYPE),
 	 _CollisionShape(NULL),
 	 _MotionState(NULL),
 	 _RigidBody(NULL),
+	 _Transform(transform),
 	 _Mass(mass),
 	 _Inertia(0.0f,0.0f,0.0f),
 	 _LinearFactor(1,0,1), // no motion along y
 	 _AngularFactor(0,1,0), // rotation about y only
-	 _Name(generateName()),
+	 _Name(name.empty() ? generateName(): name),
 	 _SceneNode(NULL)
 	{
 		_ObjectCount++;
@@ -107,29 +123,71 @@ public:
 		return _MotionState;
 	}
 
-	std::string getName()
+	virtual std::string getName()
 	{
 		return _Name;
 	}
 
-	void setName(std::string name)
+	virtual btTransform getTransform()
 	{
-		_Name = name;
+		if(_MotionState != NULL)
+		{
+			_MotionState->getWorldTransform(_Transform);
+		}
+
+		return _Transform;
+	}
+
+	virtual void setTransform(btTransform &t)
+	{
+		if(_MotionState != NULL)
+		{
+			_MotionState->setWorldTransform(t);
+		}
+	}
+
+	virtual void setMass(btScalar mass)
+	{
+		_Mass = mass;
+	}
+
+	virtual btScalar getMass()
+	{
+		return _Mass;
+	}
+
+	virtual void setLinearFactor(btVector3 &factor)
+	{
+		_LinearFactor = factor;
+	}
+
+	virtual const btVector3& getLinearFactor()
+	{
+		return _LinearFactor;
+	}
+
+	virtual void setAngularFactor(btVector3 &factor)
+	{
+		_AngularFactor = factor;
+	}
+
+	virtual const btVector3& getAngularFactor()
+	{
+		return _AngularFactor;
 	}
 
 	static std::string generateName()
 	{
 		std::stringstream name;
-		name<<"Object"<<_ObjectCount;
+		name<<"GameObject"<<_ObjectCount;
 		return name.str();
 	}
 
 protected:
 
-	static int _ObjectCount;
-
 	// general
 	std::string _Name;
+	btTransform _Transform;
 
 	// visual components
 	Ogre::SceneNode *_SceneNode
@@ -146,6 +204,8 @@ protected:
 	btVector3 _AngularFactor; // determines allowed angular motion in axis
 	GameMotionState* _MotionState;
 
+private:
+	static int _ObjectCount;
 };
 
 #endif /* GAMEOBJECT_H_ */

@@ -10,8 +10,8 @@
 #include <state_management/StateManager.h>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 
-BoxObject::BoxObject(btVector3 sides,GameObject::DynamicType type,btScalar mass)
-:GameObject(type,mass),
+BoxObject::BoxObject(btVector3 sides,GameObject::DynamicType type,btScalar mass,btTransform t)
+:GameObject(type,mass,t,name),
 _BoxSides(sides),
 _CollisionShape(BOX_SHAPE_PROXYTYPE)
 {
@@ -41,7 +41,11 @@ void BoxObject::initialise()
 
 		// initialize the following
 		// motion state
+		_MotionState = new GameMotionState(_Transform,_SceneNode);
+
 		// rigid body
+		btRigidBody::btRigidBodyConstructionInfo consInfo(_Mass,_MotionState,_CollisionShape,_Inertia);
+		_RigidBody = new btRigidBody(consInfo);
 	}
 
 }

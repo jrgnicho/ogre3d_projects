@@ -14,7 +14,7 @@ class BoxObject : public GameObject
 public:
 	BoxObject(btVector3 sides = btVector3(1,1,1),
 			GameObject::DynamicType type = GameObject::KINEMATIC,
-			btScalar mass = 0.0f);
+			btScalar mass = 0.0f,btTransform t = btTransform(),std::string name = "");
 
 	virtual ~BoxObject();
 
