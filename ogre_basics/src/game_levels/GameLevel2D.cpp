@@ -66,7 +66,7 @@ void GameLevel2D::initialise()
 	// create plane here;
 
 	// initializing objects
-	for(std::map<std::string,GameObject*>::iterator i = _GameObjects.begin(); i != _GameObjects.end(); i++)
+	for(std::map<std::string,GameObject::Ptr>::iterator i = _GameObjects.begin(); i != _GameObjects.end(); i++)
 	{
 		registerGameObject(i->second);
 	}
@@ -74,7 +74,7 @@ void GameLevel2D::initialise()
 	_Initialized = true;
 }
 
-void GameLevel2D::addGameObject(GameObject *obj)
+void GameLevel2D::addGameObject(GameObject::Ptr obj)
 {
 	if(_GameObjects.count(obj->getName()) == 0)
 	{
@@ -86,7 +86,7 @@ void GameLevel2D::addGameObject(GameObject *obj)
 	}
 }
 
-void GameLevel2D::removeGameObject(GameObject *obj)
+void GameLevel2D::removeGameObject(GameObject::Ptr obj)
 {
 	if(_GameObjects.count(obj->getName()) > 0)
 	{
@@ -98,7 +98,7 @@ void GameLevel2D::removeGameObject(GameObject *obj)
 	}
 }
 
-void GameLevel2D::registerGameObject(GameObject* obj)
+void GameLevel2D::registerGameObject(GameObject::Ptr obj)
 {
 	if(!obj->_Initialized)
 	{
@@ -120,7 +120,7 @@ void GameLevel2D::registerGameObject(GameObject* obj)
 	obj->setAngularFactor(_AngularFactor);
 }
 
-void GameLevel2D::unregisterGameObject(GameObject *obj)
+void GameLevel2D::unregisterGameObject(GameObject::Ptr obj)
 {
 	if(obj->getSceneNode() != NULL)
 	{

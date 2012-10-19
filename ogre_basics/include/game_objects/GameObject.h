@@ -14,6 +14,7 @@
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btTransform.h>
+#include <boost/shared_ptr.hpp>
 
 /*
  * Game Object Superclass interface
@@ -86,6 +87,9 @@ public:
 		DYNAMIC = 4
 	};
 
+	typedef boost::shared_ptr<GameObject> Ptr;
+	typedef GameObject::Ptr GameObjectPtr;
+
 public:
 
 	GameObject(BroadphaseNativeTypes collisionType = INVALID_SHAPE_PROXYTYPE,
@@ -117,11 +121,11 @@ public:
 	virtual void initialise() = 0;
 	virtual void finalize()
 	{
-		if(StateManager::getSingleton()->getSceneManager() != NULL && _SceneNode != NULL)
-		{
-			StateManager::getSingleton()->getSceneManager()->destroySceneNode(_SceneNode);
-			_SceneNode = NULL;
-		}
+//		if(StateManager::getSingleton()->getSceneManager() != NULL && _SceneNode != NULL)
+//		{
+//			StateManager::getSingleton()->getSceneManager()->destroySceneNode(_SceneNode);
+//			_SceneNode = NULL;
+//		}
 
 		if(_CollisionShape != NULL)
 		{

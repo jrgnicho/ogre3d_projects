@@ -21,6 +21,7 @@
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <BulletDynamics/ConstraintSolver/btConstraintSolver.h>
+#include <boost/shared_ptr.hpp>
 
 class GameLevel: public GameObject
 {
@@ -46,9 +47,9 @@ public:
 
 	}
 
-	virtual void addGameObject(GameObject* obj);
+	virtual void addGameObject(GameObject::Ptr obj);
 
-	virtual void removeGameObject(GameObject* obj);
+	virtual void removeGameObject(GameObject::Ptr obj);
 
 	static std::string generateName()
 	{
@@ -60,7 +61,7 @@ public:
 protected:
 
 	// object container
-	std::map<std::string,GameObject*> _GameObjects;
+	std::map<std::string,GameObject::Ptr> _GameObjects;
 
 	// simulation elements
 	btBroadphaseInterface* _BroadphaseInterface;

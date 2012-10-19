@@ -19,14 +19,14 @@ public:
 
 	virtual void initialise();
 
-	virtual void addGameObject(GameObject* obj);
+	virtual void addGameObject(GameObject::Ptr obj);
 
-	virtual void removeGameObject(GameObject* obj);
+	virtual void removeGameObject(GameObject::Ptr obj);
 
 protected:
 
-	void registerGameObject(GameObject* obj);
-	void unregisterGameObject(GameObject* obj);
+	void registerGameObject(GameObject::Ptr obj);
+	void unregisterGameObject(GameObject::Ptr obj);
 
 private:
 
