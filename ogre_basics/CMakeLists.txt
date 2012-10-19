@@ -137,7 +137,7 @@ add_definitions(${OGRE_DEFINITIONS})
 add_library(StateManager src/StateManager.cpp src/TestState.cpp src/TestDisplayImageState.cpp src/InputManager.cpp src/CameraController.cpp)
 target_link_libraries(StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
-add_library(GameElements src/BoxObject.cpp)
+add_library(GameElements src/game_objects/BoxObject.cpp)
 target_link_libraries(GameElements StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
 add_executable(test_class src/test_class.cpp)

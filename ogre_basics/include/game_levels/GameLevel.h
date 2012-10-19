@@ -26,7 +26,15 @@ class GameLevel: public GameObject
 {
 public:
 	GameLevel(btTransform t = btTransform(),std::string name = "")
-	:GameObject(BroadphaseNativeTypes::STATIC_PLANE_PROXYTYPE,GameObject::STATIC,0.0f,name.empty() ? getName() : name)
+	:GameObject(BroadphaseNativeTypes::STATIC_PLANE_PROXYTYPE,
+			GameObject::STATIC,0.0f,
+			name.empty() ? generateName() : name),
+	_SolverIterations(20),
+	_SolverMode(SOLVER_SIMD | SOLVER_USE_WARMSTARTING),
+	_EnableSpu(true),
+	_TimeStep(btScalar(1.0f)/btScalar(240.0f)),
+	_MaxSubSteps(4),
+	_FixedTimeStep(btScalar(1.0f)/btScalar(80.0f))
 	{
 		// TODO Auto-generated constructor stub
 		_InstanceCount++;
@@ -38,20 +46,15 @@ public:
 
 	}
 
-	virtual std::string getName()
+	virtual void addGameObject(GameObject* obj);
+
+	virtual void removeGameObject(GameObject* obj);
+
+	static std::string generateName()
 	{
 		std::stringstream name;
 		name<<"GameLevel"<<_InstanceCount;
 		return name.str();
-	}
-
-	virtual void addGameObject(GameObject* obj)
-	{
-		_GameObjects.insert(std::make_pair(obj->getName(),obj));
-		if(_SceneNode != NULL)
-		{
-			_SceneNode->addChild(obj->getSceneNode());
-		}
 	}
 
 protected:
@@ -70,6 +73,12 @@ protected:
 	btScalar _TimeStep;
 	btScalar _FixedTimeStep;
 	int _MaxSubSteps;
+
+	// dynamic properties
+	btVector3 _Gravity;
+	int _SolverIterations;
+	int _SolverMode;
+	bool _EnableSpu;
 
 private:
 

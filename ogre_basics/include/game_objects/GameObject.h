@@ -111,10 +111,36 @@ public:
 
 	virtual ~GameObject()
 	{
-
+		finalize();
 	}
 
-	virtual void initialise();
+	virtual void initialise() = 0;
+	virtual void finalize()
+	{
+		if(StateManager::getSingleton()->getSceneManager() != NULL && _SceneNode != NULL)
+		{
+			StateManager::getSingleton()->getSceneManager()->destroySceneNode(_SceneNode);
+			_SceneNode = NULL;
+		}
+
+		if(_CollisionShape != NULL)
+		{
+			delete _CollisionShape;
+			_CollisionShape == NULL;
+		}
+
+		if(_RigidBody != NULL)
+		{
+			delete _RigidBody;
+			_RigidBody = NULL;
+		}
+
+		if(_MotionState != NULL)
+		{
+			delete _MotionState;
+			_MotionState = NULL;
+		}
+	}
 
 	Ogre::SceneNode* getSceneNode()
 	{
@@ -188,6 +214,7 @@ public:
 
 protected:
 
+
 	// general
 	std::string _Name;
 	btTransform _Transform;
@@ -206,6 +233,9 @@ protected:
 	btVector3 _LinearFactor; // determines allowed linear motion in axis, use (1,0,1) for 2D no y movement
 	btVector3 _AngularFactor; // determines allowed angular motion in axis
 	GameMotionState* _MotionState;
+
+	// object state
+	bool _Initialized;
 
 private:
 	static int _ObjectCount;
