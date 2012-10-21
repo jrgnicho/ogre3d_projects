@@ -134,10 +134,13 @@ include_directories(${OIS_INCLUDE_DIRS})
 link_directories( ${OIS_LIBRARIES} )
 add_definitions(${OGRE_DEFINITIONS})
 
-add_library(StateManager src/StateManager.cpp src/TestState.cpp src/TestDisplayImageState.cpp src/InputManager.cpp src/CameraController.cpp)
+add_library(StateManager src/state_management/StateManager.cpp src/state_types/TestState.cpp
+	src/state_types/TestDisplayImageState.cpp 
+	src/input_handling/InputManager.cpp 
+	src/controllers/CameraController.cpp)
 target_link_libraries(StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
-add_library(GameElements src/game_objects/BoxObject.cpp)
+add_library(GameElements src/game_levels/GameLevel2D.cpp src/game_objects/BoxObject.cpp)
 target_link_libraries(GameElements StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
 add_executable(test_class src/test_class.cpp)

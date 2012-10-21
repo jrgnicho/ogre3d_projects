@@ -15,6 +15,7 @@
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btTransform.h>
 #include <boost/shared_ptr.hpp>
+#include <utilities/OgreBulletConversions.h>
 
 /*
  * Game Object Superclass interface
@@ -24,11 +25,13 @@ class GameMotionState: public btMotionState
 {
 
 public:
-	GameMotionState(const btTransform startTrans = btTransform(),Ogre::SceneNode *node = NULL)
-	:_StartTransform(startTrans),
-	 _SceneNode(node)
+	GameMotionState(Ogre::SceneNode *node = NULL)
+	:_SceneNode(node)
 	{
-
+		_StartTransform.setOrigin(
+				OgreBulletConversions::convertOgreVecToBulletVec(node->getPosition()));
+		_StartTransform.setRotation(
+				OgreBulletConversions::convertOgreQuatToBulletQuat( node->getOrientation()));
 	}
 
 	virtual ~GameMotionState()
@@ -99,9 +102,9 @@ public:
 			std::string name = "")
 	:_DynamicType(type),
 	 _CollisionType(collisionType),
-	 _CollisionShape(NULL),
-	 _MotionState(NULL),
-	 _RigidBody(NULL),
+	 _CollisionShape(),
+	 _MotionState(),
+	 _RigidBody(),
 	 _Transform(transform),
 	 _Mass(mass),
 	 _Inertia(0.0f,0.0f,0.0f),
@@ -118,6 +121,11 @@ public:
 		finalize();
 	}
 
+	bool isInitialized()
+	{
+		return _Initialized;
+	}
+
 	virtual void initialise() = 0;
 	virtual void finalize()
 	{
@@ -127,23 +135,23 @@ public:
 //			_SceneNode = NULL;
 //		}
 
-		if(_CollisionShape != NULL)
-		{
-			delete _CollisionShape;
-			_CollisionShape == NULL;
-		}
-
-		if(_RigidBody != NULL)
-		{
-			delete _RigidBody;
-			_RigidBody = NULL;
-		}
-
-		if(_MotionState != NULL)
-		{
-			delete _MotionState;
-			_MotionState = NULL;
-		}
+//		if(_CollisionShape != NULL)
+//		{
+//			delete _CollisionShape;
+//			_CollisionShape = NULL;
+//		}
+//
+//		if(_RigidBody != NULL)
+//		{
+//			delete _RigidBody;
+//			_RigidBody = NULL;
+//		}
+//
+//		if(_MotionState != NULL)
+//		{
+//			delete _MotionState;
+//			_MotionState = NULL;
+//		}
 	}
 
 	Ogre::SceneNode* getSceneNode()
@@ -153,7 +161,12 @@ public:
 
 	GameMotionState* getMotionState()
 	{
-		return _MotionState;
+		return _MotionState.get();
+	}
+
+	btRigidBody* getRigidBody()
+	{
+		return _RigidBody.get();
 	}
 
 	virtual std::string getName()
@@ -230,13 +243,13 @@ protected:
 	GameObject::DynamicType _DynamicType;
 	BroadphaseNativeTypes _CollisionType;
 
-	btRigidBody* _RigidBody;
-	btCollisionShape* _CollisionShape;
+	boost::shared_ptr<btRigidBody> _RigidBody;
+	boost::shared_ptr<btCollisionShape> _CollisionShape;
+	boost::shared_ptr<GameMotionState> _MotionState;
 	btScalar _Mass;
 	btVector3 _Inertia;
 	btVector3 _LinearFactor; // determines allowed linear motion in axis, use (1,0,1) for 2D no y movement
 	btVector3 _AngularFactor; // determines allowed angular motion in axis
-	GameMotionState* _MotionState;
 
 	// object state
 	bool _Initialized;

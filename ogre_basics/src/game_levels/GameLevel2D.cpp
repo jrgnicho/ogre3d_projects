@@ -9,10 +9,10 @@
 #include <BulletCollision/btBulletCollisionCommon.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletCollision/CollisionShapes/btStaticPlaneShape.h>
+#include <state_management/StateManager.h>
 
 GameLevel2D::GameLevel2D(btTransform &trans,std::string name)
-:GameLevel(trans,name),
- _Gravity(0.0f,-9.81f,0.0f)
+:GameLevel(trans,name)
 {
 	// TODO Auto-generated constructor stub
 	_LinearFactor = btVector3(1.0f,1.0f,0.0f); // limits motion to x-y plane only no motion in or out of the screen
@@ -24,7 +24,8 @@ GameLevel2D::GameLevel2D(btTransform &trans,std::string name)
 	_MaxSubSteps = 4;
 	_FixedTimeStep = btScalar(1.0f)/btScalar(80.00f);
 	_DynamicType = GameObject::STATIC;
-	_CollisionType = BroadphaseNativeTypes::STATIC_PLANE_PROXYTYPE;
+	_CollisionType = STATIC_PLANE_PROXYTYPE;
+	 _Gravity = btVector3(0.0f,-9.81f,0.0f);
 }
 
 GameLevel2D::~GameLevel2D()
@@ -40,12 +41,15 @@ void GameLevel2D::initialise()
 	}
 
 	// initializing physics and collision
-	_CollisionConfiguration = new btDefaultCollisionConfiguration();
-	_BroadphaseInterface = new btDbvtBroadphase();
-	_CollisionDispatcher = new btCollisionDispatcher(_CollisionConfiguration);
-	_ConstraintSolver = new btSequentialImpulseConstraintSolver();
-	_DynamicsWorld = new btDiscreteDynamicsWorld(_CollisionDispatcher,_BroadphaseInterface,
-			_ConstraintSolver,_CollisionConfiguration);
+	_CollisionConfiguration = boost::shared_ptr<btCollisionConfiguration>(
+			new btDefaultCollisionConfiguration());
+	_BroadphaseInterface = boost::shared_ptr<btBroadphaseInterface>(new btDbvtBroadphase());
+	_CollisionDispatcher = boost::shared_ptr<btCollisionDispatcher>(new btCollisionDispatcher(_CollisionConfiguration.get()));
+	_ConstraintSolver = boost::shared_ptr<btConstraintSolver>(new btSequentialImpulseConstraintSolver());
+	_DynamicsWorld = boost::shared_ptr<btDiscreteDynamicsWorld>(new btDiscreteDynamicsWorld(_CollisionDispatcher.get(),
+			_BroadphaseInterface.get(),
+			_ConstraintSolver.get(),
+			_CollisionConfiguration.get()));
 
 	// setting dynamic simulation properties
 	_DynamicsWorld->getSolverInfo().m_numIterations = _SolverIterations;
@@ -54,15 +58,17 @@ void GameLevel2D::initialise()
 	_DynamicsWorld->setGravity(_Gravity);
 
 	// initialize collision object
-	_CollisionShape = new btStaticPlaneShape(btVector3(0.0f,1.0f,0.0f),0.0f);
+	_CollisionShape = boost::shared_ptr<btCollisionShape>(new btStaticPlaneShape(btVector3(0.0f,1.0f,0.0f),0.0f));
 	//_MotionState = new GameMotionState(_Transform,_SceneNode); // not sure if null motion state can be used for static objects
 
 	// rigid body
-	btRigidBody::btRigidBodyConstructionInfo consInfo(_Mass,_MotionState,_CollisionShape,_Inertia);
-	_RigidBody = new btRigidBody(consInfo);
+	btRigidBody::btRigidBodyConstructionInfo consInfo(_Mass,NULL,_CollisionShape.get(),_Inertia);
+	_RigidBody = boost::shared_ptr<btRigidBody>(new btRigidBody(consInfo));
 
 	// scene node
-	_SceneNode = StateManager::getSingleton()->getSceneManager()->createSceneNode(_Name);
+	_SceneNode = StateManager::getSingleton()->getParentSceneNode()->createChildSceneNode(_Name,
+			OgreBulletConversions::convertBulletVec3ToOgreVec3(_Transform.getOrigin()),
+			OgreBulletConversions::convertBulletQuatToOgreQuat(_Transform.getRotation()));
 	// create plane here;
 
 	// initializing objects
@@ -90,7 +96,7 @@ void GameLevel2D::removeGameObject(GameObject::Ptr obj)
 {
 	if(_GameObjects.count(obj->getName()) > 0)
 	{
-		if(obj->_Initialized)
+		if(obj->isInitialized())
 		{
 			unregisterGameObject(obj);
 		}
@@ -100,7 +106,7 @@ void GameLevel2D::removeGameObject(GameObject::Ptr obj)
 
 void GameLevel2D::registerGameObject(GameObject::Ptr obj)
 {
-	if(!obj->_Initialized)
+	if(!obj->isInitialized())
 	{
 		obj->initialise();
 	}
@@ -110,9 +116,9 @@ void GameLevel2D::registerGameObject(GameObject::Ptr obj)
 		_SceneNode->addChild(obj->getSceneNode());
 	}
 
-	if(obj->_RigidBody != NULL)
+	if(obj->getRigidBody() != NULL)
 	{
-		_DynamicsWorld->addRigidBody(obj->_RigidBody);
+		_DynamicsWorld->addRigidBody(obj->getRigidBody());
 	}
 
 	// enforcing 2d movement constrains
@@ -127,8 +133,8 @@ void GameLevel2D::unregisterGameObject(GameObject::Ptr obj)
 		_SceneNode->removeChild(obj->getSceneNode());
 	}
 
-	if(obj->_RigidBody != NULL)
+	if(obj->getRigidBody() != NULL)
 	{
-		_DynamicsWorld->removeRigidBody(obj->_RigidBody);
+		_DynamicsWorld->removeRigidBody(obj->getRigidBody());
 	}
 }
