@@ -36,7 +36,6 @@ public:
 	_SolverIterations(20),
 	_SolverMode(SOLVER_SIMD | SOLVER_USE_WARMSTARTING),
 	_EnableSpu(true),
-	_TimeStep(btScalar(1.0f)/btScalar(240.0f)),
 	_MaxSubSteps(4),
 	_FixedTimeStep(btScalar(1.0f)/btScalar(80.0f)),
 	_Gravity(0.0f,0.0f,9.81f)
@@ -54,6 +53,11 @@ public:
 	virtual void addGameObject(GameObject::Ptr obj) = 0;
 
 	virtual void removeGameObject(GameObject::Ptr obj) = 0;
+
+	virtual void stepSimulation(btScalar seconds)
+	{
+		_DynamicsWorld->stepSimulation(seconds,_MaxSubSteps,_FixedTimeStep);
+	}
 
 	static std::string generateName()
 	{
@@ -74,8 +78,8 @@ protected:
 	boost::shared_ptr<btConstraintSolver> _ConstraintSolver;
 	boost::shared_ptr<btDiscreteDynamicsWorld> _DynamicsWorld;
 
-	// simulation properties
-	btScalar _TimeStep;
+	// simulation properties:  explanation for the two parameters below can be found at:
+	//		http://bulletphysics.org/mediawiki-1.5.8/index.php/Stepping_the_World
 	btScalar _FixedTimeStep;
 	int _MaxSubSteps;
 
