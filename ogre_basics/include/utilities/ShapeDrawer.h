@@ -33,15 +33,27 @@ public:
 
 	static const std::string RESOURCE_GROUP_NAME;
 	static const std::string DEFAULT_SAVE_PATH;
+	static const std::string MESH_MATERIAL_NAME;
+	static const std::string MESH_BOX_NAME;
+	static const std::string MESH_SPHERE_NAME;
+	static const std::string MESH_PIRAMID_NAME;
+	static const std::string MESH_CAPSULE_NAME;
+	static const std::string MESH_CYLINDER_NAME;
+	static const std::string SERIALIZED_MESH_EXTENSION;
 
 protected:
 	ShapeDrawer();
+
+	boost::shared_ptr<ShapeDrawer> _InstancePtr;
 
 	Ogre::MeshPtr buildBox();
 	Ogre::MeshPtr buildSphere();
 	Ogre::MeshPtr buildCapsule();
 	Ogre::MeshPtr buildCylinder();
 	Ogre::MeshPtr buildPyramid();
+
+	static void computeNormals(const std::vector<Ogre::Vector3> &vertices, const std::vector<unsigned int> &faces,
+			std::vector<Ogre::Vector3> &normals);
 
 };
 
