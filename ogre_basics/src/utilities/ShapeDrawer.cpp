@@ -91,6 +91,8 @@ Ogre::MeshPtr ShapeDrawer::buildBox()
 
 Ogre::MeshPtr ShapeDrawer::buildSphere()
 {
+
+
 	Ogre::MeshPtr meshPtr;
 	return meshPtr;
 }
