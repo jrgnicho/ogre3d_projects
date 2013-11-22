@@ -15,11 +15,11 @@ rosbuild_init()
 project(OGRE_BASIC)
 
 if(UNIX)
-	if(EXISTS "/usr/local/lib/OGRE/cmake")
+	if(EXISTS "/usr/share/OGRE")
 
-	  set(CMAKE_MODULE_PATH "/usr/local/lib/OGRE/cmake/;${CMAKE_MODULE_PATH}")
-	  set(OGRE_SAMPLES_INCLUDEPATH "/usr/local/share/OGRE/samples/Common/include/") # We could just *assume* that developers uses this basepath : /usr/local
-	  set(OGRE_MEDIA_PATH "/usr/share/OGRE/")
+	  set(CMAKE_MODULE_PATH "/usr/share/OGRE/cmake/modules;${CMAKE_MODULE_PATH}")
+	  set(OGRE_SAMPLES_INCLUDEPATH "/usr/share/OGRE/Samples/Common/include/") # We could just *assume* that developers uses this basepath : /usr/local
+	  set(OGRE_MEDIA_PATH "/usr/share/OGRE")
 
 	elseif(EXISTS "/usr/lib/OGRE/cmake")
 
