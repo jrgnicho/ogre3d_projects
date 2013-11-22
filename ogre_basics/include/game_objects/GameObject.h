@@ -258,6 +258,6 @@ private:
 	static int _ObjectCount;
 };
 
-int GameObject::_ObjectCount = 0;
+
 
 #endif /* GAMEOBJECT_H_ */
