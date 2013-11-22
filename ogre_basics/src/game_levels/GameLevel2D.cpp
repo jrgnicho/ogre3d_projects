@@ -20,7 +20,7 @@ GameLevel2D::GameLevel2D(btTransform &trans,std::string name)
 	_SolverIterations = 20;
 	_SolverMode = SOLVER_SIMD | SOLVER_USE_WARMSTARTING;
 	_EnableSpu = true;
-	_TimeStep = btScalar(1.0f)/btScalar(240.00f);
+	//_TimeStep = btScalar(1.0f)/btScalar(240.00f);
 	_MaxSubSteps = 4;
 	_FixedTimeStep = btScalar(1.0f)/btScalar(80.00f);
 	_DynamicType = GameObject::STATIC;
