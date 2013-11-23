@@ -18,8 +18,8 @@ if(UNIX)
 	if(EXISTS "/usr/local/lib/OGRE")
 
 	  set(CMAKE_MODULE_PATH "/usr/local/lib/OGRE/cmake;${CMAKE_MODULE_PATH}")
-	  set(OGRE_SAMPLES_INCLUDEPATH "/usr/share/OGRE/Samples/Common/include/") # We could just *assume* that developers uses this basepath : /usr/local
-	  set(OGRE_MEDIA_PATH "/usr/share/OGRE")
+	  set(OGRE_SAMPLES_INCLUDEPATH "/usr/local/share/OGRE/Samples/Common/include/") # We could just *assume* that developers uses this basepath : /usr/local
+	  set(OGRE_MEDIA_PATH "/usr/local/share/OGRE")
 
 	elseif(EXISTS "/usr/lib/OGRE/cmake")
 
@@ -140,11 +140,20 @@ add_library(StateManager src/state_management/StateManager.cpp src/state_types/T
 	src/controllers/CameraController.cpp)
 target_link_libraries(StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
+add_library(OgreUtils src/utilities/MaterialCreator.cpp src/utilities/ShapeDrawer.cpp)
+target_link_libraries(OgreUtils ${OGRE_LIBRARIES})
+
 add_library(GameElements src/game_levels/GameLevel2D.cpp src/game_objects/BoxObject.cpp)
 target_link_libraries(GameElements StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
-add_executable(test_class src/test_class.cpp)
-target_link_libraries(test_class ${OIS_LIBRARIES} ${OGRE_LIBRARIES}  ${BULLET_PHYSICS_LIBRARIES} StateManager)
+add_executable(test_state_manager src/tests/test_state_manager.cpp)
+target_link_libraries(test_state_manager ${OIS_LIBRARIES} ${OGRE_LIBRARIES}  ${BULLET_PHYSICS_LIBRARIES} StateManager)
+
+add_executable(test_material_creator src/tests/test_material_creator.cpp)
+target_link_libraries(test_material_creator ${OGRE_LIBRARIES} StateManager OgreUtils)
+
+add_executable(test_shape_drawer src/tests/test_shape_drawer.cpp)
+target_link_libraries(test_shape_drawer ${OGRE_LIBRARIES} StateManager OgreUtils)
 
 #post build
 #file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
