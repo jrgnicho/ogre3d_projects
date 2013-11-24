@@ -6,6 +6,7 @@
  */
 
 #include <state_management/StateManager.h>
+#include <state_types/TestSceneState.h>
 #include <utilities/ShapeDrawer.h>
 
 int main(int argc,char** argv)
@@ -14,11 +15,21 @@ int main(int argc,char** argv)
 	StateManager *stateManager = StateManager::getSingleton();
 
 	// creating shape drawer
-	ShapeDrawer::ShapeDrawerPtr drawer_ptr = ShapeDrawer::getSingleton();
+	//ShapeDrawer::ShapeDrawerPtr drawer_ptr = ShapeDrawer::getSingleton();
 
 	// getting meshes
-	Ogre::MeshPtr cube_mesh_ptr = drawer_ptr->get_mesh(ShapeDrawer::BOX);
-	Ogre::MeshPtr grid_mesh_ptr = drawer_ptr->create_grid_mesh(20,20,40,40);
+	//Ogre::MeshPtr cube_mesh_ptr = drawer_ptr->get_mesh(ShapeDrawer::BOX);
+	//Ogre::MeshPtr grid_mesh_ptr = drawer_ptr->create_grid_mesh(20,20,40,40);
+
+	// creating test state scene
+	TestSceneState* scene_state_ptr = (TestSceneState*)TestSceneState::getSingleton();
+
+	// start
+	stateManager->start(scene_state_ptr);
+
+	// cleanup
+	stateManager->cleanup();
+	stateManager->destroySingleton();
 
 	return 0;
 
