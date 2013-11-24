@@ -19,6 +19,9 @@
 class TestState : public StateInterface
 {
 public:
+	typedef boost::shared_ptr<TestState> TestStatePtr;
+
+public:
 
 	virtual ~TestState();
 
@@ -47,9 +50,9 @@ public:
 protected:
 	TestState();
 
-	void setupSceneComponents();
-	void setupCameraControllers();
-	void cleanupSceneComponents();
+	virtual void setupSceneComponents();
+	virtual void setupCameraControllers();
+	virtual void cleanupSceneComponents();
 	void cleanupCameraControllers();
 	void moveCamera();
 
