@@ -27,7 +27,7 @@ public:
 
 	typedef boost::shared_ptr<ShapeDrawer> Ptr;
 	typedef ShapeDrawer::Ptr ShapeDrawerPtr;
-	typedef std::map<int,Ogre::MeshPtr> MeshMap;
+	typedef std::map<int,std::string> MeshMap;
 
 public:
 	virtual ~ShapeDrawer();

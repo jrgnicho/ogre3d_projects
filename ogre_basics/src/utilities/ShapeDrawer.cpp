@@ -10,7 +10,11 @@
 #include <OGRE/OgreMeshManager.h>
 #include <OGRE/OgreSubMesh.h>
 #include <boost/assign/std/vector.hpp> // for 'operator+=()'
+#include <boost/assign/list_inserter.hpp> // for 'push_back()'
+#include <boost/assign/list_of.hpp>
 #include <boost/assert.hpp>
+#include <algorithm>
+#include <functional>
 
 using namespace boost::assign;
 
@@ -34,7 +38,7 @@ ShapeDrawer::ShapeDrawer() {
 
 ShapeDrawer::~ShapeDrawer() {
 	// TODO Auto-generated destructor stub
-	close();
+	//close();
 }
 
 ShapeDrawer::ShapeDrawerPtr ShapeDrawer::getSingleton()
@@ -59,14 +63,15 @@ void ShapeDrawer::init()
 	// creting meshes
 	std::cout<<"Creating Meshes"<<std::endl;
 	mesh_map_ = MeshMap();
-	mesh_map_.insert(std::make_pair((int)ShapeDrawer::BOX,buildBox()));
-	mesh_map_.insert(std::make_pair((int)ShapeDrawer::PLANE,buildPlane(1.0,1.0,1,1,1,1)));
+	mesh_map_.insert(std::make_pair((int)ShapeDrawer::BOX,buildBox()->getName()));
+	mesh_map_.insert(std::make_pair((int)ShapeDrawer::PLANE,buildPlane(1.0,1.0,1,1,1,1)->getName()));
 
 	std::cout<<"Completed ShapeDrawer initialization"<<std::endl;
 }
 
 void ShapeDrawer::close()
 {
+
 	std::cout<<"Destroying ShapeDrawer Resource Group "<<RESOURCE_GROUP<<"\n";
 	Ogre::ResourceGroupManager::getSingleton().destroyResourceGroup(RESOURCE_GROUP);
 }
@@ -76,7 +81,7 @@ Ogre::MeshPtr ShapeDrawer::get_mesh(ShapeType type)
 	Ogre::MeshPtr m;
 	if(mesh_map_.count((int)type)> 0)
 	{
-		m = mesh_map_[(int)type];
+		m = Ogre::MeshManager::getSingletonPtr()->getByName(mesh_map_[(int)type],RESOURCE_GROUP);
 	}
 
 	return m;
@@ -93,33 +98,45 @@ Ogre::MeshPtr ShapeDrawer::buildBox()
 	using namespace Ogre;
 
 	// mesh parameters
-	const size_t numVertices = 16;
-	const size_t numFaces = 12;
-	const size_t numVerticesPerFace = 3;
+	const size_t num_vertices = 36;
+	const size_t num_faces = 12;
+	const size_t num_vertices_per_face = 3;
 
+
+	using namespace Ogre;
 	// creating vertices
 	std::vector<Ogre::Vector3> vertices;
-	vertices += Vector3(-0.5f,-0.5f,-0.5f),
-		  Vector3(+0.5f,-0.5f,-0.5f),
-		  Vector3(-0.5f,+0.5f,-0.5f),
-		  Vector3(+0.5f,+0.5f,-0.5f),
-		  Vector3(-0.5f,-0.5f,+0.5f),
-		  Vector3(+0.5f,-0.5f,+0.5f),
-		  Vector3(-0.5f,+0.5f,+0.5f),
-		  Vector3(+0.5f,+0.5f,+0.5f),
-		  Vector3(-0.5f,-0.5f,-0.5f),
-		  Vector3(+0.5f,-0.5f,-0.5f),
-		  Vector3(-0.5f,+0.5f,-0.5f),
-		  Vector3(+0.5f,+0.5f,-0.5f),
-		  Vector3(-0.5f,-0.5f,+0.5f),
-		  Vector3(+0.5f,-0.5f,+0.5f),
-		  Vector3(-0.5f,+0.5f,+0.5f),
-		  Vector3(+0.5f,+0.5f,+0.5f);
+	vertices += Vector3(0.5f,0.5f,0.5f),	// top face 1
+			Vector3(-0.5f,0.5f,0.5f),
+			Vector3(-0.5f,-0.5f,0.5f),
+			Vector3(-0.5f,-0.5f,0.5f),	// top face 2
+			Vector3(0.5f,-0.5f,0.5f),
+			Vector3(0.5f,0.5f,0.5f);
+
+	// Rotation array will be used to produce remaining faces by rotating top face
+	std::vector<Ogre::Quaternion> rots;
+	std::function<Quaternion (Real,Vector3)> create_quaternion =
+			[](Real angle,Vector3 axis) -> Quaternion {return Quaternion(Radian(angle),axis);};
+	rots += create_quaternion(Ogre::Math::PI/2,Vector3(0,1,0)),	// right face
+			create_quaternion(Ogre::Math::PI,Vector3(0,1,0)),		// bottom face
+			create_quaternion(3*Ogre::Math::PI/2,Vector3(0,1,0)),	// left face
+			create_quaternion(Ogre::Math::PI/2,Vector3(-1,0,0)),	// rear face
+			create_quaternion(Ogre::Math::PI/2,Vector3(1,0,0));	// front face
+
+	for(int i = 0; i < rots.size(); i++)
+	{
+		for(int j = 0;j < num_vertices_per_face * 2; j++)
+		{
+			vertices.push_back(rots[i]*vertices[j]);
+		}
+	}
+
+
 
 	// faces array (every three elements correspond to a single triangle)
 	std::vector<unsigned int> faces;
-	faces += 4, 6, 2, 2, 0, 4, 1, 3, 7,7, 5, 1, 8, 9, 13, 13, 12, 8,
-		10, 14, 15, 15,11, 10, 8, 10, 11, 11, 9, 8, 4, 5, 7, 7, 6, 4;
+	for(int i = 0; i < num_vertices; i++){faces.push_back(i);}
+
 
 	// normals array
 	std::vector<Vector3> normals;
@@ -132,20 +149,20 @@ Ogre::MeshPtr ShapeDrawer::buildBox()
 	obj.begin(m_ptr->getName(),RenderOperation::OT_TRIANGLE_LIST,ShapeDrawer::RESOURCE_GROUP);
 
 	// adding mesh data to object
-	for(unsigned int i = 0; i < faces.size(); i+=3)
+	for(unsigned int i = 0; i < faces.size(); i+=num_vertices_per_face)
 	{
-		for(unsigned int j = 0; j < numVerticesPerFace ; j++)
+		for(unsigned int j = 0; j < num_vertices_per_face; j++)
 		{
 			Vector3 &v = vertices[i + j];
-			Vector3 &n = normals[(int)((float)i/(float)numVerticesPerFace)];
+			Vector3 &n = normals[i/3];
 
 			obj.position(v.x,v.y,v.z);
 			//obj.colour(Ogre::ColourValue(0,0,1.0f,1.0f));
 			obj.normal(n);
-			obj.textureCoord(v.x/100.0f,v.z/100.0f);
+			//obj.textureCoord(v.x/100.0f,v.z/100.0f);
 		}
 
-		obj.triangle(3*i, 3*i + 1, 3*i + 2);
+		obj.triangle(i, i + 1, i + 2);
 	}
 
 	obj.end();
@@ -248,9 +265,10 @@ void ShapeDrawer::computeNormals(const std::vector<Ogre::Vector3> &vertices, con
 	for(int i = 0; i < faces.size(); i +=3)
 	{
 		normal = Ogre::Vector3::ZERO;
-		vec1 = vertices[i+1] - vertices[i];
-		vec2 = vertices[i+2] - vertices[i+1];
-		normal = vec2.crossProduct(vec1);
+		vec1 = vertices[faces[i+1]] - vertices[faces[i]];
+		vec2 = vertices[faces[i+2]] - vertices[faces[i+1]];
+		normal = vec1.crossProduct(vec2);
+		normal.normalise();
 		normals.push_back(normal);
 	}
 }
