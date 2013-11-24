@@ -19,7 +19,8 @@ MaterialCreator::MaterialCreator() {
 
 MaterialCreator::~MaterialCreator() {
 	// TODO Auto-generated destructor stub
-	close();
+	std::cout<<"MaterialCreator Destructor called"<<std::endl;
+	//close();
 }
 
 void MaterialCreator::init()
@@ -36,37 +37,53 @@ void MaterialCreator::init()
 	// create all materials here
 	material_map_ = MaterialMap();
 
-	Ogre::ColourValue color = Ogre::ColourValue(0,0,1.0f,1.0f);
-	material_map_.insert(std::make_pair(BLUE,build_solid_material(std::string("BlueMaterial"),color,color,color)));
+	float brigtness_reduction = 0.8f;
+	Ogre::ColourValue diffuse_color = Ogre::ColourValue(0,0,0.8f,1);
+	Ogre::ColourValue ambient_color = brigtness_reduction*diffuse_color;
+	Ogre::ColourValue specular_color = Ogre::ColourValue(1,1,1,1);
+	material_map_.insert(std::make_pair(BLUE,
+			build_solid_material(std::string("BlueMaterial"),diffuse_color,ambient_color,specular_color)->getName()));
 
-	color = Ogre::ColourValue(1.0f,1.0f,0,1.0f);
-	material_map_.insert(std::make_pair(YELLOW,build_solid_material(std::string("YellowMaterial"),color,color,color)));
+	diffuse_color = Ogre::ColourValue(1.0f,1.0f,0,1.0f);
+	ambient_color = brigtness_reduction*diffuse_color;
+	material_map_.insert(std::make_pair(YELLOW,
+			build_solid_material(std::string("YellowMaterial"),diffuse_color,ambient_color,specular_color)->getName()));
 
-	color = Ogre::ColourValue(1.0f,0,0,1.0f);
-	material_map_.insert(std::make_pair(RED,build_solid_material(std::string("RedMaterial"),color,color,color)));
+	diffuse_color = Ogre::ColourValue(1.0f,0,0,1.0f);
+	ambient_color = brigtness_reduction*diffuse_color;
+	material_map_.insert(std::make_pair(RED,
+			build_solid_material(std::string("RedMaterial"),diffuse_color,ambient_color,specular_color)->getName()));
 
-	color = Ogre::ColourValue(0,1.0f,0,1.0f);
-	material_map_.insert(std::make_pair(GREEN,build_solid_material(std::string("GreeMaterial"),color,color,color)));
+	diffuse_color = Ogre::ColourValue(0,1.0f,0,1.0f);
+	ambient_color = brigtness_reduction*diffuse_color;
+	material_map_.insert(std::make_pair(GREEN,
+			build_solid_material(std::string("GreeMaterial"),diffuse_color,ambient_color,specular_color)->getName()));
 
-	color = Ogre::ColourValue(192.0f/255.0f,192.0f/255.0f,192.0f/255.0f,1.0f);
-	material_map_.insert(std::make_pair(GRAY,build_solid_material(std::string("GrayMaterial"),color,color,color)));
+	diffuse_color = Ogre::ColourValue(192.0f/255.0f,192.0f/255.0f,192.0f/255.0f,1.0f);
+	ambient_color = brigtness_reduction*diffuse_color;
+	material_map_.insert(std::make_pair(GRAY,
+			build_solid_material(std::string("GrayMaterial"),diffuse_color,ambient_color,specular_color)->getName()));
 
-	color = Ogre::ColourValue(0,0,0,1.0f);
-	material_map_.insert(std::make_pair(BLACK,build_solid_material(std::string("BlackMaterial"),color,color,color)));
+	diffuse_color = Ogre::ColourValue(0,0,0,1.0f);
+	ambient_color = brigtness_reduction*diffuse_color;
+	material_map_.insert(std::make_pair(BLACK,
+			build_solid_material(std::string("BlackMaterial"),diffuse_color,ambient_color,specular_color)->getName()));
 
-	color = Ogre::ColourValue(1,1,1,1.0f);
+	diffuse_color = Ogre::ColourValue(1,1,1,1.0f);
 	material_map_.insert(std::make_pair(WIREFRAME_WHITE,
-			build_wireframe_material(std::string("WireframeWhiteMaterial"),color,color,color)));
+			build_wireframe_material(std::string("WireframeWhiteMaterial"),diffuse_color,diffuse_color,diffuse_color)->getName()));
 
-	color = Ogre::ColourValue(192.0f/255.0f,192.0f/255.0f,192.0f/255.0f,1.0f);
+	diffuse_color = Ogre::ColourValue(192.0f/255.0f,192.0f/255.0f,192.0f/255.0f,1.0f);
 	material_map_.insert(std::make_pair(WIREFRAME_GRAY,
-			build_wireframe_material(std::string("WireframeGrayMaterial"),color,color,color)));
+			build_wireframe_material(std::string("WireframeGrayMaterial"),diffuse_color,diffuse_color,diffuse_color)->getName()));
 
 	std::cout<<"Completed MaterialCreator initialization"<<std::endl;
 }
 
 void MaterialCreator::close()
 {
+	//if(Ogre::Root::getSingletonPtr() == NULL)return;
+
 	std::cout<<"Destroying Material Resource Group "<<RESOURCE_GROUP<<"\n";
 	Ogre::ResourceGroupManager::getSingleton().destroyResourceGroup(RESOURCE_GROUP);
 }
@@ -81,11 +98,12 @@ Ogre::MaterialPtr MaterialCreator::build_solid_material(std::string name,Ogre::C
 
 	Ogre::Technique* first_technique = m->getTechnique(0);
 	Ogre::Pass* first_pass = first_technique->getPass(0);
+	first_pass->setLightingEnabled(true);
 	first_pass->setDiffuse(diffuse.r,diffuse.g,diffuse.b,diffuse.a);
 	first_pass->setAmbient(ambient.r,ambient.g,ambient.b);
 	first_pass->setSpecular(specular.r,specular.g,specular.b,specular.a);
-	first_pass->setShininess(64.0f);
-	first_pass->setSelfIllumination(0.1f,0.1f,0.1f);
+	//first_pass->setShininess(64.0f);
+	first_pass->setSelfIllumination(Ogre::ColourValue(0,0,0,1));
 
 	return m;
 
@@ -105,7 +123,7 @@ Ogre::MaterialPtr MaterialCreator::build_wireframe_material(std::string name,Ogr
 	first_pass->setAmbient(ambient.r,ambient.g,ambient.b);
 	first_pass->setSpecular(specular.r,specular.g,specular.b,specular.a);
 	first_pass->setShininess(64.0f);
-	first_pass->setSelfIllumination(0.1f,0.1f,0.1f);
+	first_pass->setSelfIllumination(diffuse);
 	first_pass->setPolygonMode(Ogre::PM_WIREFRAME);
 
 	return m;
@@ -117,7 +135,7 @@ Ogre::MaterialPtr MaterialCreator::get_material(Colors c)
 	Ogre::MaterialPtr p;
 	if(material_map_.count((int)c) > 0)
 	{
-		p = material_map_[(int)c];
+		p = Ogre::MaterialManager::getSingleton().getByName(material_map_[(int)c],RESOURCE_GROUP);
 	}
 
 	return p;

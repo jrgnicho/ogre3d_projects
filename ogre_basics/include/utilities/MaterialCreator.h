@@ -32,7 +32,7 @@ public:
 		WIREFRAME_GRAY = 8
 	};
 
-	typedef std::map<int,Ogre::MaterialPtr> MaterialMap;
+	typedef std::map<int,std::string> MaterialMap;
 	typedef boost::shared_ptr<MaterialCreator> Ptr;
 
 public:
@@ -48,7 +48,7 @@ public:
 
 protected:
 
-	std::map<int,Ogre::MaterialPtr> material_map_;
+	MaterialMap material_map_;
 	static MaterialCreator::Ptr single_instance_;
 
 protected:
