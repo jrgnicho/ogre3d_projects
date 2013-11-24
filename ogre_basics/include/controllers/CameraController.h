@@ -18,7 +18,7 @@
 
 const Ogre::Real WINDOW_ADJUSTMENT_FACTOR = Ogre::Real(0.13f);
 const Ogre::Real SCROLL_WHEEL_ADJUSTMENT_FACTOR = Ogre::Real(15.0f);
-const Ogre::Real SPEED_INCREMENT = Ogre::Real(2.0f);
+const Ogre::Real SPEED_INCREMENT = Ogre::Real(4.0f);
 const Ogre::Real MAX_SPEED = 100*SPEED_INCREMENT;
 const Ogre::Real MIN_SPEED = 1.0f*SPEED_INCREMENT;
 const Ogre::Real INITIAL_SPEED = 50*SPEED_INCREMENT;
