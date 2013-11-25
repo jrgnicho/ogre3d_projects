@@ -34,7 +34,7 @@ const Ogre::Matrix4 CAMERA_NODE_INITIAL_TRANSFORM = Ogre::Matrix4(
 		0, 0, 1, 10,
 		0, 0, 0, 1);
 const std::string CAMERA_NAME = "Camera";
-const float CAMERA_NEAR_CLIP_DISTANCE = 5.0f;
+const float CAMERA_NEAR_CLIP_DISTANCE = 0.2f;
 const float CAMERA_FAR_CLIP_DISTANCE = 5000.0f;
 
 class CameraController: public InputEventHandler

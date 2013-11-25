@@ -32,7 +32,8 @@ StateInterface* TestState::getSingleton()
 	{
 		TestState *state = new TestState();
 		_Instance = state;
-		state->setup();
+		StateManager::getSingleton()->manageState(_Instance);
+		//state->setup(); called by SceneManager
 	}
 
 	return _Instance;
@@ -40,7 +41,6 @@ StateInterface* TestState::getSingleton()
 
 void TestState::setup()
 {
-	StateManager::getSingleton()->manageState(this);
 	setupSceneComponents();
 	setupCameraControllers();
 }

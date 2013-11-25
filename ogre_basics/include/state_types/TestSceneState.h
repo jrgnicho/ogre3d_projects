@@ -30,6 +30,7 @@ protected:
 	virtual void setupCameraControllers();
 	virtual void cleanupSceneComponents();
 
+
 protected:
 
 	std::vector<Ogre::Entity*> entities_;

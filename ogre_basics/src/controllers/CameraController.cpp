@@ -371,7 +371,7 @@ Ogre::Vector3 CameraController::getPosition()
 
 void CameraController::setPosition(const Ogre::Vector3& v)
 {
-	_PosNode->translate(v,Ogre::SceneNode::TS_LOCAL);
+	_PosNode->setPosition(v);
 }
 
 Ogre::Camera* CameraController::getCamera()

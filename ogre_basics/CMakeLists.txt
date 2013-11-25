@@ -11,7 +11,8 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
 # compatibility with c++0x standards
 ADD_DEFINITIONS("-std=c++0x") 
-
+# compatibility with c++0x standards
+ADD_DEFINITIONS("-std=c++0x") 
 rosbuild_init()
 
 # start of ogre setup
@@ -143,6 +144,7 @@ target_link_libraries(OgreUtils ${OGRE_LIBRARIES})
 add_library(StateManager src/state_management/StateManager.cpp src/state_types/TestState.cpp
 	src/state_types/TestDisplayImageState.cpp 
 	src/state_types/TestSceneState.cpp 
+	src/state_types/TestLevelBuilder.cpp
 	src/input_handling/InputManager.cpp 
 	src/controllers/CameraController.cpp)
 target_link_libraries(StateManager OgreUtils ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
@@ -158,6 +160,9 @@ target_link_libraries(test_material_creator ${OGRE_LIBRARIES} StateManager OgreU
 
 add_executable(test_shape_drawer src/tests/test_shape_drawer.cpp)
 target_link_libraries(test_shape_drawer ${OGRE_LIBRARIES} StateManager OgreUtils)
+
+add_executable(test_level_builder src/tests/test_level_builder.cpp)
+target_link_libraries(test_level_builder ${OGRE_LIBRARIES} StateManager OgreUtils)
 
 #post build
 #file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)

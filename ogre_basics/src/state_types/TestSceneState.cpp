@@ -29,7 +29,8 @@ StateInterface* TestSceneState::getSingleton()
 	{
 		TestSceneState *state = new TestSceneState();
 		_Instance = state;
-		state->setup();
+		StateManager::getSingleton()->manageState(_Instance);
+		//state->setup(); // called by SceneManager
 	}
 
 	return _Instance;

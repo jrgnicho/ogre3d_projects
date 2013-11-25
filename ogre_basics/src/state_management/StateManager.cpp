@@ -22,11 +22,13 @@ StateManager::StateManager()
  _Parameters()
 {
 	// TODO Auto-generated constructor stub
-
+	setup();
 }
 
 StateManager::~StateManager() {
 	// TODO Auto-generated destructor stub
+
+	cleanup();
 }
 
 void StateManager::setup()
@@ -264,6 +266,7 @@ void StateManager::shutdown()
 void StateManager::manageState(StateInterface *state)
 {
 	std::cout<<"State Manager: Registered " + state->getStateName() + "state as a managed state"<<"\n";
+	state->setup();
 	_ManagedStates.insert(std::make_pair(state->getStateName(),state));
 }
 
@@ -375,7 +378,6 @@ StateManager* StateManager::getSingleton()
 	if(_Instance == NULL)
 	{
 		_Instance = new StateManager();
-		_Instance->setup();
 	}
 
 	return _Instance;

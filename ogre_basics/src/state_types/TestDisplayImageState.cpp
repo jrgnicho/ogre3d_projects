@@ -36,7 +36,8 @@ StateInterface* TestDisplayImageState::getSingleton()
 	if(_Instance == NULL)
 	{
 		_Instance = new TestDisplayImageState();
-		_Instance->setup();
+		StateManager::getSingleton()->manageState(_Instance);
+		//_Instance->setup();  called by SceneManager
 	}
 
 	return _Instance;

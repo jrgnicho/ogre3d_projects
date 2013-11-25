@@ -119,9 +119,6 @@ public:
 	void popState();
 	void shutdown();
 
-	//
-	void setup();
-	void cleanup();
 
 	void manageState(StateInterface* state);
 
@@ -149,6 +146,11 @@ public:
 
 protected:
 	StateManager();
+
+	//
+	void setup();
+	void cleanup();
+
 
 	// Event handling
 	void addEventHandler(StateInterface *state);
