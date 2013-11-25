@@ -38,7 +38,7 @@ StateInterface* TestSceneState::getSingleton()
 void TestSceneState::setupCameraControllers()
 {
 	TestState::setupCameraControllers();
-	_CameraController.getCamera()->move(Ogre::Vector3(-40,0,0));
+	_CameraController.setPosition(Ogre::Vector3(-40,0,0));
 }
 
 void TestSceneState::setupSceneComponents()
@@ -58,7 +58,7 @@ void TestSceneState::setupSceneComponents()
 	// creating boxes in spherical arrangement
 	float radius = 10;
 	Ogre::Vector3 origin = Ogre::Vector3(0,0,radius);
-	float size = 0.5f;
+	float size = 0.2f;
 	int alpha_count = 18;
 	int gamma_count = 36;
 	float alpha_incr = (Ogre::Math::PI)/(alpha_count - 1);
