@@ -29,7 +29,9 @@ public:
 		GRAY = 4,
 		BLACK = 5,
 		WIREFRAME_WHITE = 7,
-		WIREFRAME_GRAY = 8
+		WIREFRAME_GRAY = 8,
+		TRANSPARENT_RED = 9,
+		TRANSPARENT_BLUE = 10
 	};
 
 	typedef std::map<int,std::string> MaterialMap;
@@ -59,6 +61,8 @@ protected:
 	void close();
 
 	Ogre::MaterialPtr build_solid_material(std::string name,Ogre::ColourValue &diffuse,
+			Ogre::ColourValue &ambient, Ogre::ColourValue &specular);
+	Ogre::MaterialPtr build_transparent_material(std::string name,Ogre::ColourValue &diffuse,
 			Ogre::ColourValue &ambient, Ogre::ColourValue &specular);
 
 	Ogre::MaterialPtr build_wireframe_material(std::string name,Ogre::ColourValue &diffuse,
