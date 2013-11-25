@@ -29,7 +29,7 @@ int main(int argc,char** argv)
 
 	stateManager->start(testState);
 
-	stateManager->cleanup();
+	//stateManager->cleanup();
 	StateManager::destroySingleton();
 
 	return 0;

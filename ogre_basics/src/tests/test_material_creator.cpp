@@ -13,6 +13,8 @@ int main(int argc,char** argv)
 	StateManager* sm_ptr = StateManager::getSingleton();
 	MaterialCreator::Ptr mc_ptr = MaterialCreator::get_singleton();
 
+	sm_ptr->destroySingleton();
+
 	return 0;
 }
 

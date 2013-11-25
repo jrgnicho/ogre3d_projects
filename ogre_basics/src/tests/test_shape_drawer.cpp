@@ -28,7 +28,7 @@ int main(int argc,char** argv)
 	stateManager->start(scene_state_ptr);
 
 	// cleanup
-	stateManager->cleanup();
+	//stateManager->cleanup();
 	stateManager->destroySingleton();
 
 	return 0;
