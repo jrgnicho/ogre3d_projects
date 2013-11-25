@@ -163,7 +163,7 @@ bool CameraController::processUnbufferedKeyInput(const Ogre::FrameEvent &evnt)
 {
 	using namespace Ogre;
 	OIS::Keyboard *keyboard = StateManager::getSingleton()->getInputManager().getKeyboard();
-	Ogre::Real timeElapsedInSecs = evnt.timeSinceLastEvent;
+	Ogre::Real timeElapsedInSecs = evnt.timeSinceLastFrame;
 
 	if(keyboard->isKeyDown(OIS::KC_ADD))
 	{
@@ -220,7 +220,7 @@ bool CameraController::processUnbufferedMouseInput(const Ogre::FrameEvent &evnt)
 	using namespace Ogre;
 
 	const OIS::MouseState &ms = StateManager::getSingleton()->getInputManager().getMouse()->getMouseState();
-	Ogre::Real timeElapsedInSecs = evnt.timeSinceLastEvent;
+	Ogre::Real timeElapsedInSecs = evnt.timeSinceLastFrame;
 
 	// pitch and roll rotations
 	if(ms.buttonDown(OIS::MB_Right))
@@ -367,6 +367,11 @@ Ogre::Radian CameraController::getYaw()
 Ogre::Vector3 CameraController::getPosition()
 {
 	return _CumulativePosition;
+}
+
+void CameraController::setPosition(const Ogre::Vector3& v)
+{
+	_PosNode->translate(v,Ogre::SceneNode::TS_LOCAL);
 }
 
 Ogre::Camera* CameraController::getCamera()
