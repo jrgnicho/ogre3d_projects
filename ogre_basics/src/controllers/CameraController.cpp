@@ -366,7 +366,8 @@ Ogre::Radian CameraController::getYaw()
 
 Ogre::Vector3 CameraController::getPosition()
 {
-	return _CumulativePosition;
+	//return _CumulativePosition;
+	return _PosNode->getPosition();
 }
 
 void CameraController::setPosition(const Ogre::Vector3& v)
