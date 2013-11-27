@@ -69,6 +69,7 @@ protected:
 	 _ChangeState(0)
 	{}
 
+
 	// removes current state and places it with the requested one instead
 	void changeState(StateInterface *state)
 	{
