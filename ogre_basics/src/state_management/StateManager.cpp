@@ -120,7 +120,8 @@ void StateManager::setupResources() throw (StateManager::InitializationException
 void StateManager::setupScene() throw (StateManager::InitializationException)
 {
 	// scene setp
-	_SceneManager = _OgreRoot->createSceneManager(Ogre::ST_GENERIC,_Parameters.SceneManagerName);
+	//_SceneManager = _OgreRoot->createSceneManager(Ogre::ST_GENERIC,_Parameters.SceneManagerName);
+	_SceneManager = _OgreRoot->createSceneManager("OctreeSceneManager",_Parameters.SceneManagerName);
 	_SceneManager->setAmbientLight(_Parameters.SceneAmbientLightColor);
 	_SceneManager->createLight()->setPosition(_Parameters.SceneAmbientLightPosition);
 //	_SceneManager->setSkyBox(true,_Parameters.SceneSkyBoxMaterialName,_Parameters.SceneSkyBoxDistance,
