@@ -17,11 +17,17 @@ public:
 
 	static StateInterface* getSingleton();
 
+
+	// frame callbacks
+	virtual bool frameStarted(const Ogre::FrameEvent &evnt);
+
 public:
 
 	static const float GRID_SIZE;
 	static const int GRID_SEGMENTS;
 	static const std::string STATE_NAME;
+	static const std::string GRID_NODE;
+	static const std::string GRID_ENTITY;
 
 protected:
 	TestLevelBuilder();
@@ -29,10 +35,9 @@ protected:
 	virtual void setupCameraControllers();
 	virtual void cleanupSceneComponents();
 
-	virtual bool mouseMoved(const OIS::MouseEvent &evnt); // will handle mouse movement events to move pointer
-
-	void move_pointer_node(const OIS::MouseEvent &evnt);
-	void create_voxel();
+	virtual bool mousePressed(const OIS::MouseEvent &evnt,OIS::MouseButtonID id);
+	void move_pointer_node(const OIS::MouseState &ms);
+	void create_voxel(const Ogre::Vector3& pos);
 
 protected:
 
@@ -42,6 +47,8 @@ protected:
 	float voxel_size_;
 	Ogre::RaySceneQuery* ray_scene_query_;
 	Ogre::SceneNode* pointer_node_;
+	std::string pointer_entity_name_;
+	bool create_new_voxel_;
 
 	std::vector<std::string> nodes_names_;
 
