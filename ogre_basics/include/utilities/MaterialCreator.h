@@ -30,8 +30,10 @@ public:
 		BLACK = 5,
 		WIREFRAME_WHITE = 7,
 		WIREFRAME_GRAY = 8,
-		TRANSPARENT_RED = 9,
-		TRANSPARENT_BLUE = 10
+		WIREFRAME_TRANSPARENT = 9,
+		TRANSPARENT_RED = 10,
+		TRANSPARENT_BLUE = 11
+
 	};
 
 	typedef std::map<int,std::string> MaterialMap;
@@ -42,6 +44,17 @@ public:
 
 	static MaterialCreator::Ptr get_singleton();
 	Ogre::MaterialPtr get_material(Colors c);
+
+	Ogre::MaterialPtr create_texture_material(std::string image_name,float utile = 1.0f,float vtile = 1.0f,float alpha = 1.0f);
+
+	Ogre::MaterialPtr build_solid_material(std::string name,Ogre::ColourValue &diffuse,
+			Ogre::ColourValue &ambient, Ogre::ColourValue &specular);
+	Ogre::MaterialPtr build_transparent_material(std::string name,Ogre::ColourValue &diffuse,
+			Ogre::ColourValue &ambient);
+
+	Ogre::MaterialPtr build_wireframe_material(std::string name,Ogre::ColourValue &diffuse,
+			Ogre::ColourValue &ambient, Ogre::ColourValue &specular,
+			Ogre::ColourValue edge_color = Ogre::ColourValue(0,0,0,1));
 
 public:
 
@@ -59,14 +72,6 @@ protected:
 
 	void init();
 	void close();
-
-	Ogre::MaterialPtr build_solid_material(std::string name,Ogre::ColourValue &diffuse,
-			Ogre::ColourValue &ambient, Ogre::ColourValue &specular);
-	Ogre::MaterialPtr build_transparent_material(std::string name,Ogre::ColourValue &diffuse,
-			Ogre::ColourValue &ambient, Ogre::ColourValue &specular);
-
-	Ogre::MaterialPtr build_wireframe_material(std::string name,Ogre::ColourValue &diffuse,
-			Ogre::ColourValue &ambient, Ogre::ColourValue &specular);
 
 
 };
