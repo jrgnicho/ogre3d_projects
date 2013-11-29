@@ -98,9 +98,9 @@ Ogre::MeshPtr ShapeDrawer::buildBox()
 	using namespace Ogre;
 
 	// mesh parameters
-	const size_t num_vertices = 36;
-	const size_t num_faces = 12;
-	const size_t num_vertices_per_face = 3;
+	const size_t num_vertices = 24;
+	const size_t num_faces = 6;
+	const size_t num_vertices_per_face = 4;
 
 
 	using namespace Ogre;
@@ -109,9 +109,16 @@ Ogre::MeshPtr ShapeDrawer::buildBox()
 	vertices += Vector3(0.5f,0.5f,0.5f),	// top face 1
 			Vector3(-0.5f,0.5f,0.5f),
 			Vector3(-0.5f,-0.5f,0.5f),
-			Vector3(-0.5f,-0.5f,0.5f),	// top face 2
-			Vector3(0.5f,-0.5f,0.5f),
-			Vector3(0.5f,0.5f,0.5f);
+			Vector3(0.5f,-0.5f,0.5f);
+
+	// texture coordinates
+	typedef std::tuple<int,int> TextureCoordinate;
+	std::vector<TextureCoordinate> texture_coord = std::vector<TextureCoordinate>();
+	texture_coord += std::make_tuple(1,0),
+			std::make_tuple(0,0),
+			std::make_tuple(0,1),
+			std::make_tuple(1,1);
+
 
 	// Rotation array will be used to produce remaining faces by rotating top face
 	std::vector<Ogre::Quaternion> rots;
@@ -125,9 +132,10 @@ Ogre::MeshPtr ShapeDrawer::buildBox()
 
 	for(int i = 0; i < rots.size(); i++)
 	{
-		for(int j = 0;j < num_vertices_per_face * 2; j++)
+		for(int j = 0;j < num_vertices_per_face ; j++)
 		{
 			vertices.push_back(rots[i]*vertices[j]);
+			texture_coord.push_back(texture_coord[j]);
 		}
 	}
 
@@ -140,7 +148,7 @@ Ogre::MeshPtr ShapeDrawer::buildBox()
 
 	// normals array
 	std::vector<Vector3> normals;
-	computeNormals(vertices,faces,normals);
+	computeNormals(vertices,faces,num_vertices_per_face,normals);
 
 	// building manual object
 
@@ -154,15 +162,16 @@ Ogre::MeshPtr ShapeDrawer::buildBox()
 		for(unsigned int j = 0; j < num_vertices_per_face; j++)
 		{
 			Vector3 &v = vertices[i + j];
-			Vector3 &n = normals[i/3];
+			Vector3 &n = normals[i/num_vertices_per_face];
 
 			obj.position(v.x,v.y,v.z);
 			//obj.colour(Ogre::ColourValue(0,0,1.0f,1.0f));
 			obj.normal(n);
-			//obj.textureCoord(v.x/100.0f,v.z/100.0f);
-		}
 
-		obj.triangle(i, i + 1, i + 2);
+			TextureCoordinate &t = texture_coord[i+j];
+			obj.textureCoord(std::get<0>(t),std::get<1>(t));
+		}
+		obj.quad(i, i + 1, i + 2,i+3);
 	}
 
 	obj.end();
@@ -211,16 +220,18 @@ Ogre::MeshPtr ShapeDrawer::create_grid_mesh(float width,float height,int x_segme
 		name = ss.str();
 	}
 
-	Ogre::MeshPtr mesh_ptr = buildPlane(width,height,x_segments,y_segments,1,1);
+	//Ogre::MeshPtr mesh_ptr = buildPlane(width,height,x_segments,y_segments,1,1);
+	Ogre::MeshPtr mesh_ptr = buildPlane(width,height,1,1,1,1);
 
 	// applying material to all submeshes
-
+	Ogre::MaterialPtr mtrl_ptr = MaterialCreator::get_singleton()->create_texture_material("MRAMOR-bump.jpg",6.0f/float(x_segments),6/float(y_segments),1);
+	//std::string material_name = MaterialCreator::get_singleton()->get_material(MaterialCreator::WIREFRAME_GRAY)->getName();
+	std::string material_name = mtrl_ptr->getName();
 	Ogre::Mesh::SubMeshIterator iter= mesh_ptr->getSubMeshIterator();
 	while(iter.hasMoreElements())
 	{
 		Ogre::SubMesh* sm = iter.getNext();
-		sm->setMaterialName(MaterialCreator::get_singleton()->get_material(MaterialCreator::WIREFRAME_GRAY)->getName(),
-				MaterialCreator::RESOURCE_GROUP);
+		sm->setMaterialName(material_name,MaterialCreator::RESOURCE_GROUP);
 	}
 	mesh_ptr->updateMaterialForAllSubMeshes();
 
@@ -254,7 +265,7 @@ Ogre::MeshPtr ShapeDrawer::buildPyramid()
 	return meshPtr;
 }
 
-void ShapeDrawer::computeNormals(const std::vector<Ogre::Vector3> &vertices, const std::vector<unsigned int> &faces,
+void ShapeDrawer::computeNormals(const std::vector<Ogre::Vector3> &vertices, const std::vector<unsigned int> &faces,int vertices_per_face,
 		std::vector<Ogre::Vector3> &normals)
 {
 
@@ -262,7 +273,7 @@ void ShapeDrawer::computeNormals(const std::vector<Ogre::Vector3> &vertices, con
 	Ogre::Vector3 vec1 = Ogre::Vector3::ZERO;
 	Ogre::Vector3 vec2= Ogre::Vector3::ZERO;
 	Ogre::Vector3 normal= Ogre::Vector3::ZERO;
-	for(int i = 0; i < faces.size(); i +=3)
+	for(int i = 0; i < faces.size(); i +=vertices_per_face)
 	{
 		normal = Ogre::Vector3::ZERO;
 		vec1 = vertices[faces[i+1]] - vertices[faces[i]];
