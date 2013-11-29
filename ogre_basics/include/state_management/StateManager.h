@@ -25,7 +25,7 @@ namespace OgreDefaults
 	const std::string WINDOW_NAME = "Ogre Window";
 	const std::string SCENE_MANAGER_NAME = "WorldScene";
 	const Ogre::ColourValue SCENE_AMBIENT_LIGHT_COLOR = Ogre::ColourValue(1.0f,1.0f,1.0f,1.0f);
-	const Ogre::Vector3 SCENE_AMBIENT_LIGHT_POSITION = Ogre::Vector3(400,400,400);
+	const Ogre::Vector3 SCENE_AMBIENT_LIGHT_POSITION = Ogre::Vector3(400,400,0);
 	const std::string SCENE_SKY_BOX_MATERIAL_NAME = "Examples/MorningSkyBox";
 	const float SCENE_SKY_BOX_DISTANCE = 2000.0f;
 	const std::string PARENT_NODE_NAME = "WorldNode";
