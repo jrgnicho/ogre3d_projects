@@ -122,8 +122,8 @@ void StateManager::setupScene() throw (StateManager::InitializationException)
 	// scene setp
 	//_SceneManager = _OgreRoot->createSceneManager(Ogre::ST_GENERIC,_Parameters.SceneManagerName);
 	_SceneManager = _OgreRoot->createSceneManager("OctreeSceneManager",_Parameters.SceneManagerName);
-	_SceneManager->setAmbientLight(_Parameters.SceneAmbientLightColor);
-	_SceneManager->createLight()->setPosition(_Parameters.SceneAmbientLightPosition);
+
+
 //	_SceneManager->setSkyBox(true,_Parameters.SceneSkyBoxMaterialName,_Parameters.SceneSkyBoxDistance,
 //			true,_Parameters.ParentNodeTransform.extractQuaternion());
 	_SceneManager->setSkyBox(true,_Parameters.SceneSkyBoxMaterialName,_Parameters.SceneSkyBoxDistance,
@@ -132,6 +132,21 @@ void StateManager::setupScene() throw (StateManager::InitializationException)
 	// creating nodes
 	_ParentSceneNode = _SceneManager->getRootSceneNode()->createChildSceneNode(_Parameters.ParentNodeName,
 			_Parameters.ParentNodeTransform.getTrans(),_Parameters.ParentNodeTransform.extractQuaternion());
+
+	// adding light
+	Ogre::Light* light = _SceneManager->createLight();
+	light->setType(Ogre::Light::LT_DIRECTIONAL);
+	light->setDirection(Ogre::Vector3(0,0,-1).normalisedCopy());
+	light->setDiffuseColour(_Parameters.SceneAmbientLightColor);
+	light->setSpecularColour(_Parameters.SceneAmbientLightColor);
+	Ogre::SceneNode* light_node = _ParentSceneNode->createChildSceneNode(_Parameters.SceneAmbientLightPosition);
+	light_node->attachObject(light);
+
+	// ambient light
+	//_SceneManager->setAmbientLight(_Parameters.SceneAmbientLightColor);
+	_SceneManager->setAmbientLight(Ogre::ColourValue(0.6f,0.6f,0.6f));
+	_SceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
+
 
 }
 
