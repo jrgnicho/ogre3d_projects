@@ -141,28 +141,31 @@ add_definitions(${OGRE_DEFINITIONS})
 add_library(OgreUtils src/utilities/MaterialCreator.cpp src/utilities/ShapeDrawer.cpp)
 target_link_libraries(OgreUtils ${OGRE_LIBRARIES})
 
-add_library(StateManager src/state_management/StateManager.cpp src/state_types/TestState.cpp
-	src/state_types/TestDisplayImageState.cpp 
-	src/state_types/TestSceneState.cpp 
-	src/state_types/TestLevelBuilder.cpp
+add_library(StateManager src/state_management/StateManager.cpp 
 	src/input_handling/InputManager.cpp 
 	src/controllers/CameraController.cpp)
 target_link_libraries(StateManager OgreUtils ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
+
+add_library(TestStates src/state_types/TestState.cpp
+	src/state_types/TestDisplayImageState.cpp 
+	src/state_types/TestSceneState.cpp 
+	src/state_types/TestLevelBuilder.cpp)
+target_link_libraries(TestStates StateManager OgreUtils ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
 add_library(GameElements src/game_levels/GameLevel2D.cpp src/game_objects/BoxObject.cpp)
 target_link_libraries(GameElements StateManager ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
 add_executable(test_state_manager src/tests/test_state_manager.cpp)
-target_link_libraries(test_state_manager ${OIS_LIBRARIES} ${OGRE_LIBRARIES}  ${BULLET_PHYSICS_LIBRARIES} StateManager)
+target_link_libraries(test_state_manager ${OIS_LIBRARIES} ${OGRE_LIBRARIES}  ${BULLET_PHYSICS_LIBRARIES} TestStates)
 
 add_executable(test_material_creator src/tests/test_material_creator.cpp)
-target_link_libraries(test_material_creator ${OGRE_LIBRARIES} StateManager OgreUtils)
+target_link_libraries(test_material_creator ${OGRE_LIBRARIES} TestStates)
 
 add_executable(test_shape_drawer src/tests/test_shape_drawer.cpp)
-target_link_libraries(test_shape_drawer ${OGRE_LIBRARIES} StateManager OgreUtils)
+target_link_libraries(test_shape_drawer ${OGRE_LIBRARIES} StateManager TestStates)
 
 add_executable(test_level_builder src/tests/test_level_builder.cpp)
-target_link_libraries(test_level_builder ${OGRE_LIBRARIES} StateManager OgreUtils)
+target_link_libraries(test_level_builder ${OGRE_LIBRARIES} StateManager TestStates)
 
 #post build
 #file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
