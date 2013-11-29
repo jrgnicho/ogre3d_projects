@@ -64,7 +64,7 @@ protected:
 	Ogre::MeshPtr buildPlane(float width,float height,int x_segments = 1,int y_segments = 1,
 			float u_tile = 1.0f,float v_tile = 1.0f);
 
-	static void computeNormals(const std::vector<Ogre::Vector3> &vertices, const std::vector<unsigned int> &faces,
+	static void computeNormals(const std::vector<Ogre::Vector3> &vertices, const std::vector<unsigned int> &faces,int vertices_per_face,
 			std::vector<Ogre::Vector3> &normals);
 
 protected:
