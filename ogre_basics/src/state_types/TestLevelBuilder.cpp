@@ -61,11 +61,14 @@ void TestLevelBuilder::setupSceneComponents()
 	Ogre::Entity* grid_entity = mngr->createEntity(GRID_ENTITY,grid_mesh->getName());
 	nodes_names_.push_back(grid_node_name);
 	grid_node->attachObject(grid_entity);
+	grid_entity->setCastShadows(false);
 
 	// create voxel pointer
 	Ogre::MeshPtr cube_mesh = ShapeDrawer::getSingleton()->get_mesh(ShapeDrawer::BOX);
 	Ogre::MaterialPtr cube_material= MaterialCreator::get_singleton()->get_material(MaterialCreator::TRANSPARENT_RED);
+	//Ogre::MaterialPtr cube_material= MaterialCreator::get_singleton()->get_material(MaterialCreator::WIREFRAME_GRAY);
 	Ogre::Entity* entity = mngr->createEntity(pointer_entity_name_,cube_mesh->getName());
+	entity->setCastShadows(false);
 	entity->setMaterial(cube_material);
 	pointer_node_ = _ParentSceneNode->createChildSceneNode("PointerNode",Ogre::Vector3(voxel_size_/2,voxel_size_/2,voxel_size_/2));
 	pointer_node_->attachObject(entity);
@@ -86,7 +89,7 @@ void TestLevelBuilder::setupSceneComponents()
 void TestLevelBuilder::setupCameraControllers()
 {
 	TestState::setupCameraControllers();
-	_CameraController.setPosition(Ogre::Vector3(-20,0,10));
+	_CameraController.setPosition(Ogre::Vector3(-10,0,2));
 }
 
 void TestLevelBuilder::cleanupSceneComponents()
@@ -135,13 +138,7 @@ void TestLevelBuilder::move_pointer_node(const OIS::MouseState &ms)
 	Ogre::Quaternion rot = Ogre::Quaternion(Ogre::Radian(Ogre::Math::HALF_PI),Ogre::Vector3(1,0,0));
 	Ogre::Vector3 dir = rot* ray.getDirection();dir.normalise();
 	Ogre::Vector3 pos = _CameraController.getPosition();
-	Ogre::Vector3 ray_pos = rot * ray.getOrigin();
 	ray = Ogre::Ray(pos,dir);
-
-	// performing query
-	std::cout<<"Ray Query: Pos["<<ray_pos.x<<", "<<ray_pos.y<<", "<<ray_pos.z
-			<<"]; Dir["<<dir.x<<", "<<dir.y<<", "<<dir.z<<"]"<<std::endl;
-	std::cout<<"Cam Pos:["<<pos.x<<", "<<pos.y<<", "<<pos.z<<std::endl;
 
 
 	float closest_distance = std::numeric_limits<float>::max();
@@ -158,10 +155,6 @@ void TestLevelBuilder::move_pointer_node(const OIS::MouseState &ms)
 			m.makeTransform(node->getPosition(),node->getScale(),node->getOrientation());
 			aabb.transform(m);
 
-			Ogre::Vector3 size = aabb.getSize();
-			Ogre::Vector3 center = aabb.getCenter();
-			std::cout<<"Node "<<nodes_names_[i]<<" aabb size: [ "<<size.x<<", "<<size.y<<", "<<size.z
-					<<"], center:[ "<<center.x<<", "<<center.y<<", "<<center.z<<"]"<<std::endl;
 			std::pair<bool,Ogre::Real> hit = Ogre::Math::intersects(ray,aabb);
 			if(hit.first)
 			{
@@ -178,16 +171,16 @@ void TestLevelBuilder::move_pointer_node(const OIS::MouseState &ms)
 		new_pos.x = voxel_size_ *std::floor((1/voxel_size_)*new_pos.x) + voxel_size_/2.0f;
 		new_pos.y = voxel_size_ *std::floor((1/voxel_size_)*new_pos.y) + voxel_size_/2.0f;
 		new_pos.z = voxel_size_ *std::floor((1/voxel_size_)*new_pos.z) + voxel_size_/2.0f;
-		std::cout<<"Pointer position: ["<<new_pos.x<<", "<<new_pos.y<<", "<<new_pos.z<<"]"<<std::endl;
+		//std::cout<<"Pointer position: ["<<new_pos.x<<", "<<new_pos.y<<", "<<new_pos.z<<"]"<<std::endl;
 		pointer_node_->setPosition(new_pos);
 	}
 
-	if(hit_found && create_new_voxel_)
+	if(create_new_voxel_)
 	{
-		create_voxel(new_pos);
+		create_voxel(pointer_node_->getPosition());
+		create_new_voxel_ = false;
 	}
 
-	create_new_voxel_ = false;
 
 }
 
@@ -196,7 +189,9 @@ void TestLevelBuilder::create_voxel(const Ogre::Vector3& pos)
 	// create voxel pointer
 	Ogre::SceneManager* manager = StateManager::getSingleton()->getSceneManager();
 	Ogre::MeshPtr cube_mesh = ShapeDrawer::getSingleton()->get_mesh(ShapeDrawer::BOX);
+	Ogre::MaterialPtr cube_material = MaterialCreator::get_singleton()->create_texture_material("rockwall_NH.tga",1,1,1);
 	Ogre::Entity* entity = manager->createEntity(cube_mesh->getName());
+	entity->setMaterial(cube_material);
 	Ogre::SceneNode* node = _ParentSceneNode->createChildSceneNode(pos);
 	node->attachObject(entity);
 	node->setScale(voxel_size_,voxel_size_,voxel_size_);
