@@ -9,6 +9,8 @@
 #define TESTLEVELBUILDER_H_
 
 #include <state_types/TestState.h>
+#include <OGRE/OgreOverlay.h>
+#include <OGRE/OgreTextAreaOverlayElement.h>
 
 class TestLevelBuilder: public TestState {
 
@@ -29,6 +31,15 @@ public:
 	static const std::string GRID_NODE;
 	static const std::string GRID_ENTITY;
 
+	static const std::tuple<int,int> PANEL_POSITION;
+	static const std::tuple<int,int> TEXT_POSITION;
+	static const std::tuple<int,int> TEXT_DIMENSIONS;
+	static const unsigned int CHAR_HEIGHT;
+	static const std::string OVERLAY_NAME;
+	static const std::string FONT_NAME;
+	static const std::string TEXT_AREA_NAME;
+	static const std::string PANEL_NAME;
+
 protected:
 	TestLevelBuilder();
 	virtual void setupSceneComponents();
@@ -38,6 +49,7 @@ protected:
 	virtual bool mousePressed(const OIS::MouseEvent &evnt,OIS::MouseButtonID id);
 	void move_pointer_node(const OIS::MouseState &ms);
 	void create_voxel(const Ogre::Vector3& pos);
+	void update_text_area();
 
 protected:
 
@@ -49,6 +61,7 @@ protected:
 	Ogre::SceneNode* pointer_node_;
 	std::string pointer_entity_name_;
 	bool create_new_voxel_;
+	Ogre::TextAreaOverlayElement* text_area_;
 
 	std::vector<std::string> nodes_names_;
 
