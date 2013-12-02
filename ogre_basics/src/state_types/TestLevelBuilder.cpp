@@ -17,6 +17,15 @@ const std::string TestLevelBuilder::STATE_NAME = "TestLevelBuilder";
 const std::string TestLevelBuilder::GRID_NODE = "GridNode";
 const std::string TestLevelBuilder::GRID_ENTITY = "Grid";
 
+const std::tuple<int,int> TestLevelBuilder::PANEL_POSITION = std::make_tuple(10,10);
+const std::tuple<int,int> TestLevelBuilder::TEXT_POSITION = std::make_tuple(0,0);
+const std::tuple<int,int> TestLevelBuilder::TEXT_DIMENSIONS = std::make_tuple(100,100);
+const unsigned int TestLevelBuilder::CHAR_HEIGHT = 16;
+const std::string TestLevelBuilder::FONT_NAME = "StarWars";
+const std::string TestLevelBuilder::TEXT_AREA_NAME = "LevelBuilderTextArea";
+const std::string TestLevelBuilder::PANEL_NAME = "LevelBuilderPanel";
+const std::string TestLevelBuilder::OVERLAY_NAME = "LevelBuilderOverlay";
+
 TestLevelBuilder::TestLevelBuilder():
 		grid_width_(GRID_SIZE),
 		grid_length_(GRID_SIZE),
@@ -24,7 +33,8 @@ TestLevelBuilder::TestLevelBuilder():
 		voxel_size_(GRID_SIZE/GRID_SEGMENTS),
 		ray_scene_query_(0),
 		pointer_entity_name_("pointer_voxel"),
-		create_new_voxel_(false)
+		create_new_voxel_(false),
+		text_area_(0)
 	{
 	// TODO Auto-generated constructor stub
 	_StateName = STATE_NAME;
@@ -83,6 +93,27 @@ void TestLevelBuilder::setupSceneComponents()
 	// creating ray scene query object
 	ray_scene_query_ = mngr->createRayQuery(Ogre::Ray(),Ogre::SceneManager::WORLD_GEOMETRY_TYPE_MASK);
 
+	// setup text area
+	Ogre::OverlayManager* overlay_mngr = Ogre::OverlayManager::getSingletonPtr();
+	Ogre::OverlayContainer* panel = static_cast<Ogre::OverlayContainer*>(overlay_mngr->createOverlayElement("Panel",
+			PANEL_NAME));
+	panel->setMetricsMode(Ogre::GMM_PIXELS);
+	panel->setPosition(std::get<0>(PANEL_POSITION),std::get<1>(PANEL_POSITION));
+	panel->setDimensions(std::get<0>(TEXT_DIMENSIONS),std::get<1>(TEXT_DIMENSIONS));
+	text_area_ = static_cast<Ogre::TextAreaOverlayElement*>(overlay_mngr->createOverlayElement("TextArea",TEXT_AREA_NAME));
+	text_area_->setMetricsMode(Ogre::GMM_PIXELS);
+	text_area_->setPosition(std::get<0>(TEXT_POSITION),std::get<1>(TEXT_POSITION));
+	text_area_->setDimensions(std::get<0>(TEXT_DIMENSIONS),std::get<1>(TEXT_DIMENSIONS));
+	text_area_->setCharHeight(CHAR_HEIGHT);
+	text_area_->setFontName(FONT_NAME);
+	text_area_->setColourBottom(Ogre::ColourValue(0.3, 0.5, 0.3));
+	text_area_->setColourTop(Ogre::ColourValue(0.5, 0.7, 0.5));
+
+	Ogre::Overlay* overlay = overlay_mngr->create(OVERLAY_NAME);
+	overlay->add2D(panel);
+	panel->addChild(text_area_);
+	overlay->show();
+
 }
 
 
@@ -122,6 +153,7 @@ bool TestLevelBuilder::frameStarted(const Ogre::FrameEvent &evnt)
 {
 	const OIS::MouseState &ms = StateManager::getSingleton()->getInputManager().getMouse()->getMouseState();
 	move_pointer_node(ms);
+	update_text_area();
 
 	return true;
 }
@@ -181,6 +213,14 @@ void TestLevelBuilder::move_pointer_node(const OIS::MouseState &ms)
 		create_new_voxel_ = false;
 	}
 
+}
+
+void TestLevelBuilder::update_text_area()
+{
+	std::stringstream ss;
+	ss<<"LEVEL BUILDER"<<"\n";
+	ss<<"\tVoxel Count: "<<nodes_names_.size()<<"\n";
+	text_area_->setCaption(ss.str());
 
 }
 
@@ -189,7 +229,7 @@ void TestLevelBuilder::create_voxel(const Ogre::Vector3& pos)
 	// create voxel pointer
 	Ogre::SceneManager* manager = StateManager::getSingleton()->getSceneManager();
 	Ogre::MeshPtr cube_mesh = ShapeDrawer::getSingleton()->get_mesh(ShapeDrawer::BOX);
-	Ogre::MaterialPtr cube_material = MaterialCreator::get_singleton()->create_texture_material("rockwall_NH.tga",1,1,1);
+	Ogre::MaterialPtr cube_material = MaterialCreator::get_singleton()->create_texture_material("linux_logo_1.png",1,1,1);
 	Ogre::Entity* entity = manager->createEntity(cube_mesh->getName());
 	entity->setMaterial(cube_material);
 	Ogre::SceneNode* node = _ParentSceneNode->createChildSceneNode(pos);
