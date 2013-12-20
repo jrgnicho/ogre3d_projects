@@ -1,0 +1,40 @@
+<scene exported_by="ros-industrial" formatVersion="1.0.1" previous_export_time="0" export_time="1387496994.825376" >
+	<nodes >
+		<node name="Lamp" >
+			<position y="6.311974" x="4.981685" z="-1.005454" />
+			<rotation qy="0.755880" qx="0.169076" qz="-0.272171" qw="0.570947" />
+			<scale y="1.000000" x="1.000000" z="1.000000" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBLamp">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<light shadow="true" type="directional" name="Lamp" powerScale="1.0" >
+				<position y="6.311974" x="4.981685" z="-1.005454" />
+				<lightAttenuation range="5000" quadratic="0.0" constant="1.0" linear="0.03333335240683057" />
+				<direction y="-0.795" x="0.055" z="0.605" />
+				<colourDiffuse r="1.0" b="1.0" g="1.0" />
+				<colourSpecular r="1.0" b="1.0" g="1.0" />
+				<colourShadow r="1.0" b="1.0" g="1.0" />
+			</light>
+		</node>
+		<node name="Camera" >
+			<position y="1.596730" x="2.709505" z="5.596797" />
+			<rotation qy="0.151117" qx="0.608020" qz="-0.127056" qw="0.768981" />
+			<scale y="1.000000" x="1.000000" z="1.000000" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<camera projectionType="perspective" fov="49.134342641202636" name="Camera" >
+				<clipping nearPlaneDist="0.10000000149011612" farPlaneDist="100.0" />
+			</camera>
+		</node>
+	</nodes>
+	<externals />
+	<environment >
+		<colourBackground r="0.05087608844041824" b="0.05087608844041824" g="0.05087608844041824" />
+		<colourAmbient r="0.0" b="0.0" g="0.0" />
+		<colourDiffuse r="0.05087608844041824" b="0.05087608844041824" g="0.05087608844041824" />
+	</environment>
+</scene>
