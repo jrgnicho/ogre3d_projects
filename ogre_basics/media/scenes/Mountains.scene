@@ -1,5 +1,1018 @@
-<scene exported_by="ros-industrial" formatVersion="1.0.1" previous_export_time="0" export_time="1387496994.825376" >
+<scene exported_by="ros-industrial" formatVersion="1.0.1" previous_export_time="1387570866.902736" export_time="1387570931.555976" >
 	<nodes >
+		<node name="Cube.009" >
+			<position y="2.188905" x="1.488244" z="-6.560230" />
+			<rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+			<scale y="0.160582" x="0.302703" z="0.201356" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube.009">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.000.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.000" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.000">" />
+			</entity>
+		</node>
+		<node name="Circle.064" >
+			<position y="0.214692" x="-3.759048" z="-0.744981" />
+			<rotation qy="-0.600564" qx="0.000000" qz="-0.000000" qw="0.799577" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.064">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.065.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.065" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.065">" />
+			</entity>
+		</node>
+		<node name="Circle.063" >
+			<position y="0.312837" x="-3.797701" z="-1.016178" />
+			<rotation qy="-0.135641" qx="0.000000" qz="-0.000000" qw="0.990758" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.063">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.064.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.064" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.064">" />
+			</entity>
+		</node>
+		<node name="Circle.062" >
+			<position y="0.444880" x="-3.797701" z="-1.333009" />
+			<rotation qy="-0.086425" qx="0.000000" qz="-0.000000" qw="0.996258" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.062">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.063.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.063" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.063">" />
+			</entity>
+		</node>
+		<node name="Circle.061" >
+			<position y="0.332076" x="-3.350456" z="-1.202703" />
+			<rotation qy="0.436162" qx="0.000000" qz="-0.000000" qw="0.899868" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.061">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.062.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.062" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.062">" />
+			</entity>
+		</node>
+		<node name="Circle.060" >
+			<position y="0.234420" x="-3.474947" z="-0.899695" />
+			<rotation qy="0.379458" qx="0.000000" qz="-0.000000" qw="0.925209" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.060">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.061.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.061" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.061">" />
+			</entity>
+		</node>
+		<node name="Circle.059" >
+			<position y="0.388563" x="-3.633495" z="-1.229514" />
+			<rotation qy="-0.831721" qx="0.000000" qz="-0.000000" qw="0.555194" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.059">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.060.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.060" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.060">" />
+			</entity>
+		</node>
+		<node name="Circle.058" >
+			<position y="0.427101" x="-2.901344" z="-1.619595" />
+			<rotation qy="0.440466" qx="0.000000" qz="-0.000000" qw="0.897769" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.058">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.059.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.059" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.059">" />
+			</entity>
+		</node>
+		<node name="Circle.057" >
+			<position y="0.497330" x="-3.093965" z="-1.817743" />
+			<rotation qy="0.545247" qx="0.000000" qz="-0.000000" qw="0.838275" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.057">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.058.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.058" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.058">" />
+			</entity>
+		</node>
+		<node name="Circle.056" >
+			<position y="0.589730" x="-2.942750" z="-2.168991" />
+			<rotation qy="-0.907807" qx="0.000000" qz="-0.000000" qw="0.419389" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.056">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.057.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.057" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.057">" />
+			</entity>
+		</node>
+		<node name="Circle.055" >
+			<position y="0.398782" x="-3.039379" z="-1.425156" />
+			<rotation qy="0.741830" qx="0.000000" qz="-0.000000" qw="0.670588" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.055">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.056.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.056" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.056">" />
+			</entity>
+		</node>
+		<node name="Circle.054" >
+			<position y="0.515202" x="-3.767165" z="-1.459017" />
+			<rotation qy="-0.758962" qx="0.000000" qz="-0.000000" qw="0.651135" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.054">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.055.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.055" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.055">" />
+			</entity>
+		</node>
+		<node name="Circle.053" >
+			<position y="0.403341" x="-3.486707" z="-1.333624" />
+			<rotation qy="0.455611" qx="0.000000" qz="-0.000000" qw="0.890179" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.053">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.054.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.054" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.054">" />
+			</entity>
+		</node>
+		<node name="Circle.052" >
+			<position y="0.545832" x="-3.310364" z="-1.879002" />
+			<rotation qy="0.384800" qx="0.000000" qz="-0.000000" qw="0.923000" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.052">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.053.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.053" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.053">" />
+			</entity>
+		</node>
+		<node name="Circle.051" >
+			<position y="0.531064" x="-3.585681" z="-1.723459" />
+			<rotation qy="0.473984" qx="0.000000" qz="-0.000000" qw="0.880534" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.051">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.052.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.052" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.052">" />
+			</entity>
+		</node>
+		<node name="Circle.050" >
+			<position y="0.302064" x="-3.066594" z="-1.186230" />
+			<rotation qy="0.321129" qx="0.000000" qz="-0.000000" qw="0.947035" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.050">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.051.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.051" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.051">" />
+			</entity>
+		</node>
+		<node name="Circle.049" >
+			<position y="0.493190" x="-3.440982" z="-1.606101" />
+			<rotation qy="0.432619" qx="0.000000" qz="-0.000000" qw="0.901577" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.049">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.050.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.050" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.050">" />
+			</entity>
+		</node>
+		<node name="Circle.048" >
+			<position y="0.403341" x="-3.345322" z="-1.333624" />
+			<rotation qy="-0.994025" qx="0.000000" qz="-0.000000" qw="0.109151" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.048">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.049.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.049" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.049">" />
+			</entity>
+		</node>
+		<node name="Circle.047" >
+			<position y="0.403341" x="-2.748443" z="-1.100088" />
+			<rotation qy="0.314187" qx="0.000000" qz="-0.000000" qw="0.949361" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.047">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.048.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.048" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.048">" />
+			</entity>
+		</node>
+		<node name="Circle.040" >
+			<position y="1.148033" x="-0.555256" z="-6.394065" />
+			<rotation qy="0.426102" qx="0.000000" qz="-0.000000" qw="0.904675" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.040">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.047.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.047" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.047">" />
+			</entity>
+		</node>
+		<node name="Circle.046" >
+			<position y="1.062364" x="-0.067499" z="-6.560767" />
+			<rotation qy="0.426102" qx="0.000000" qz="-0.000000" qw="0.904675" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.046">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.046.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.046" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.046">" />
+			</entity>
+		</node>
+		<node name="Circle.045" >
+			<position y="1.062364" x="1.061219" z="-4.145764" />
+			<rotation qy="0.811324" qx="0.000000" qz="-0.000000" qw="0.584596" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.045">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.045.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.045" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.045">" />
+			</entity>
+		</node>
+		<node name="Circle.044" >
+			<position y="0.943461" x="0.702513" z="-3.803201" />
+			<rotation qy="0.857292" qx="0.000000" qz="-0.000000" qw="0.514830" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.044">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.044.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.044" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.044">" />
+			</entity>
+		</node>
+		<node name="Circle.043" >
+			<position y="0.713005" x="1.229302" z="-3.763469" />
+			<rotation qy="-0.603499" qx="0.000000" qz="-0.000000" qw="0.797364" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.043">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.043.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.043" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.043">" />
+			</entity>
+		</node>
+		<node name="Circle.042" >
+			<position y="0.776251" x="1.543927" z="-4.075861" />
+			<rotation qy="-0.813126" qx="0.000000" qz="-0.000000" qw="0.582088" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.042">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.042.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.042" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.042">" />
+			</entity>
+		</node>
+		<node name="Circle.041" >
+			<position y="0.985179" x="1.314933" z="-4.233026" />
+			<rotation qy="-0.615583" qx="0.000000" qz="-0.000000" qw="0.788072" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.041">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.041.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.041" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.041">" />
+			</entity>
+		</node>
+		<node name="Circle.039" >
+			<position y="0.948783" x="2.215766" z="-4.531627" />
+			<rotation qy="-0.599802" qx="0.000000" qz="-0.000000" qw="0.800149" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.039">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.039.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.039" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.039">" />
+			</entity>
+		</node>
+		<node name="Circle.038" >
+			<position y="1.101855" x="1.517089" z="-4.531627" />
+			<rotation qy="-0.429162" qx="0.000000" qz="-0.000000" qw="0.903228" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.038">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.038.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.038" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.038">" />
+			</entity>
+		</node>
+		<node name="Circle.037" >
+			<position y="0.218479" x="3.408550" z="-2.924156" />
+			<rotation qy="0.426102" qx="0.000000" qz="-0.000000" qw="0.904675" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.037">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.037.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.037" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.037">" />
+			</entity>
+		</node>
+		<node name="Circle.036" >
+			<position y="0.556915" x="2.261742" z="-3.086678" />
+			<rotation qy="0.879533" qx="0.000000" qz="-0.000000" qw="0.475838" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.036">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.036.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.036" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.036">" />
+			</entity>
+		</node>
+		<node name="Circle.035" >
+			<position y="0.487156" x="2.747328" z="-1.297036" />
+			<rotation qy="0.454957" qx="0.000000" qz="-0.000000" qw="0.890513" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.035">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.035.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.035" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.035">" />
+			</entity>
+		</node>
+		<node name="Circle.034" >
+			<position y="0.398221" x="3.035021" z="-1.147802" />
+			<rotation qy="-0.992773" qx="0.000000" qz="-0.000000" qw="0.120006" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.034">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.034.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.034" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.034">" />
+			</entity>
+		</node>
+		<node name="Circle.033" >
+			<position y="0.442983" x="2.978795" z="-1.297465" />
+			<rotation qy="-0.992773" qx="0.000000" qz="-0.000000" qw="0.120006" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.033">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.033.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.033" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.033">" />
+			</entity>
+		</node>
+		<node name="Circle.032" >
+			<position y="0.386284" x="3.344923" z="-1.297465" />
+			<rotation qy="0.879533" qx="0.000000" qz="-0.000000" qw="0.475838" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.032">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.032.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.032" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.032">" />
+			</entity>
+		</node>
+		<node name="Circle.031" >
+			<position y="0.375417" x="3.388418" z="-0.676503" />
+			<rotation qy="-0.461510" qx="0.000000" qz="-0.000000" qw="0.887135" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.031">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.031.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.031" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.031">" />
+			</entity>
+		</node>
+		<node name="Circle.030" >
+			<position y="0.318094" x="3.136060" z="-0.947257" />
+			<rotation qy="0.784998" qx="0.000000" qz="-0.000000" qw="0.619498" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.030">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.030.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.030" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.030">" />
+			</entity>
+		</node>
+		<node name="Circle.029" >
+			<position y="0.380771" x="2.797219" z="-0.947257" />
+			<rotation qy="0.806831" qx="0.000000" qz="-0.000000" qw="0.590783" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.029">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.029.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.029" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.029">" />
+			</entity>
+		</node>
+		<node name="Circle.028" >
+			<position y="0.303447" x="2.959575" z="-0.831419" />
+			<rotation qy="-0.999629" qx="0.000000" qz="-0.000000" qw="0.027250" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.028">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.028.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.028" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.028">" />
+			</entity>
+		</node>
+		<node name="Circle.027" >
+			<position y="0.327022" x="2.979878" z="0.134815" />
+			<rotation qy="0.879298" qx="0.000000" qz="-0.000000" qw="0.476272" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.027">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.027.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.027" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.027">" />
+			</entity>
+		</node>
+		<node name="Circle.026" >
+			<position y="0.289404" x="2.727649" z="-0.647532" />
+			<rotation qy="-0.454480" qx="0.000000" qz="-0.000000" qw="0.890757" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.026">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.026.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.026" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.026">" />
+			</entity>
+		</node>
+		<node name="Circle.025" >
+			<position y="0.191775" x="2.641723" z="-0.342018" />
+			<rotation qy="-0.404486" qx="0.000000" qz="-0.000000" qw="0.914544" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.025">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.025.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.025" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.025">" />
+			</entity>
+		</node>
+		<node name="Circle.024" >
+			<position y="0.244767" x="2.858090" z="-0.069996" />
+			<rotation qy="0.864988" qx="0.000000" qz="-0.000000" qw="0.501793" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.024">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.024.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.024" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.024">" />
+			</entity>
+		</node>
+		<node name="Circle.023" >
+			<position y="0.266858" x="2.858090" z="-0.341154" />
+			<rotation qy="-0.823083" qx="0.000000" qz="-0.000000" qw="0.567921" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.023">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.023.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.023" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.023">" />
+			</entity>
+		</node>
+		<node name="Circle.022" >
+			<position y="0.337821" x="3.063746" z="-0.167265" />
+			<rotation qy="-0.424661" qx="0.000000" qz="-0.000000" qw="0.905352" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.022">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.022.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.022" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.022">" />
+			</entity>
+		</node>
+		<node name="Circle.021" >
+			<position y="0.378316" x="3.185690" z="-0.429806" />
+			<rotation qy="0.814303" qx="0.000000" qz="-0.000000" qw="0.580440" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.021">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.021.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.021" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.021">" />
+			</entity>
+		</node>
+		<node name="Circle.020" >
+			<position y="0.248728" x="2.869629" z="-0.569137" />
+			<rotation qy="-0.992773" qx="0.000000" qz="-0.000000" qw="0.120006" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.020">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.020.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.020" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.020">" />
+			</entity>
+		</node>
+		<node name="Cube.008" >
+			<position y="2.237160" x="-8.118202" z="-6.560230" />
+			<rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+			<scale y="0.160582" x="0.302703" z="0.201356" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube.008">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.010.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.010" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.010">" />
+			</entity>
+		</node>
+		<node name="Cube.007" >
+			<position y="1.894428" x="-4.448290" z="-6.560230" />
+			<rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+			<scale y="0.081847" x="0.154285" z="0.102629" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube.007">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.009.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.009" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.009">" />
+			</entity>
+		</node>
+		<node name="Cube.006" >
+			<position y="0.363610" x="2.183522" z="3.797143" />
+			<rotation qy="0.638500" qx="-0.046090" qz="-0.018221" qw="0.768024" />
+			<scale y="0.019978" x="0.046289" z="0.019978" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube.006">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.008.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.008" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.008">" />
+			</entity>
+		</node>
+		<node name="Cube.005" >
+			<position y="0.377814" x="2.051801" z="3.871668" />
+			<rotation qy="-0.947095" qx="0.033672" qz="-0.036366" qw="0.317103" />
+			<scale y="0.019978" x="0.046289" z="0.019978" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube.005">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.007.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.007" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.007">" />
+			</entity>
+		</node>
+		<node name="Cube.004" >
+			<position y="0.344311" x="2.330095" z="3.519609" />
+			<rotation qy="0.865962" qx="-0.049550" qz="-0.001033" qw="0.497648" />
+			<scale y="0.019978" x="0.046289" z="0.019978" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube.004">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.006.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.006" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.006">" />
+			</entity>
+		</node>
+		<node name="Cube.003" >
+			<position y="0.377814" x="1.970784" z="3.462042" />
+			<rotation qy="-0.726360" qx="0.015287" qz="-0.047144" qw="0.685525" />
+			<scale y="0.019978" x="0.046289" z="0.019978" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube.003">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.005.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.005" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.005">" />
+			</entity>
+		</node>
+		<node name="Plane.003" >
+			<position y="-0.744616" x="-1.482536" z="-3.240919" />
+			<rotation qy="0.206679" qx="0.000000" qz="-0.000000" qw="0.978409" />
+			<scale y="9.800034" x="9.800034" z="9.800034" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBPlane.003">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Plane.003.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Plane.003" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MEPlane.003">" />
+			</entity>
+		</node>
+		<node name="Cube.002" >
+			<position y="0.626582" x="1.266256" z="3.835047" />
+			<rotation qy="-0.397839" qx="-0.036251" qz="-0.122184" qw="0.908560" />
+			<scale y="0.019978" x="0.046289" z="0.019978" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube.002">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.004.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.004" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.004">" />
+			</entity>
+		</node>
+		<node name="Cube" >
+			<position y="0.966758" x="0.861627" z="3.835047" />
+			<rotation qy="0.000000" qx="0.000000" qz="-0.268132" qw="0.963382" />
+			<scale y="0.019978" x="0.046289" z="0.019978" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCube">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Cube.002.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Cube.002" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECube.002">" />
+			</entity>
+		</node>
+		<node name="Circle.019" >
+			<position y="0.320547" x="-3.302818" z="0.499499" />
+			<rotation qy="0.964266" qx="0.000000" qz="-0.000000" qw="0.264935" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.019">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.019.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.019" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.019">" />
+			</entity>
+		</node>
+		<node name="Circle.018" >
+			<position y="0.389362" x="-3.302818" z="0.200487" />
+			<rotation qy="0.866025" qx="0.000000" qz="-0.000000" qw="0.500000" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.018">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.018.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.018" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.018">" />
+			</entity>
+		</node>
+		<node name="Circle.017" >
+			<position y="0.389362" x="-3.445833" z="0.200487" />
+			<rotation qy="-0.988788" qx="0.000000" qz="-0.000000" qw="0.149325" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.017">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.017.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.017" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.017">" />
+			</entity>
+		</node>
+		<node name="Circle.016" >
+			<position y="0.370536" x="-3.057471" z="0.198649" />
+			<rotation qy="-0.988827" qx="0.000000" qz="-0.000000" qw="0.149070" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.016">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.016.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.016" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.016">" />
+			</entity>
+		</node>
+		<node name="Circle.015" >
+			<position y="0.469284" x="-2.848794" z="-0.169845" />
+			<rotation qy="0.216812" qx="0.000000" qz="-0.000000" qw="0.976213" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.015">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.015.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.015" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.015">" />
+			</entity>
+		</node>
+		<node name="Circle.014" >
+			<position y="0.355242" x="-3.260612" z="-0.178460" />
+			<rotation qy="0.259048" qx="0.000000" qz="-0.000000" qw="0.965865" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.014">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.014.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.014" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.014">" />
+			</entity>
+		</node>
+		<node name="Circle.013" >
+			<position y="0.440776" x="-2.403545" z="-0.024296" />
+			<rotation qy="0.438755" qx="0.000000" qz="-0.000000" qw="0.898607" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.013">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.013.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.013" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.013">" />
+			</entity>
+		</node>
+		<node name="Circle.012" >
+			<position y="0.440776" x="-2.604578" z="-0.283006" />
+			<rotation qy="-0.966371" qx="0.000000" qz="-0.000000" qw="0.257152" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.012">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.012.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.012" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.012">" />
+			</entity>
+		</node>
+		<node name="Circle.011" >
+			<position y="0.431396" x="-2.716946" z="-0.140685" />
+			<rotation qy="-0.992773" qx="0.000000" qz="-0.000000" qw="0.120006" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.011">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.011.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.011" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.011">" />
+			</entity>
+		</node>
+		<node name="Circle.010" >
+			<position y="0.379777" x="-2.850087" z="0.100089" />
+			<rotation qy="-0.994751" qx="0.000000" qz="-0.000000" qw="0.102325" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.010">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.010.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.010" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.010">" />
+			</entity>
+		</node>
+		<node name="Circle.009" >
+			<position y="0.301004" x="-2.677110" z="0.375638" />
+			<rotation qy="0.338330" qx="0.000000" qz="-0.000000" qw="0.941028" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.009">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.009.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.009" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.009">" />
+			</entity>
+		</node>
+		<node name="Circle.008" >
+			<position y="0.301004" x="-2.854259" z="0.375638" />
+			<rotation qy="0.371843" qx="0.000000" qz="-0.000000" qw="0.928296" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.008">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.008.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.008" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.008">" />
+			</entity>
+		</node>
+		<node name="Circle.007" >
+			<position y="0.372888" x="-2.635043" z="0.115535" />
+			<rotation qy="-0.712945" qx="0.000000" qz="-0.000000" qw="0.701220" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.007">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.007.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.007" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.007">" />
+			</entity>
+		</node>
+		<node name="Circle.006" >
+			<position y="0.398239" x="-2.154299" z="0.115535" />
+			<rotation qy="0.866025" qx="0.000000" qz="-0.000000" qw="0.500000" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.006">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.006.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.006" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.006">" />
+			</entity>
+		</node>
+		<node name="Circle.005" >
+			<position y="0.398239" x="-2.338654" z="0.415310" />
+			<rotation qy="0.511296" qx="0.000000" qz="-0.000000" qw="0.859405" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.005">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.005.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.005" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.005">" />
+			</entity>
+		</node>
+		<node name="Circle.004" >
+			<position y="0.413352" x="-2.064506" z="0.494423" />
+			<rotation qy="0.332983" qx="0.000000" qz="-0.000000" qw="0.942933" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.004">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.004.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.004" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.004">" />
+			</entity>
+		</node>
+		<node name="Circle.003" >
+			<position y="0.420137" x="-3.052771" z="0.015047" />
+			<rotation qy="0.231332" qx="0.000000" qz="-0.000000" qw="0.972875" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.003">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.003.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.003" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.003">" />
+			</entity>
+		</node>
+		<node name="Circle.002" >
+			<position y="0.442134" x="-2.397465" z="-0.220426" />
+			<rotation qy="-0.994322" qx="0.000000" qz="-0.000000" qw="0.106411" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.002">" />
+			<game >
+				<sensors >
+					<sensor type="KEYBOARD" name="Keyboard" />
+				</sensors>
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.002.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.002" mass_radius="1.0" mass="1.0" collisionPrim="triangle_mesh" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.002">" />
+			</entity>
+		</node>
+		<node name="Plane.002" >
+			<position y="0.053903" x="-0.115694" z="-0.890236" />
+			<rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+			<scale y="5.995931" x="5.995931" z="5.995931" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBPlane.002">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Plane.002.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Plane.002" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MEPlane.002">" />
+			</entity>
+		</node>
+		<node name="Plane.001" >
+			<position y="0.059052" x="-0.115694" z="-0.890236" />
+			<rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+			<scale y="5.995931" x="5.995931" z="5.995931" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBPlane.001">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Plane.001.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Plane.001" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MEPlane.001">" />
+			</entity>
+		</node>
+		<node name="Circle.001" >
+			<position y="0.393055" x="-2.074203" z="0.699332" />
+			<rotation qy="-0.980105" qx="0.000000" qz="-0.000000" qw="0.198477" />
+			<scale y="0.106253" x="0.068039" z="0.068039" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBCircle.001">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.001.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle.001" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MECircle.001">" />
+			</entity>
+		</node>
+		<node name="Circle" >
+			<position y="0.000000" x="0.000000" z="-0.000000" />
+			<rotation qy="0.866025" qx="0.000000" qz="-0.000000" qw="0.500000" />
+			<scale y="0.465473" x="0.465473" z="0.465473" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Circle.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Circle" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" />
+		</node>
+		<node name="Plane" >
+			<position y="0.222094" x="-0.115694" z="-0.890236" />
+			<rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+			<scale y="5.995931" x="5.995931" z="5.995931" />
+			<user_data type="Blender IDProperty" name="cycles_visibility" value="<bpy id property from "OBPlane">" />
+			<game >
+				<sensors />
+				<actuators />
+			</game>
+			<entity anisotropic_friction="False" lock_trans_y="False" damping_trans="0.03999999910593033" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" actor="False" velocity_min="0.0" lock_trans_z="False" physics_type="STATIC" lock_trans_x="False" meshFile="Plane.mesh" friction_y="1.0" friction_x="1.0" friction_z="1.0" velocity_max="0.0" ghost="False" name="Plane" mass_radius="1.0" mass="1.0" lock_rot_x="False" lock_rot_y="False" lock_rot_z="False" >
+				<user_data type="Blender IDProperty" name="cycles" value="<bpy id property from "MEPlane">" />
+			</entity>
+		</node>
 		<node name="Lamp" >
 			<position y="6.311974" x="4.981685" z="-1.005454" />
 			<rotation qy="0.755880" qx="0.169076" qz="-0.272171" qw="0.570947" />
