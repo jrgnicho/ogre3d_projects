@@ -11,8 +11,12 @@
 
 int main(int argc,char** argv)
 {
+	// creating parameters
+	OgreParameters parameters;
+	parameters.ResourcesFile = "scene_loader_resources.cfg";
+
 	// creating state manager
-	StateManager *stateManager = StateManager::getSingleton();
+	StateManager *stateManager = StateManager::init(parameters);
 
 	// creating test state scene
 	TestSceneLoader* scene_loader_ptr = (TestSceneLoader*)TestSceneLoader::getSingleton();
