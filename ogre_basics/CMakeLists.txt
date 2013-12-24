@@ -11,8 +11,6 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
 # compatibility with c++0x standards
 ADD_DEFINITIONS("-std=c++0x") 
-# compatibility with c++0x standards
-ADD_DEFINITIONS("-std=c++0x") 
 rosbuild_init()
 
 # start of ogre setup
@@ -138,8 +136,11 @@ include_directories(${OIS_INCLUDE_DIRS})
 link_directories( ${OIS_LIBRARIES} )
 add_definitions(${OGRE_DEFINITIONS})
 
-add_library(OgreUtils src/utilities/MaterialCreator.cpp src/utilities/ShapeDrawer.cpp)
-target_link_libraries(OgreUtils ${OGRE_LIBRARIES})
+include_directories(${PROJECT_SOURCE_DIR}/3rdparty)
+add_subdirectory(${PROJECT_SOURCE_DIR}/3rdparty/tinyxml)
+
+add_library(OgreUtils src/utilities/MaterialCreator.cpp src/utilities/ShapeDrawer.cpp src/utilities/DotSceneLoader.cpp)
+target_link_libraries(OgreUtils ${OGRE_LIBRARIES}  tinyxml)
 
 add_library(StateManager src/state_management/StateManager.cpp 
 	src/input_handling/InputManager.cpp 
@@ -149,7 +150,8 @@ target_link_libraries(StateManager OgreUtils ${OIS_LIBRARIES} ${OGRE_LIBRARIES} 
 add_library(TestStates src/state_types/TestState.cpp
 	src/state_types/TestDisplayImageState.cpp 
 	src/state_types/TestSceneState.cpp 
-	src/state_types/TestLevelBuilder.cpp)
+	src/state_types/TestLevelBuilder.cpp
+	src/state_types/TestSceneLoader.cpp)
 target_link_libraries(TestStates StateManager OgreUtils ${OIS_LIBRARIES} ${OGRE_LIBRARIES} ${BULLET_PHYSICS_LIBRARIES})
 
 add_library(GameElements src/game_levels/GameLevel2D.cpp src/game_objects/BoxObject.cpp)
@@ -166,6 +168,10 @@ target_link_libraries(test_shape_drawer ${OGRE_LIBRARIES} StateManager TestState
 
 add_executable(test_level_builder src/tests/test_level_builder.cpp)
 target_link_libraries(test_level_builder ${OGRE_LIBRARIES} StateManager TestStates)
+
+add_executable(test_scene_loader src/tests/test_scene_loader.cpp)
+target_link_libraries(test_scene_loader ${OGRE_LIBRARIES} StateManager TestStates)
+
 
 #post build
 #file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
