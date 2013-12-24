@@ -48,6 +48,7 @@ public:
 	 ConfigFile(OgreDefaults::CONFIGURATION_FILE),
 	 LogFile(OgreDefaults::LOG_FILE),
 	 ResourcesFile(OgreDefaults::RESOURCES_FILE),
+	 ParentDirectory(""),
 	 SceneManagerName(OgreDefaults::SCENE_MANAGER_NAME),
 	 SceneAmbientLightColor(OgreDefaults::SCENE_AMBIENT_LIGHT_COLOR),
 	 SceneSkyBoxMaterialName(OgreDefaults::SCENE_SKY_BOX_MATERIAL_NAME),
@@ -66,6 +67,7 @@ public:
 	std::string ConfigFile;
 	std::string LogFile;
 	std::string ResourcesFile;
+	std::string ParentDirectory;
 	std::string SceneManagerName;
 	Ogre::ColourValue SceneAmbientLightColor;
 	Ogre::Vector3 SceneAmbientLightPosition;
@@ -122,6 +124,7 @@ public:
 
 	void manageState(StateInterface* state);
 
+	static StateManager* init(const OgreParameters& parameters);
 	static StateManager* getSingleton();
 	static void destroySingleton();
 
@@ -164,22 +167,22 @@ protected:
 	void setupScene() throw (InitializationException);
 
 	// state management
-	static StateManager *_Instance;
-	InputManager _InputManager;
-	std::map<std::string,StateInterface*> _ManagedStates;
-	std::vector<StateInterface*> _StateStack;
-	bool _ShutdownIssued;
+	static StateManager *instance_;
+
+	OgreParameters parameters_;
+	InputManager input_manager_;
+	std::map<std::string,StateInterface*> managed_states_;
+	std::vector<StateInterface*> state_stack_;
+	bool shutdown_issued_;
 
 	// ogre stuff
-	Ogre::Root *_OgreRoot;
-	Ogre::SceneManager *_SceneManager;
-	Ogre::Viewport *_Viewport;
-	Ogre::RenderWindow *_RenderWindow;
-	std::string _ParentDirectory;
-	OgreParameters _Parameters;
+	Ogre::Root *ogre_root_;
+	Ogre::SceneManager *scene_manager_;
+	Ogre::Viewport *viewport_;
+	Ogre::RenderWindow *render_window_;
 
 	// ogre scene
-	Ogre::SceneNode *_ParentSceneNode;
+	Ogre::SceneNode *parent_scene_node_;
 };
 
 #endif /* STATEMANAGER_H_ */
