@@ -11,18 +11,17 @@
 #include <map>
 #include <utility>
 
-StateManager* StateManager::_Instance = NULL;
+StateManager* StateManager::instance_ = NULL;
 
 StateManager::StateManager()
-:_OgreRoot(0),
- _SceneManager(0),
- _RenderWindow(0),
- _ParentSceneNode(0),
- _ShutdownIssued(false),
- _Parameters()
+:ogre_root_(0),
+ scene_manager_(0),
+ render_window_(0),
+ parent_scene_node_(0),
+ shutdown_issued_(false),
+ parameters_()
 {
 	// TODO Auto-generated constructor stub
-	setup();
 }
 
 StateManager::~StateManager() {
@@ -33,17 +32,17 @@ StateManager::~StateManager() {
 
 void StateManager::setup()
 {
-	//_Parameters = OgreParameters();
-	_ParentDirectory = ""; // use boost or ros package to find the application directory;
+	//parameters_ = OgreParameters();
+	//parameters_.ParentDirectory = ""; // use boost or ros package to find the application directory;
 	std::stringstream logStream;
 
-	if(_OgreRoot==NULL)
+	if(ogre_root_==NULL)
 	{
 		// initializing root
 		std::cout<<"Creating Ogre Root Instance"<<"\n";
-		std::string dir = _ParentDirectory;
-		_OgreRoot = new Ogre::Root(dir + _Parameters.PluginsFile,
-				dir + _Parameters.ConfigFile,dir + _Parameters.LogFile);
+		std::string dir = parameters_.ParentDirectory;
+		ogre_root_ = new Ogre::Root(dir + parameters_.PluginsFile,
+				dir + parameters_.ConfigFile,dir + parameters_.LogFile);
 
 		logStream<<"\n ---------------------------------------------------------------------";
 		logStream<<"\n ------------------ Created Ogre Root Instance  ----------------------";
@@ -64,15 +63,15 @@ void StateManager::setup()
 			return;
 		}
 
-		_OgreRoot->addFrameListener(this);
-		Ogre::WindowEventUtilities::addWindowEventListener(_RenderWindow,this);
+		ogre_root_->addFrameListener(this);
+		Ogre::WindowEventUtilities::addWindowEventListener(render_window_,this);
 
 		std::size_t windowHandle;
 		std::stringstream ss;
-		_RenderWindow->getCustomAttribute("WINDOW",&windowHandle);
+		render_window_->getCustomAttribute("WINDOW",&windowHandle);
 		ss<<windowHandle;
-		_InputManager = InputManager(ss.str()); // needs to pass the right window handle string from the window instance
-		_InputManager.setup();
+		input_manager_ = InputManager(ss.str()); // needs to pass the right window handle string from the window instance
+		input_manager_.setup();
 
 	}
 
@@ -80,23 +79,23 @@ void StateManager::setup()
 
 void StateManager::setupRenderSystem() throw (StateManager::InitializationException)
 {
-	Ogre::Root *root = _OgreRoot;
+	Ogre::Root *root = ogre_root_;
 	if(!root->restoreConfig() && !root->showConfigDialog())
 	{
 		throw InitializationException("Render System was not selected");
 	}
 	root->initialise(false);
-	_RenderWindow = root->createRenderWindow(_Parameters.WindowName,
-			_Parameters.WindowWidth,_Parameters.WindowHeight,false);
+	render_window_ = root->createRenderWindow(parameters_.WindowName,
+			parameters_.WindowWidth,parameters_.WindowHeight,false);
 }
 
 void StateManager::setupResources() throw (StateManager::InitializationException)
 {
 	typedef std::string Str;
 	Str sectionName, typeName, archiveName;
-	Str dir = _ParentDirectory + "";
+	Str dir = parameters_.ParentDirectory;
 	Ogre::ConfigFile configFile;
-	configFile.load(dir + _Parameters.ResourcesFile);
+	configFile.load(dir + parameters_.ResourcesFile);
 	Ogre::ConfigFile::SectionIterator iter = configFile.getSectionIterator();
 	while(iter.hasMoreElements())
 	{
@@ -113,40 +112,39 @@ void StateManager::setupResources() throw (StateManager::InitializationException
 		}
 	}
 
-	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(_Parameters.Mipmaps);
+	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(parameters_.Mipmaps);
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
 void StateManager::setupScene() throw (StateManager::InitializationException)
 {
 	// scene setp
-	//_SceneManager = _OgreRoot->createSceneManager(Ogre::ST_GENERIC,_Parameters.SceneManagerName);
-	_SceneManager = _OgreRoot->createSceneManager("OctreeSceneManager",_Parameters.SceneManagerName);
+	//scene_manager_ = ogre_root_->createSceneManager(Ogre::ST_GENERIC,parameters_.SceneManagerName);
+	scene_manager_ = ogre_root_->createSceneManager("OctreeSceneManager",parameters_.SceneManagerName);
 
 
-//	_SceneManager->setSkyBox(true,_Parameters.SceneSkyBoxMaterialName,_Parameters.SceneSkyBoxDistance,
-//			true,_Parameters.ParentNodeTransform.extractQuaternion());
-	_SceneManager->setSkyBox(true,_Parameters.SceneSkyBoxMaterialName,_Parameters.SceneSkyBoxDistance,
+//	scene_manager_->setSkyBox(true,parameters_.SceneSkyBoxMaterialName,parameters_.SceneSkyBoxDistance,
+//			true,parameters_.ParentNodeTransform.extractQuaternion());
+	scene_manager_->setSkyBox(true,parameters_.SceneSkyBoxMaterialName,parameters_.SceneSkyBoxDistance,
 			true,Ogre::Quaternion::IDENTITY);
 
 	// creating nodes
-	_ParentSceneNode = _SceneManager->getRootSceneNode()->createChildSceneNode(_Parameters.ParentNodeName,
-			_Parameters.ParentNodeTransform.getTrans(),_Parameters.ParentNodeTransform.extractQuaternion());
+	parent_scene_node_ = scene_manager_->getRootSceneNode()->createChildSceneNode(parameters_.ParentNodeName,
+			parameters_.ParentNodeTransform.getTrans(),parameters_.ParentNodeTransform.extractQuaternion());
 
 	// adding light
-	Ogre::Light* light = _SceneManager->createLight();
+	Ogre::Light* light = scene_manager_->createLight();
 	light->setType(Ogre::Light::LT_DIRECTIONAL);
 	light->setDirection(Ogre::Vector3(0,0,-1).normalisedCopy());
-	light->setDiffuseColour(_Parameters.SceneAmbientLightColor);
-	light->setSpecularColour(_Parameters.SceneAmbientLightColor);
-	Ogre::SceneNode* light_node = _ParentSceneNode->createChildSceneNode(_Parameters.SceneAmbientLightPosition);
+	light->setDiffuseColour(parameters_.SceneAmbientLightColor);
+	light->setSpecularColour(parameters_.SceneAmbientLightColor);
+	Ogre::SceneNode* light_node = parent_scene_node_->createChildSceneNode(parameters_.SceneAmbientLightPosition);
 	light_node->attachObject(light);
 
 	// ambient light
-	//_SceneManager->setAmbientLight(_Parameters.SceneAmbientLightColor);
-	_SceneManager->setAmbientLight(Ogre::ColourValue(0.6f,0.6f,0.6f));
-	_SceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
-
+	//scene_manager_->setAmbientLight(parameters_.SceneAmbientLightColor);
+	scene_manager_->setAmbientLight(Ogre::ColourValue(0.6f,0.6f,0.6f));
+	scene_manager_->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
 
 }
 
@@ -158,37 +156,37 @@ void StateManager::cleanup()
 {
 	// destroying all states
 	std::cout<<"State Manager: cleanup started"<<"\n";
-	while(!_ManagedStates.empty())
+	while(!managed_states_.empty())
 	{
-		StateInterface *state = _ManagedStates.begin()->second;
+		StateInterface *state = managed_states_.begin()->second;
 		state->cleanup();
 		delete state;
-		_ManagedStates.erase(_ManagedStates.begin());
+		managed_states_.erase(managed_states_.begin());
 	}
 
 	// cleaning up ogre components
 	std::cout<<"State Manager:\t-destroying the ogre scene manager"<<"\n";
-	_OgreRoot->destroySceneManager(_SceneManager);
+	ogre_root_->destroySceneManager(scene_manager_);
 
 	std::cout<<"State Manager:\t-removing and destroying input devices"<<"\n";
-	_InputManager.cleanup();
+	input_manager_.cleanup();
 
 	// removing listeners
-	_OgreRoot->removeFrameListener(this);
-	if(_RenderWindow != NULL)
+	ogre_root_->removeFrameListener(this);
+	if(render_window_ != NULL)
 	{
 		std::cout<<"State Manager:\t-removing window listener and destroying window"<<"\n";
-		Ogre::WindowEventUtilities::removeWindowEventListener(_RenderWindow,this);
-		_RenderWindow->destroy();
-		_RenderWindow = NULL;
+		Ogre::WindowEventUtilities::removeWindowEventListener(render_window_,this);
+		render_window_->destroy();
+		render_window_ = NULL;
 	}
 
 	std::cout<<"State Manager:\t-destroying ogre root instance"<<"\n";
-	delete _OgreRoot;
+	delete ogre_root_;
 
-	_SceneManager = 0;
-	_RenderWindow = 0;
-	_OgreRoot = 0;
+	scene_manager_ = 0;
+	render_window_ = 0;
+	ogre_root_ = 0;
 
 	std::cout<<"State Manager: cleanup finished"<<"\n";
 }
@@ -197,23 +195,23 @@ void StateManager::start(StateInterface *state)
 {
 	changeState(state);
 
-	if(_RenderWindow != NULL)
+	if(render_window_ != NULL)
 	{
-		if(_RenderWindow->isClosed())
+		if(render_window_->isClosed())
 		{
-			_RenderWindow->destroy();
-			_RenderWindow = _OgreRoot->createRenderWindow(_Parameters.WindowName,
-					_Parameters.WindowWidth,_Parameters.WindowHeight,false);
-			Ogre::WindowEventUtilities::addWindowEventListener(_RenderWindow,this);
+			render_window_->destroy();
+			render_window_ = ogre_root_->createRenderWindow(parameters_.WindowName,
+					parameters_.WindowWidth,parameters_.WindowHeight,false);
+			Ogre::WindowEventUtilities::addWindowEventListener(render_window_,this);
 		}
 	}
 	else
 	{
-		_RenderWindow = _OgreRoot->createRenderWindow(_Parameters.WindowName,
-					_Parameters.WindowWidth,_Parameters.WindowHeight,false);
-		Ogre::WindowEventUtilities::addWindowEventListener(_RenderWindow,this);
+		render_window_ = ogre_root_->createRenderWindow(parameters_.WindowName,
+					parameters_.WindowWidth,parameters_.WindowHeight,false);
+		Ogre::WindowEventUtilities::addWindowEventListener(render_window_,this);
 	}
-	_OgreRoot->startRendering();
+	ogre_root_->startRendering();
 }
 
 void StateManager::changeState(StateInterface *state)
@@ -221,52 +219,52 @@ void StateManager::changeState(StateInterface *state)
 	std::cout<<"State Manager: Changing to state "<<state->getStateName()<<"\n";
 
 	// remove and exit current state
-	if(!_StateStack.empty())
+	if(!state_stack_.empty())
 	{
-		removeEventHandler(_StateStack.back());
-		_StateStack.back()->exit();
-		_StateStack.pop_back();
+		removeEventHandler(state_stack_.back());
+		state_stack_.back()->exit();
+		state_stack_.pop_back();
 	}
 
 	// add and start state
-	_StateStack.push_back(state);
+	state_stack_.push_back(state);
 	addEventHandler(state);
-	_StateStack.back()->enter();
+	state_stack_.back()->enter();
 
 	std::cout<<"State Manager: Done changing state instance"<<"\n";
 }
 
 bool StateManager::pushState(StateInterface *state)
 {
-	if(!_StateStack.empty())
+	if(!state_stack_.empty())
 	{
-		if(!_StateStack.back()->pause())
+		if(!state_stack_.back()->pause())
 		{
 			return false;
 		}
-		removeEventHandler(_StateStack.back());
+		removeEventHandler(state_stack_.back());
 	}
 
-	_StateStack.push_back(state);
+	state_stack_.push_back(state);
 	addEventHandler(state);
-	_StateStack.back()->enter();
+	state_stack_.back()->enter();
 
 	return true;
 }
 
 void StateManager::popState()
 {
-	if(!_StateStack.empty())
+	if(!state_stack_.empty())
 	{
-		removeEventHandler(_StateStack.back());
-		_StateStack.back()->exit();
-		_StateStack.pop_back();
+		removeEventHandler(state_stack_.back());
+		state_stack_.back()->exit();
+		state_stack_.pop_back();
 	}
 
-	if(!_StateStack.empty())
+	if(!state_stack_.empty())
 	{
-		addEventHandler(_StateStack.back());
-		_StateStack.back()->resume();
+		addEventHandler(state_stack_.back());
+		state_stack_.back()->resume();
 	}
 	else
 	{
@@ -276,37 +274,37 @@ void StateManager::popState()
 
 void StateManager::shutdown()
 {
-	_ShutdownIssued = true;
+	shutdown_issued_ = true;
 }
 
 void StateManager::manageState(StateInterface *state)
 {
 	std::cout<<"State Manager: Registered " + state->getStateName() + "state as a managed state"<<"\n";
 	state->setup();
-	_ManagedStates.insert(std::make_pair(state->getStateName(),state));
+	managed_states_.insert(std::make_pair(state->getStateName(),state));
 }
 
 InputManager& StateManager::getInputManager()
 {
-	return _InputManager;
+	return input_manager_;
 }
 
 bool StateManager::frameStarted(const Ogre::FrameEvent &evnt)
 {
-	if(_ShutdownIssued)
+	if(shutdown_issued_)
 	{
-		removeEventHandler(_StateStack.back());
-		while(!_StateStack.empty())
+		removeEventHandler(state_stack_.back());
+		while(!state_stack_.empty())
 		{
-			_StateStack.back()->exit();
-			_StateStack.pop_back();
+			state_stack_.back()->exit();
+			state_stack_.pop_back();
 		}
 		return false;
 	}
 	else
 	{
-		_InputManager.getKeyboard()->capture();
-		_InputManager.getMouse()->capture();
+		input_manager_.getKeyboard()->capture();
+		input_manager_.getMouse()->capture();
 	}
 
 	return true;
@@ -326,8 +324,8 @@ void StateManager::windowResized(Ogre::RenderWindow *window)
 	window->getMetrics(width,height,depth,left,top);
 
 	// updating mouse state
-	_InputManager.getMouse()->getMouseState().width = width;
-	_InputManager.getMouse()->getMouseState().height = height;
+	input_manager_.getMouse()->getMouseState().width = width;
+	input_manager_.getMouse()->getMouseState().height = height;
 
 	for(int i = 0; i < window->getNumViewports(); i++)
 	{
@@ -340,71 +338,84 @@ void StateManager::windowResized(Ogre::RenderWindow *window)
 
 void StateManager::windowClosed(Ogre::RenderWindow *window)
 {
-	if(_RenderWindow == window)
+	if(render_window_ == window)
 	{
-		//Ogre::WindowEventUtilities::removeWindowEventListener(_RenderWindow,this);
+		//Ogre::WindowEventUtilities::removeWindowEventListener(render_window_,this);
 		shutdown();
 	}
 }
 
 void StateManager::addEventHandler(StateInterface *state)
 {
-	_OgreRoot->addFrameListener(state);
-	_InputManager.setEventHandler(state);
+	ogre_root_->addFrameListener(state);
+	input_manager_.setEventHandler(state);
 }
 
 void StateManager::removeEventHandler(StateInterface *state)
 {
-	_OgreRoot->removeFrameListener(state);
-	_InputManager.setEventHandler(NULL);
+	ogre_root_->removeFrameListener(state);
+	input_manager_.setEventHandler(NULL);
 }
 
 Ogre::SceneManager* StateManager::getSceneManager()
 {
-	return _SceneManager;
+	return scene_manager_;
 }
 
 void StateManager::addChildSceneNode(Ogre::SceneNode *node)
 {
-	_ParentSceneNode->addChild(node);
+	parent_scene_node_->addChild(node);
 }
 
 void StateManager::removeChildSceneNode(Ogre::SceneNode *node)
 {
-	_ParentSceneNode->removeChild(node);
+	parent_scene_node_->removeChild(node);
 }
 
 Ogre::SceneNode* StateManager::getParentSceneNode()
 {
-	return _ParentSceneNode;
+	return parent_scene_node_;
 }
 
 Ogre::Matrix4 StateManager::getParentTransform()
 {
-	return _Parameters.ParentNodeTransform;
+	return parameters_.ParentNodeTransform;
 }
 
 Ogre::RenderWindow* StateManager::getRenderWindow()
 {
-	return _RenderWindow;
+	return render_window_;
 }
 
 StateManager* StateManager::getSingleton()
 {
-	if(_Instance == NULL)
+	if(instance_ == NULL)
 	{
-		_Instance = new StateManager();
+		instance_ = new StateManager();
+		instance_->setup();
 	}
 
-	return _Instance;
+	return instance_;
+}
+
+StateManager* StateManager::init(const OgreParameters& parameters)
+{
+	if(instance_ == NULL)
+	{
+		instance_ = new StateManager();
+		instance_->parameters_ = parameters;
+		instance_->setup();
+	}
+
+	return instance_;
 }
 
 void StateManager::destroySingleton()
 {
-	if(_Instance != 0)
+	if(instance_ != 0)
 	{
 		std::cout<<"State Manager: destroying singleton"<<"\n";
-		delete _Instance;
-		_Instance = 0;
+		delete instance_;
+		instance_ = 0;
 	}
 }
