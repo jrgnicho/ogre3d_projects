@@ -17,32 +17,36 @@ rosbuild_init()
 project(OGRE_BASIC)
 
 if(UNIX)
+
+	############ start of ogre 3D setup ############
 	if(EXISTS "/usr/local/lib/OGRE")
 
 	  set(CMAKE_MODULE_PATH "/usr/local/lib/OGRE/cmake;${CMAKE_MODULE_PATH}")
 	  set(OGRE_SAMPLES_INCLUDEPATH "/usr/local/share/OGRE/Samples/Common/include/") # We could just *assume* that developers uses this basepath : /usr/local
 	  set(OGRE_MEDIA_PATH "/usr/local/share/OGRE")
 
-	elseif(EXISTS "/usr/lib/OGRE/cmake")
-
-	  set(CMAKE_MODULE_PATH "/usr/lib/OGRE/cmake/;${CMAKE_MODULE_PATH}")
-	  set(OGRE_SAMPLES_INCLUDEPATH "/usr/share/OGRE/Samples/Common/include/") # Otherwise, this one
-  	  set(OGRE_MEDIA_PATH "/usr/share/OGRE/")
+	elseif(EXISTS "/usr/share/OGRE/cmake")
+	
+  	set(OGRE_HOME /usr/include/OGRE )
 	  message(STATUS "Found Ogre module path .")
+	  set(CMAKE_MODULE_PATH "/usr/share/OGRE/cmake/modules;${CMAKE_MODULE_PATH}")
+	  set(OGRE_SAMPLES_INCLUDEPATH "/usr/share/OGRE/Samples/Common/include/") # Otherwise, this one
+  	  set(OGRE_MEDIA_PATH "/usr/share/OGRE-1.7.4")
 
 	else ()
 	  message(SEND_ERROR "Failed to find module path.")
 	endif(EXISTS "/usr/local/lib/OGRE")
+	############ end of ogre 3D setup ############
 
 
-	############ adding bullet physics paths ############
+	############ start of bullet physics setup ############
 	if(EXISTS "/usr/local/include/bullet")
 	  set(BULLET_PHYSICS_INCLUDE_DIRS "/usr/local/include/bullet")
 	  set(BULLET_PHYSICS_LIBRARIES "/usr/local/lib/")
 	else()
 	  message(SEND_ERROR "Failed to find bullet path")
 	endif(EXISTS "/usr/local/include/bullet")
-	############ end of bullet physics paths ############
+	############ end of bullet physics setup ############
 
 endif(UNIX)
 
@@ -202,8 +206,13 @@ if(UNIX)
 	configure_file(${OGRE_MEDIA_PATH}/resources.cfg ${EXECUTABLE_OUTPUT_PATH}/resources.cfg COPYONLY)
 	configure_file(${OGRE_MEDIA_PATH}/samples.cfg ${EXECUTABLE_OUTPUT_PATH}/samples.cfg COPYONLY)
 	configure_file(${OGRE_MEDIA_PATH}/quakemap.cfg ${EXECUTABLE_OUTPUT_PATH}/quakemap.cfg COPYONLY)
-	execute_process(COMMAND cp -R ${OGRE_MEDIA_PATH}/media/ ${PROJECT_SOURCE_DIR})
- 	
+
+	if(NOT ${PROJECT_SOURCE_DIR}/media)
+		message(STATUS "Copying media directory")	
+		execute_process(COMMAND cp -R ${OGRE_MEDIA_PATH}/media/ ${PROJECT_SOURCE_DIR})
+
+	endif(NOT ${PROJECT_SOURCE_DIR}/media)
+
 #	install(DIRECTORY ${OGRE_MEDIA_PATH}/media
 #		DESTINATION ./
 #		CONFIGURATIONS Release RelWithDebInfo Debug
