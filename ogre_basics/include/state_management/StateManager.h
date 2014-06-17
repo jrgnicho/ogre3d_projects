@@ -9,6 +9,7 @@
 #define STATEMANAGER_H_
 
 #include <input_handling/InputManager.h>
+#include <utilities/General.h>
 #include <map>
 #include <vector>
 #include <utility>
@@ -16,71 +17,6 @@
 #include <OGRE/OgreMath.h>
 #include <OGRE/OgreMatrix4.h>
 
-namespace OgreDefaults
-{
-	const std::string PLUGINS_FILE = "plugins.cfg";
-	const std::string CONFIGURATION_FILE = "ogre.cfg";
-	const std::string LOG_FILE = "Ogre.log";
-	const std::string RESOURCES_FILE = "resources_local.cfg";
-	const std::string WINDOW_NAME = "Ogre Window";
-	const std::string SCENE_MANAGER_NAME = "WorldScene";
-	const Ogre::ColourValue SCENE_AMBIENT_LIGHT_COLOR = Ogre::ColourValue(1.0f,1.0f,1.0f,1.0f);
-	const Ogre::Vector3 SCENE_AMBIENT_LIGHT_POSITION = Ogre::Vector3(400,400,0);
-	const std::string SCENE_SKY_BOX_MATERIAL_NAME = "Examples/MorningSkyBox";
-	const float SCENE_SKY_BOX_DISTANCE = 2000.0f;
-	const std::string PARENT_NODE_NAME = "WorldNode";
-	const Ogre::Matrix4 PARENT_NODE_TRANFORM = Ogre::Matrix4(
-			1,0 ,0,0.0f,
-			0,0 ,1,0.0f,
-			0,-1,0,0.0f,
-			0,0 ,0,1);
-
-	const int WINDOW_WIDTH = 600;
-	const int WINDOW_HEIGHT = 480;
-	const int MIPMAPS = 5;
-}
-
-struct OgreParameters
-{
-public:
-	OgreParameters()
-	:PluginsFile(OgreDefaults::PLUGINS_FILE),
-	 ConfigFile(OgreDefaults::CONFIGURATION_FILE),
-	 LogFile(OgreDefaults::LOG_FILE),
-	 ResourcesFile(OgreDefaults::RESOURCES_FILE),
-	 ParentDirectory(""),
-	 SceneManagerName(OgreDefaults::SCENE_MANAGER_NAME),
-	 SceneAmbientLightColor(OgreDefaults::SCENE_AMBIENT_LIGHT_COLOR),
-	 SceneSkyBoxMaterialName(OgreDefaults::SCENE_SKY_BOX_MATERIAL_NAME),
-	 SceneSkyBoxDistance(OgreDefaults::SCENE_SKY_BOX_DISTANCE),
-	 ParentNodeName(OgreDefaults::PARENT_NODE_NAME),
-	 ParentNodeTransform(OgreDefaults::PARENT_NODE_TRANFORM),
-	 WindowName(OgreDefaults::WINDOW_NAME),
-	 WindowHeight(OgreDefaults::WINDOW_HEIGHT),
-	 WindowWidth(OgreDefaults::WINDOW_WIDTH),
-	 Mipmaps(OgreDefaults::MIPMAPS)
-	{
-
-	}
-
-	std::string PluginsFile;
-	std::string ConfigFile;
-	std::string LogFile;
-	std::string ResourcesFile;
-	std::string ParentDirectory;
-	std::string SceneManagerName;
-	Ogre::ColourValue SceneAmbientLightColor;
-	Ogre::Vector3 SceneAmbientLightPosition;
-	std::string SceneSkyBoxMaterialName;
-	float SceneSkyBoxDistance;
-	std::string ParentNodeName;
-	Ogre::Matrix4 ParentNodeTransform;
-	std::string WindowName;
-	int WindowHeight;
-	int WindowWidth;
-	int Mipmaps;
-
-};
 
 class StateInterface;
 class StateManager : public Ogre::FrameListener, public Ogre::WindowEventListener
@@ -124,7 +60,7 @@ public:
 
 	void manageState(StateInterface* state);
 
-	static StateManager* init(const OgreParameters& parameters);
+	static StateManager* init(const application_parameters::OgreParameters& parameters);
 	static StateManager* getSingleton();
 	static void destroySingleton();
 
@@ -169,7 +105,7 @@ protected:
 	// state management
 	static StateManager *instance_;
 
-	OgreParameters parameters_;
+	application_parameters::OgreParameters parameters_;
 	InputManager input_manager_;
 	std::map<std::string,StateInterface*> managed_states_;
 	std::vector<StateInterface*> state_stack_;
