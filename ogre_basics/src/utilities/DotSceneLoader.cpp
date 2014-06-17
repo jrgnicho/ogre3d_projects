@@ -613,9 +613,11 @@ void DotSceneLoader::processEntity(TiXmlElement *XMLNode, SceneNode *pParent)
 		if(!materialFile.empty())
 			pEntity->setMaterialName(materialFile);
 	}
-	catch(Ogre::Exception &/*e*/)
+	catch(Ogre::Exception &e)
 	{
-		LogManager::getSingleton().logMessage("[DotSceneLoader] Error loading an entity!");
+		LogManager::getSingleton().logMessage("[DotSceneLoader] Error loading an entity! " + meshFile + std::string(" in group ")
+		+ m_sGroupName + " with name " + name);
+		LogManager::getSingleton().logMessage(e.getFullDescription());
 	}
 
 	// Process userDataReference (?)
