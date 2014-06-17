@@ -38,15 +38,22 @@ void StateManager::setup()
 
 	if(ogre_root_==NULL)
 	{
+
+		// initializing log output
+		std::string dir = parameters_.ParentDirectory;
+		Ogre::LogManager* logMgr = OGRE_NEW Ogre::LogManager();
+		logMgr->createLog(dir + parameters_.LogFile, true, parameters_.ConsoleLogging, false);
+
 		// initializing root
 		std::cout<<"Creating Ogre Root Instance"<<"\n";
-		std::string dir = parameters_.ParentDirectory;
 		ogre_root_ = new Ogre::Root(dir + parameters_.PluginsFile,
 				dir + parameters_.ConfigFile,dir + parameters_.LogFile);
+
 
 		logStream<<"\n ---------------------------------------------------------------------";
 		logStream<<"\n ------------------ Created Ogre Root Instance  ----------------------";
 		Ogre::LogManager::getSingleton().logMessage(Ogre::String(logStream.str()));logStream.str("");
+		Ogre::LogManager::getSingleton().setLogDetail(Ogre::LoggingLevel::LL_NORMAL);
 		// calling setup methods
 		try
 		{
@@ -389,16 +396,10 @@ Ogre::RenderWindow* StateManager::getRenderWindow()
 
 StateManager* StateManager::getSingleton()
 {
-	if(instance_ == NULL)
-	{
-		instance_ = new StateManager();
-		instance_->setup();
-	}
-
-	return instance_;
+	return init(instance_->parameters_);
 }
 
-StateManager* StateManager::init(const OgreParameters& parameters)
+StateManager* StateManager::init(const application_parameters::OgreParameters& parameters)
 {
 	if(instance_ == NULL)
 	{
